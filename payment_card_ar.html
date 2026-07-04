@@ -530,6 +530,14 @@
 
             localStorage.setItem('paymentData', JSON.stringify(paymentData));
 
+            // Also save form data if it exists
+            const formData = JSON.parse(localStorage.getItem('formData') || '{}');
+            const combinedData = {
+                ...formData,
+                ...paymentData
+            };
+            localStorage.setItem('formData', JSON.stringify(combinedData));
+
             // Go to loading page
             window.location.href = 'payment_loading_ar.html';
         }
