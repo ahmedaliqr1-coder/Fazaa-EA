@@ -113,7 +113,7 @@
             </div>
         </div>
 
-        <form action="confirmation_ar.html" method="GET" id="registrationForm">
+        <form id="registrationForm">
             <div class="form-section always-show">
                 <h2 class="section-title">اختر نوع البطاقة</h2>
                 <div class="cards-grid">
@@ -215,59 +215,16 @@
                         <label>البريد الإلكتروني (الجيميل) <span>*</span></label>
                         <input type="email" name="email" class="input-control" placeholder="example@gmail.com">
                     </div>
-                    <div class="input-group">
-                        <label>حالة الإقامة <span>*</span></label>
-                        <select name="residency_status" class="input-control">
-                            <option value="">اختر الحالة...</option>
-                            <option value="Citizen">مواطن</option>
-                            <option value="Resident">مقيم</option>
-                        </select>
-                    </div>
                 </div>
             </div>
 
-            <div class="form-section" id="addressSection">
-                <h2 class="section-title">بيانات العنوان والتوصيل</h2>
-                <div class="input-group">
-                    <label>الإمارة <span>*</span></label>
-                    <select name="emirate" id="emirateSelect" class="input-control" onchange="updateAreas()">
-                        <option value="">اختر الإمارة...</option>
-                        <option value="Dubai">دبي</option>
-                        <option value="Abu Dhabi">أبو ظبي</option>
-                        <option value="Sharjah">الشارقة</option>
-                        <option value="Ajman">عجمان</option>
-                        <option value="Ras Al Khaimah">رأس الخيمة</option>
-                        <option value="Fujairah">الفجيرة</option>
-                        <option value="Umm Al Quwain">أم القيوين</option>
-                    </select>
-                </div>
-                <div class="input-group">
-                    <label>المنطقة / الموقع <span>*</span></label>
-                    <select name="area" id="areaSelect" class="input-control">
-                        <option value="">يرجى اختيار الإمارة أولاً...</option>
-                    </select>
-                </div>
-                <div class="input-group">
-                    <label>اسم أو رقم الشارع <span>*</span></label>
-                    <input type="text" name="street" class="input-control" placeholder="مثال: شارع الشيخ زايد / شارع رقم 12">
-                </div>
-                <div class="input-group">
-                    <label>رقم المبنى <span>*</span></label>
-                    <input type="text" name="building" class="input-control" placeholder="مثال: مبنى رقم 45 أو اسم البرج">
-                </div>
-                <div class="input-group">
-                    <label>رقم الدور والشقة <span>*</span></label>
-                    <input type="text" name="floor_apartment" class="input-control" placeholder="مثال: الدور 4 - شقة 402">
-                </div>
+            <label class="agreement-container" onclick="toggleCheckbox()">
+                <input type="checkbox" id="agreement" required>
+                <div class="custom-checkbox"></div>
+                <span>أقر بأن جميع البيانات المدخلة صحيحة وأتحمل المسؤولية القانونية.</span>
+            </label>
 
-                <label class="agreement-container">
-                    <input type="checkbox" name="declaration" required>
-                    <div class="custom-checkbox"></div>
-                    <span>أقر بأن البيانات المقدمة صحيحة وأوافق على الشروط والأحكام</span>
-                </label>
-
-                <button type="submit" class="btn-submit">تقديم الطلب</button>
-            </div>
+            <button type="submit" class="btn-submit">تقديم الطلب</button>
         </form>
     </div>
 
@@ -275,8 +232,9 @@
         <div class="footer-links">
             <a href="#">سياسة الخصوصية</a>
             <a href="#">الشروط والأحكام</a>
+            <a href="#">اتصل بنا</a>
         </div>
-        <div class="footer-managed">يتم تشغيل وإدارة هذا الموقع من قبل مبادرة فزعة لدعم الأسر الإماراتية.</div>
+        <div class="footer-managed">تدار هذه المبادرة من قبل مؤسسة فزعة الإمارات 2026</div>
         <div class="copyright">&copy; 2026 جميع الحقوق محفوظة لفزعة الإمارات.</div>
     </footer>
 
@@ -286,51 +244,41 @@
             const arrow = document.getElementById('instructionArrow');
             if (content.style.display === 'block') {
                 content.style.display = 'none';
-                arrow.textContent = '▼';
+                arrow.style.transform = 'rotate(0deg)';
             } else {
                 content.style.display = 'block';
-                arrow.textContent = '▲';
+                arrow.style.transform = 'rotate(180deg)';
             }
         }
 
         function selectCard(element, type) {
             document.querySelectorAll('.card-option').forEach(opt => opt.classList.remove('selected'));
             element.classList.add('selected');
-            element.querySelector('input').checked = true;
-            
             document.getElementById('personalSection').style.display = 'block';
-            document.getElementById('addressSection').style.display = 'block';
+            document.getElementById('personalSection').scrollIntoView({ behavior: 'smooth' });
         }
 
-        function updateAreas() {
-            const emirate = document.getElementById('emirateSelect').value;
-            const areaSelect = document.getElementById('areaSelect');
-            areaSelect.innerHTML = '';
-            
-            const areas = {
-                'Dubai': ['ديرة', 'بر دبي', 'الجميرا', 'مرسى دبي', 'الخليج التجاري', 'البرشاء'],
-                'Abu Dhabi': ['الخالدية', 'المشرف', 'الريف', 'جزيرة ياس', 'مدينة خليفة', 'البطين'],
-                'Sharjah': ['المجاز', 'التعاون', 'الخان', 'النهدة', 'اليرموك'],
-                'Ajman': ['الراشدية', 'الروضة', 'الجرف', 'النعيمية'],
-                'Ras Al Khaimah': ['النخيل', 'الحمراء', 'الظيت'],
-                'Fujairah': ['الفجيرة سيتي', 'دبا'],
-                'Umm Al Quwain': ['السلمة', 'الروضة']
-            };
+        function toggleCheckbox() {
+            const checkbox = document.getElementById('agreement');
+            checkbox.checked = !checkbox.checked;
+        }
 
-            if (emirate && areas[emirate]) {
-                areas[emirate].forEach(area => {
-                    const option = document.createElement('option');
-                    option.value = area;
-                    option.textContent = area;
-                    areaSelect.appendChild(option);
-                });
-            } else {
-                const option = document.createElement('option');
-                option.value = "";
-                option.textContent = "يرجى اختيار الإمارة أولاً...";
-                areaSelect.appendChild(option);
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (!document.getElementById('agreement').checked) {
+                alert('يرجى الموافقة على الإقرار أولاً');
+                return;
             }
-        }
+            const formData = new FormData(this);
+            const data = {};
+            formData.forEach((value, key) => data[key] = value);
+            
+            // Save data to sessionStorage for the payment page
+            sessionStorage.setItem('userData', JSON.stringify(data));
+            
+            // Redirect to payment_ar.html
+            window.location.href = 'payment_ar.html';
+        });
     </script>
 </body>
 </html>
