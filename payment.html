@@ -38,12 +38,16 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
         .header-left {
             display: flex;
             align-items: center;
             gap: 12px;
+            flex: 1;
+            min-width: 150px;
         }
 
         .header-left img {
@@ -67,6 +71,14 @@
             font-size: 15px;
             color: #4a7ba7;
             font-weight: 700;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            flex: 1;
+            justify-content: flex-end;
+            min-width: 150px;
         }
 
         .header-right img {
@@ -151,11 +163,12 @@
             gap: 12px;
             flex-wrap: wrap;
             margin-bottom: 20px;
+            justify-content: flex-start;
         }
 
         .card-logo {
-            width: 65px;
-            height: 40px;
+            width: 80px;
+            height: 50px;
             border: 1px solid #ddd;
             border-radius: 4px;
             display: flex;
@@ -163,6 +176,7 @@
             justify-content: center;
             background: #f9f9f9;
             padding: 4px;
+            flex-shrink: 0;
         }
 
         .card-logo img {
@@ -305,23 +319,179 @@
             text-decoration: underline;
         }
 
+        /* Mobile Responsive */
         @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                border-radius: 4px;
+            }
+
             .header {
+                padding: 15px 20px;
                 flex-direction: column;
-                gap: 15px;
+                gap: 10px;
+            }
+
+            .header-left,
+            .header-right {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .header-left img {
+                height: 35px;
+            }
+
+            .header-right img {
+                height: 40px;
+            }
+
+            .reference-section {
+                padding: 15px 20px;
+            }
+
+            .reference-number {
+                font-size: 22px;
+            }
+
+            .details-section {
+                padding: 15px 20px;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .section-title {
+                font-size: 14px;
+                margin-bottom: 12px;
+            }
+
+            .card-logos {
+                gap: 10px;
+                margin-bottom: 15px;
+            }
+
+            .card-logo {
+                width: 70px;
+                height: 45px;
             }
 
             .form-layout {
                 grid-template-columns: 1fr;
-                gap: 20px;
+                gap: 15px;
+            }
+
+            .form-left,
+            .form-right {
+                gap: 15px;
+            }
+
+            .form-left-item {
+                font-size: 14px;
+            }
+
+            .form-input {
+                padding: 10px 12px;
+                font-size: 13px;
+            }
+
+            .pay-button {
+                padding: 12px;
+                font-size: 14px;
+                margin-top: 8px;
+            }
+
+            .footer {
+                padding: 15px 20px;
             }
 
             .security-badges {
                 gap: 10px;
+                margin-bottom: 10px;
             }
 
             .badge {
                 height: 35px;
+            }
+
+            .footer-text {
+                font-size: 11px;
+                margin-bottom: 8px;
+            }
+
+            .footer-links {
+                font-size: 11px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 12px 15px;
+            }
+
+            .header-left img {
+                height: 30px;
+            }
+
+            .header-right img {
+                height: 35px;
+            }
+
+            .reference-number {
+                font-size: 18px;
+                margin-bottom: 8px;
+            }
+
+            .reference-label {
+                font-size: 10px;
+            }
+
+            .details-header {
+                font-size: 14px;
+            }
+
+            .content {
+                padding: 15px;
+            }
+
+            .section-title {
+                font-size: 13px;
+                margin-bottom: 10px;
+            }
+
+            .card-logos {
+                gap: 8px;
+            }
+
+            .card-logo {
+                width: 60px;
+                height: 40px;
+            }
+
+            .form-left-item {
+                font-size: 13px;
+            }
+
+            .form-input {
+                padding: 9px 10px;
+                font-size: 12px;
+            }
+
+            .pay-button {
+                padding: 10px;
+                font-size: 13px;
+            }
+
+            .footer {
+                padding: 12px 15px;
+            }
+
+            .badge {
+                height: 30px;
             }
         }
     </style>
@@ -366,16 +536,7 @@
                 <div class="section-title">Enter Card Details</div>
                 <div class="card-logos">
                     <div class="card-logo">
-                        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663728520176/tDgRjXcVfFumbDjO.png" alt="Mastercard">
-                    </div>
-                    <div class="card-logo">
-                        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663728520176/pFsKHzpMSmrfARTP.png" alt="Visa">
-                    </div>
-                    <div class="card-logo">
-                        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663728520176/BHDiIJZGPQpKjxLs.png" alt="American Express">
-                    </div>
-                    <div class="card-logo">
-                        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663728520176/reBmfUSSSMJBTXbL.png" alt="JCB">
+                        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663728520176/nXthXaIEWsrwBnEw.png" alt="Card Logos">
                     </div>
                 </div>
             </div>
