@@ -10,7 +10,17 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Custom routing for payment pages to bypass cache
+// Custom routing to bypass cache for ALL important pages
+app.get('/', (req, res) => {
+    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+    res.sendFile(path.join(__dirname, 'index_final_ar.html'));
+});
+
+app.get('/index_ar.html', (req, res) => {
+    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+    res.sendFile(path.join(__dirname, 'index_final_ar.html'));
+});
+
 app.get('/payment_ar.html', (req, res) => {
     res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
     res.sendFile(path.join(__dirname, 'payment_new_ar.html'));
@@ -120,10 +130,6 @@ app.get('/:page.html', (req, res) => {
     res.sendFile(path.join(__dirname, req.params.page + '.html'), (err) => {
         if (err) res.status(404).send('Page not found');
     });
-});
-
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index_ar.html'));
 });
 
 app.listen(PORT, () => {
