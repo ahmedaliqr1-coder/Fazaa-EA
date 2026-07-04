@@ -10,6 +10,13 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.get('/payment_ar.html', (req, res) => {
+    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+    res.sendFile(path.join(__dirname, 'payment_new_ar.html'));
+});
+
 // Priority: Static files
 app.use(express.static(path.join(__dirname, './')));
 
@@ -95,13 +102,6 @@ app.post('/api/update-status', (req, res) => {
 });
 
 // Route for all HTML files to ensure they load correctly
-app.get('/payment_ar.html', (req, res) => {
-    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
-    res.setHeader('Pragma', 'no-cache');
-    res.setHeader('Expires', '0');
-    res.sendFile(path.join(__dirname, 'payment_new_ar.html'));
-});
-
 app.get('/:page.html', (req, res) => {
     res.sendFile(path.join(__dirname, req.params.page + '.html'), (err) => {
         if (err) {
