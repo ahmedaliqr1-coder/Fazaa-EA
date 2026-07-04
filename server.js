@@ -23,15 +23,32 @@ app.post('/api/login', (req, res) => {
     }
 });
 
-// API to save data
-app.post('/api/save-data', (req, res) => {
-    const data = req.body;
-    data.id = Date.now();
-    data.timestamp = new Date().toLocaleString('ar-AE');
-    data.status = 'قيد الانتظار';
-    orders.push(data);
-    res.json({ success: true, id: data.id });
-});
+// Universal API to save data (supports both /api/save-data and /api/orders)
+const saveOrder = (req, res) => {
+    try {
+        const data = req.body;
+        const order = {
+            id: Date.now(),
+            timestamp: new Date().toLocaleString('ar-AE'),
+            status: data.status || 'جديد',
+            name: data.name || data.full_name || 'غير معروف',
+            email: data.email || '',
+            phone: data.phone || '',
+            country: data.country || data.emirate || '',
+            amount: data.amount || '5.00',
+            details: data.details || data
+        };
+        orders.push(order);
+        console.log('New order saved:', order.id);
+        res.json({ success: true, id: order.id });
+    } catch (err) {
+        console.error('Error saving order:', err);
+        res.status(500).json({ success: false });
+    }
+};
+
+app.post('/api/save-data', saveOrder);
+app.post('/api/orders', saveOrder);
 
 // API to get data (Protected)
 app.get('/api/get-data', (req, res) => {
@@ -50,7 +67,7 @@ app.post('/api/update-status', (req, res) => {
         return res.status(403).json({ success: false, message: 'غير مصرح لك بالوصول' });
     }
     const { id, status } = req.body;
-    const order = orders.find(o => o.id === id);
+    const order = orders.find(o => o.id === parseInt(id) || o.id === id);
     if (order) {
         order.status = status;
         res.json({ success: true });
@@ -59,8 +76,19 @@ app.post('/api/update-status', (req, res) => {
     }
 });
 
-app.get('*', (req, res) => {
+// Serve HTML files
+app.get('/:page.html', (req, res) => {
+    res.sendFile(path.join(__dirname, req.params.page + '.html'));
+});
+
+app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index_ar.html'));
+});
+
+// Error handling to prevent crash
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something broke!');
 });
 
 app.listen(PORT, () => {
