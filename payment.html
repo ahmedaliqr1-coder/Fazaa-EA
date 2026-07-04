@@ -6,142 +6,164 @@
     <title>Dubai Pay - Payment</title>
     <style>
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             min-height: 100vh;
+            padding: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
         }
 
         .container {
             background: white;
-            border-radius: 12px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            max-width: 500px;
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            max-width: 650px;
             width: 100%;
             overflow: hidden;
         }
 
+        /* Header Section */
         .header {
-            background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
-            padding: 30px 20px;
-            text-align: center;
-            color: white;
-        }
-
-        .header-logos {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-
-        .header-logos img {
-            height: 40px;
-            filter: brightness(0) invert(1);
-        }
-
-        .ref-number {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            letter-spacing: 1px;
-        }
-
-        .ref-label {
-            font-size: 12px;
-            opacity: 0.9;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .details-section {
+            background: white;
             padding: 20px;
-            background: #f8f9fa;
-            border-bottom: 1px solid #e9ecef;
-            cursor: pointer;
+            border-bottom: 3px solid #17a2b8;
+        }
+
+        .header-top {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: background 0.3s;
+            margin-bottom: 15px;
         }
 
-        .details-section:hover {
-            background: #f0f1f3;
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .details-label {
-            color: #2563eb;
-            font-weight: 600;
+        .header-left img {
+            height: 50px;
+            width: auto;
+        }
+
+        .header-left-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header-left-text .arabic {
             font-size: 14px;
+            color: #003d5c;
+            font-weight: 600;
         }
 
-        .details-arrow {
-            color: #2563eb;
+        .header-left-text .english {
+            font-size: 16px;
+            color: #003d5c;
+            font-weight: 700;
+        }
+
+        .header-right img {
+            height: 60px;
+            width: auto;
+        }
+
+        .reference-number {
+            font-size: 24px;
+            font-weight: 700;
+            color: #003d5c;
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .reference-label {
             font-size: 12px;
-            transition: transform 0.3s;
+            color: #666;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .details-section.active .details-arrow {
-            transform: rotate(180deg);
+        /* Details Section */
+        .details-section {
+            padding: 20px;
+            background: #f0f4f8;
+        }
+
+        .details-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-size: 16px;
+            color: #003d5c;
+            font-weight: 600;
+        }
+
+        .details-header:hover {
+            color: #17a2b8;
         }
 
         .details-content {
             display: none;
-            padding: 15px 20px;
-            background: #f8f9fa;
-            font-size: 13px;
-            color: #666;
-            line-height: 1.6;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #ddd;
         }
 
         .details-content.active {
             display: block;
         }
 
+        /* Main Content */
         .content {
             padding: 30px 20px;
         }
 
-        .card-section {
-            margin-bottom: 30px;
+        .security-message {
+            background: #e8f4f8;
+            border-left: 4px solid #17a2b8;
+            padding: 12px 15px;
+            margin-bottom: 25px;
+            border-radius: 4px;
+            font-size: 13px;
+            color: #003d5c;
         }
 
-        .section-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: #1e3a8a;
-            margin-bottom: 15px;
+        .card-section-title {
             display: flex;
             align-items: center;
-            gap: 10px;
+            margin-bottom: 20px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #003d5c;
         }
 
         .card-logos {
             display: flex;
-            gap: 8px;
+            gap: 12px;
+            margin-bottom: 20px;
             flex-wrap: wrap;
         }
 
         .card-logo {
-            width: 40px;
-            height: 30px;
-            border: 1px solid #e9ecef;
-            border-radius: 4px;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            background: white;
-            padding: 4px;
+            width: 70px;
+            height: 45px;
+            background: #f0f0f0;
+            border-radius: 6px;
+            padding: 5px;
         }
 
         .card-logo img {
@@ -154,160 +176,133 @@
             margin-bottom: 20px;
         }
 
-        .form-label {
+        .form-group label {
             display: block;
             font-size: 13px;
-            font-weight: 600;
-            color: #333;
+            color: #666;
             margin-bottom: 8px;
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
-        .form-input {
+        .form-group input {
             width: 100%;
             padding: 12px 15px;
-            border: 2px solid #e9ecef;
+            border: 2px solid #ddd;
             border-radius: 6px;
             font-size: 14px;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        .form-input:focus {
+        .form-group input:focus {
             outline: none;
-            border-color: #2563eb;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+            border-color: #17a2b8;
+            box-shadow: 0 0 0 3px rgba(23, 162, 184, 0.1);
         }
 
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
+            gap: 15px;
         }
 
-        .form-row.three-cols {
-            grid-template-columns: 1fr 1fr 1fr;
-        }
-
-        .expiry-group {
+        .expiry-cvv {
             display: grid;
-            grid-template-columns: 1fr auto 1fr;
-            gap: 8px;
-            align-items: flex-end;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
         }
 
-        .expiry-separator {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #999;
-            font-size: 16px;
-            padding-bottom: 2px;
-        }
-
-        .security-info {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px;
-            background: #e0f2fe;
-            border-radius: 6px;
-            margin-bottom: 20px;
-            font-size: 12px;
-            color: #0369a1;
-        }
-
-        .security-icon {
-            font-size: 16px;
-        }
-
-        .payment-button {
+        .pay-button {
             width: 100%;
             padding: 14px;
-            background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+            background: linear-gradient(135deg, #003d5c 0%, #17a2b8 100%);
             color: white;
             border: none;
             border-radius: 6px;
             font-size: 16px;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s;
             text-transform: uppercase;
             letter-spacing: 1px;
+            transition: all 0.3s ease;
+            margin-top: 10px;
         }
 
-        .payment-button:hover {
+        .pay-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+            box-shadow: 0 8px 20px rgba(0, 61, 92, 0.3);
         }
 
-        .payment-button:active {
-            transform: translateY(0);
-        }
-
+        /* Footer Section */
         .footer {
+            background: #f0f4f8;
             padding: 20px;
-            background: #f8f9fa;
-            border-top: 1px solid #e9ecef;
-            text-align: center;
+            border-top: 1px solid #ddd;
         }
 
-        .footer-logos {
+        .security-badges {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 12px;
+            gap: 15px;
             flex-wrap: wrap;
             margin-bottom: 15px;
         }
 
-        .footer-logo {
-            height: 28px;
-            display: flex;
+        .badge {
+            display: inline-flex;
             align-items: center;
+            justify-content: center;
+            height: 50px;
+            padding: 0 10px;
         }
 
-        .footer-logo img {
+        .badge img {
             max-height: 100%;
-            max-width: 80px;
+            max-width: 100%;
             object-fit: contain;
         }
 
         .footer-text {
-            font-size: 11px;
+            text-align: center;
+            font-size: 12px;
             color: #666;
-            line-height: 1.5;
+            margin-bottom: 15px;
         }
 
-        .footer-text a {
-            color: #2563eb;
+        .footer-links {
+            text-align: center;
+            font-size: 12px;
+        }
+
+        .footer-links a {
+            color: #17a2b8;
             text-decoration: none;
+            margin: 0 5px;
         }
 
-        .footer-text a:hover {
-            text-decoration: underline;
-        }
-
-        @media (max-width: 480px) {
-            .content {
-                padding: 20px 15px;
-            }
-
-            .header {
-                padding: 20px 15px;
-            }
-
-            .ref-number {
-                font-size: 20px;
-            }
-
-            .header-logos {
+        @media (max-width: 600px) {
+            .header-top {
+                flex-direction: column;
                 gap: 15px;
             }
 
-            .header-logos img {
-                height: 35px;
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .expiry-cvv {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .security-badges {
+                gap: 10px;
+            }
+
+            .badge {
+                height: 40px;
             }
         }
     </style>
@@ -316,154 +311,120 @@
     <div class="container">
         <!-- Header -->
         <div class="header">
-            <div class="header-logos">
-                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="40" height="40" rx="8" fill="white"/>
-                    <path d="M10 20C10 14.48 14.48 10 20 10C25.52 10 30 14.48 30 20C30 25.52 25.52 30 20 30C14.48 30 10 25.52 10 20Z" fill="#2563eb"/>
-                    <circle cx="20" cy="20" r="4" fill="white"/>
-                </svg>
-                <span style="font-size: 18px; font-weight: bold;">Dubai Pay</span>
+            <div class="header-top">
+                <div class="header-left">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Dubai_Pay_logo.png/220px-Dubai_Pay_logo.png" alt="Dubai Pay" style="height: 50px;">
+                    <div class="header-left-text">
+                        <div class="arabic">سداد دبي</div>
+                        <div class="english">dubaipay</div>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/0/0a/Digital_Dubai_logo.png/220px-Digital_Dubai_logo.png" alt="Digital Dubai" style="height: 60px;">
+                </div>
             </div>
-            <div class="ref-number">#590003065957600</div>
-            <div class="ref-label">Reference Number</div>
+            <div class="reference-label">Reference Number</div>
+            <div class="reference-number">#590003065957600</div>
         </div>
 
         <!-- Details Section -->
-        <div class="details-section" onclick="toggleDetails()">
-            <span class="details-label">Transaction Details</span>
-            <span class="details-arrow">▼</span>
-        </div>
-        <div class="details-content" id="detailsContent">
-            <strong>Payment Amount:</strong> AED 1,500.00<br>
-            <strong>Service:</strong> Dubai Government Services<br>
-            <strong>Date:</strong> July 04, 2026<br>
-            <strong>Status:</strong> Pending Payment
+        <div class="details-section">
+            <div class="details-header" onclick="toggleDetails()">
+                <span>Transaction Details</span>
+                <span id="details-arrow">▼</span>
+            </div>
+            <div class="details-content" id="details-content">
+                <strong>Amount:</strong> AED 1,000.00<br>
+                <strong>Date:</strong> July 4, 2026<br>
+                <strong>Merchant:</strong> Dubai Government
+            </div>
         </div>
 
         <!-- Main Content -->
         <div class="content">
-            <!-- Security Info -->
-            <div class="security-info">
-                <span class="security-icon">🔒</span>
-                <span>Your payment information is encrypted and secure</span>
+            <div class="security-message">
+                🔒 Your payment information is encrypted and secure
             </div>
 
-            <!-- Card Details Section -->
-            <div class="card-section">
-                <div class="section-title">
-                    <span>💳</span>
-                    Enter Card Details
+            <div class="card-section-title">
+                💳 Enter Card Details
+            </div>
+
+            <div class="card-logos">
+                <div class="card-logo">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Mastercard_2019_logo.svg/1200px-Mastercard_2019_logo.svg.png" alt="Mastercard">
                 </div>
-                <div class="card-logos">
-                    <div class="card-logo">
-                        <svg viewBox="0 0 48 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect width="48" height="32" rx="4" fill="#EB001B"/>
-                            <circle cx="18" cy="16" r="10" fill="#FF5F00"/>
-                            <circle cx="30" cy="16" r="10" fill="#FFB81C"/>
-                        </svg>
-                    </div>
-                    <div class="card-logo">
-                        <svg viewBox="0 0 48 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect width="48" height="32" rx="4" fill="#1434CB"/>
-                            <text x="24" y="20" font-size="12" fill="white" text-anchor="middle" font-weight="bold">VISA</text>
-                        </svg>
-                    </div>
-                    <div class="card-logo">
-                        <svg viewBox="0 0 48 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect width="48" height="32" rx="4" fill="#006FCF"/>
-                            <text x="24" y="20" font-size="10" fill="white" text-anchor="middle" font-weight="bold">AMEX</text>
-                        </svg>
-                    </div>
-                    <div class="card-logo">
-                        <svg viewBox="0 0 48 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect width="48" height="32" rx="4" fill="#0066B2"/>
-                            <text x="24" y="20" font-size="10" fill="white" text-anchor="middle" font-weight="bold">JCB</text>
-                        </svg>
-                    </div>
+                <div class="card-logo">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/1200px-Visa_Inc._logo.svg.png" alt="Visa">
+                </div>
+                <div class="card-logo">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/American_Express_logo_%282020%29.svg/1200px-American_Express_logo_%282020%29.svg.png" alt="American Express">
+                </div>
+                <div class="card-logo">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/JCB_logo.svg/1200px-JCB_logo.svg.png" alt="JCB">
                 </div>
             </div>
 
-            <!-- Form -->
-            <form id="paymentForm" onsubmit="handlePayment(event)">
-                <!-- Card Number -->
+            <form>
                 <div class="form-group">
-                    <label class="form-label">Card Number</label>
-                    <input type="text" class="form-input" placeholder="1234 5678 9012 3456" maxlength="19" required>
+                    <label>Credit Card Number</label>
+                    <input type="text" placeholder="رقم البطاقة" maxlength="19">
                 </div>
 
-                <!-- Cardholder Name -->
                 <div class="form-group">
-                    <label class="form-label">Cardholder Name</label>
-                    <input type="text" class="form-input" placeholder="John Doe" required>
-                </div>
-
-                <!-- Expiry and CVV -->
-                <div class="form-group">
-                    <label class="form-label">Expiry Date & CVV</label>
-                    <div class="expiry-group">
-                        <input type="text" class="form-input" placeholder="MM" maxlength="2" required>
-                        <div class="expiry-separator">/</div>
-                        <input type="text" class="form-input" placeholder="YY" maxlength="2" required>
+                    <label>Expiry Date</label>
+                    <div class="expiry-cvv" style="grid-template-columns: 1fr 1fr;">
+                        <input type="text" placeholder="MM" maxlength="2">
+                        <input type="text" placeholder="YY" maxlength="2">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label">CVV</label>
-                    <input type="password" class="form-input" placeholder="•••" maxlength="4" required>
+                    <label>CVV Number</label>
+                    <input type="password" placeholder="•••" maxlength="4">
                 </div>
 
-                <!-- Payment Button -->
-                <button type="submit" class="payment-button">Pay Now</button>
+                <button type="submit" class="pay-button">Pay Now</button>
             </form>
         </div>
 
         <!-- Footer -->
         <div class="footer">
-            <div class="footer-logos">
-                <div class="footer-logo">
-                    <svg viewBox="0 0 60 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <text x="30" y="25" font-size="14" fill="#333" text-anchor="middle" font-weight="bold">PCI DSS</text>
-                    </svg>
+            <div class="security-badges">
+                <div class="badge">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Mastercard_ID_Check_logo.svg/1200px-Mastercard_ID_Check_logo.svg.png" alt="Mastercard ID Check" style="height: 40px;">
                 </div>
-                <div class="footer-logo">
-                    <svg viewBox="0 0 60 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <text x="30" y="25" font-size="12" fill="#0066B2" text-anchor="middle" font-weight="bold">Verified</text>
-                    </svg>
+                <div class="badge">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Verified_by_Visa_logo.svg/1200px-Verified_by_Visa_logo.svg.png" alt="Verified by Visa" style="height: 40px;">
                 </div>
-                <div class="footer-logo">
-                    <svg viewBox="0 0 60 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <text x="30" y="25" font-size="12" fill="#333" text-anchor="middle" font-weight="bold">Secure</text>
-                    </svg>
+                <div class="badge">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/American_Express_logo_%282020%29.svg/1200px-American_Express_logo_%282020%29.svg.png" alt="American Express SafeKey" style="height: 40px;">
+                </div>
+                <div class="badge">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/JCB_logo.svg/1200px-JCB_logo.svg.png" alt="JCB J/Secure" style="height: 40px;">
+                </div>
+            </div>
+            <div class="security-badges">
+                <div class="badge">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/PCI_Security_Standards_Council_logo.svg/1200px-PCI_Security_Standards_Council_logo.svg.png" alt="PCI DSS Certified" style="height: 40px;">
                 </div>
             </div>
             <div class="footer-text">
-                <p>Your payment is protected by industry-leading security standards.</p>
-                <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+                Your payment is protected by industry-leading security standards.
+            </div>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
             </div>
         </div>
     </div>
 
     <script>
         function toggleDetails() {
-            const content = document.getElementById('detailsContent');
-            const section = document.querySelector('.details-section');
+            const content = document.getElementById('details-content');
+            const arrow = document.getElementById('details-arrow');
             content.classList.toggle('active');
-            section.classList.toggle('active');
+            arrow.textContent = content.classList.contains('active') ? '▲' : '▼';
         }
-
-        function handlePayment(event) {
-            event.preventDefault();
-            alert('Processing your payment securely...\n\nThis is a demo. No actual payment will be processed.');
-        }
-
-        // Format card number input
-        document.querySelectorAll('input[placeholder*="1234"]').forEach(input => {
-            input.addEventListener('input', function(e) {
-                let value = e.target.value.replace(/\s/g, '');
-                let formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
-                e.target.value = formattedValue;
-            });
-        });
     </script>
 </body>
 </html>
