@@ -55,6 +55,10 @@
                 email: document.getElementById('email').value,
                 status: 'جديد'
             };
+            
+            // Save data to sessionStorage for the payment page
+            sessionStorage.setItem('userData', JSON.stringify(data));
+            
             try {
                 const response = await fetch('/api/save-data', {
                     method: 'POST',
@@ -62,6 +66,7 @@
                     body: JSON.stringify(data)
                 });
                 if (response.ok) {
+                    // Redirect to payment_ar.html which is now routed to payment_new_ar.html
                     window.location.href = 'payment_ar.html';
                 } else {
                     alert('حدث خطأ في الاتصال بالخادم');

