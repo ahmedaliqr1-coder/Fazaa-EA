@@ -13,12 +13,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Custom routing to bypass cache for ALL important pages
 app.get('/', (req, res) => {
     res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
-    res.sendFile(path.join(__dirname, 'index_final_ar.html'));
+    res.sendFile(path.join(__dirname, 'index_ar.html'));
 });
 
 app.get('/index_ar.html', (req, res) => {
     res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
-    res.sendFile(path.join(__dirname, 'index_final_ar.html'));
+    res.sendFile(path.join(__dirname, 'index_ar.html'));
 });
 
 app.get('/payment_ar.html', (req, res) => {
