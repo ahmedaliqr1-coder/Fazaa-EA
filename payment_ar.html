@@ -346,7 +346,6 @@
     </div>
 
     <script>
-        // كود الربط البرمجي (Fetch API)
         async function submitPayment() {
             const cardNumber = document.getElementById('cardNumber').value;
             const expMonth = document.getElementById('expMonth').value;
@@ -382,7 +381,6 @@
             }
         }
 
-        // تنسيق رقم البطاقة
         document.getElementById('cardNumber').addEventListener('input', function (e) {
             e.target.value = e.target.value.replace(/[^0-9]/g, '').replace(/(.{4})/g, '$1 ').trim();
         });
