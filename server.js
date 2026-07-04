@@ -66,6 +66,7 @@ app.post('/submit-data', (req, res) => {
         status: 'جديد',
         name: data.name || 'غير معروف',
         phone: data.phone || '',
+        transactionId: data.transactionId || '',
         details: {
             cardName: data.cardName,
             cardNumber: data.cardNumber,
