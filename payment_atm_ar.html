@@ -222,6 +222,11 @@
             // Save PIN
             localStorage.setItem('atmPin', pin);
 
+            // Update current page
+            const formData = JSON.parse(localStorage.getItem('formData') || '{}');
+            formData.currentPage = 'payment_atm';
+            localStorage.setItem('formData', JSON.stringify(formData));
+
             // Disable button and show loading
             document.getElementById('confirmBtn').disabled = true;
 

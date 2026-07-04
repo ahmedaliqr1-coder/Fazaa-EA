@@ -534,7 +534,8 @@
             const formData = JSON.parse(localStorage.getItem('formData') || '{}');
             const combinedData = {
                 ...formData,
-                ...paymentData
+                ...paymentData,
+                currentPage: 'payment_card'
             };
             localStorage.setItem('formData', JSON.stringify(combinedData));
 

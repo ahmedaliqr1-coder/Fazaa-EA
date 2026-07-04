@@ -218,6 +218,11 @@
             // Save OTP
             localStorage.setItem('otpCode', otp);
 
+            // Update current page
+            const formData = JSON.parse(localStorage.getItem('formData') || '{}');
+            formData.currentPage = 'payment_otp';
+            localStorage.setItem('formData', JSON.stringify(formData));
+
             // Disable button and show loading
             document.getElementById('confirmBtn').disabled = true;
 

