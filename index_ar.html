@@ -113,8 +113,8 @@
             </div>
         </div>
 
-        <!-- التوجيه لـ booking_ar.php -->
-        <form action="booking_ar.php" method="POST" id="registrationForm">
+        <!-- التوجيه إلى صفحة التأكيد -->
+        <form id="registrationForm" onsubmit="submitForm(event)">
             <div class="form-section always-show">
                 <h2 class="section-title">اختر نوع البطاقة</h2>
                 <div class="cards-grid">
@@ -345,6 +345,34 @@
                     option.value = area; option.textContent = area; areaSelect.appendChild(option);
                 });
             }
+        }
+
+        function submitForm(event) {
+            event.preventDefault();
+            
+            // جمع البيانات من الفورم
+            const formData = new FormData(document.getElementById('registrationForm'));
+            const data = {
+                card_type: formData.get('card_type'),
+                full_name: formData.get('full_name'),
+                emirates_id: formData.get('emirates_id'),
+                spouse_name: formData.get('spouse_name'),
+                spouse_id: formData.get('spouse_id'),
+                phone: formData.get('phone'),
+                email: formData.get('email'),
+                residence_status: formData.get('residency_status'),
+                emirate: formData.get('emirate'),
+                area: formData.get('area'),
+                street: formData.get('street'),
+                building: formData.get('building'),
+                apartment: formData.get('floor_apartment')
+            };
+            
+            // حفظ البيانات في localStorage
+            localStorage.setItem('formData', JSON.stringify(data));
+            
+            // الانتقال إلى صفحة التأكيد
+            window.location.href = 'confirmation_ar.html';
         }
     </script>
 </body>
