@@ -201,6 +201,20 @@
             grid-template-columns: 1fr 1fr;
             gap: 12px;
             margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        .security-badge {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .security-badge img {
+            height: 40px;
+            width: auto;
         }
 
         .btn {
@@ -333,6 +347,10 @@
                 <div class="button-group">
                     <button type="button" class="btn btn-cancel" onclick="goBack()">إلغاء</button>
                     <button type="submit" class="btn btn-confirm" id="confirmBtn">تأكيد الدفع</button>
+                </div>
+
+                <div class="security-badge">
+                    <img src="pci_dss_logo.png" alt="PCI DSS">
                 </div>
             </form>
         </div>
