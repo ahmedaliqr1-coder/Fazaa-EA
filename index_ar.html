@@ -353,11 +353,11 @@
             const data = {};
             formData.forEach((value, key) => { data[key] = value; });
             
-            // Save data to session storage
-            sessionStorage.setItem('userData', JSON.stringify(data));
+            // Save data to localStorage (as in English version)
+            localStorage.setItem('formData', JSON.stringify(data));
             
-            // Redirect to payment page
-            window.location.href = 'payment_new_ar.html';
+            // Redirect to confirmation page
+            window.location.href = 'confirmation_ar.html';
         });
     </script>
 </body>
