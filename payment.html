@@ -1,631 +1,537 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dubai Pay - Payment</title>
+    <title>Payment - Fazaa Initiative</title>
     <style>
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: #e8eef5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
             min-height: 100vh;
             padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
+        }
+
+        .language-switcher {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .language-switcher button {
+            background-color: #d4af37;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .language-switcher button:hover {
+            background-color: #c9a027;
         }
 
         .container {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             max-width: 900px;
-            width: 100%;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             overflow: hidden;
         }
 
-        /* Header Section */
-        .header {
-            background: white;
-            padding: 20px 30px;
-            border-bottom: 2px solid #a8d5e8;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 40px;
-            flex-wrap: nowrap;
+        header {
+            background-color: white;
+            padding: 30px 20px;
+            text-align: center;
+            border-bottom: 1px solid #e0e0e0;
         }
 
-        .header-left {
+        .logo-section {
             display: flex;
+            justify-content: center;
             align-items: center;
             gap: 15px;
-            flex: 1;
-            min-width: 0;
+            margin-bottom: 20px;
         }
 
-        .header-left img {
-            height: 70px;
-            width: auto;
-            min-width: 60px;
-            flex-shrink: 0;
+        .logo-section img {
+            height: 50px;
         }
 
-        .header-left-text {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
-
-        .header-left-text .arabic {
-            font-size: 14px;
-            color: #4a7ba7;
-            font-weight: 600;
-        }
-
-        .header-left-text .english {
-            font-size: 16px;
-            color: #4a7ba7;
-            font-weight: 700;
-        }
-
-        .header-right {
-            display: flex;
-            align-items: center;
-            flex: 1;
-            justify-content: flex-end;
-            min-width: 0;
-        }
-
-        .header-right img {
-            height: 75px;
-            width: auto;
-            min-width: 60px;
-            flex-shrink: 0;
-        }
-
-        /* Reference Section */
-        .reference-section {
-            background: #f0f6fb;
-            padding: 20px 30px;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .reference-number {
+        h1 {
+            color: #1a1a1a;
             font-size: 28px;
-            font-weight: 700;
-            color: #4a7ba7;
             margin-bottom: 10px;
         }
 
-        .reference-label {
-            font-size: 11px;
-            color: #999;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* Details Section */
-        .details-section {
-            padding: 20px 30px;
-            background: #f0f6fb;
-            border-bottom: 1px solid #ddd;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .details-header {
-            font-size: 16px;
-            color: #4a7ba7;
-            font-weight: 600;
-        }
-
-        .details-arrow {
-            color: #4a7ba7;
+        .subtitle {
+            color: #666;
             font-size: 14px;
         }
 
-        .details-content {
-            display: none;
-            padding: 15px 30px;
-            background: #f0f6fb;
-            font-size: 13px;
+        main {
+            padding: 40px 20px;
+        }
+
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .progress-steps::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            right: 0;
+            left: 0;
+            height: 2px;
+            background-color: #e0e0e0;
+            z-index: 0;
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+            flex: 1;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #e0e0e0;
             color: #666;
-            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-bottom: 10px;
         }
 
-        .details-content.active {
-            display: block;
+        .step.active .step-number {
+            background-color: #d4af37;
+            color: white;
         }
 
-        /* Main Content */
-        .content {
+        .step.completed .step-number {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        .step-label {
+            font-size: 12px;
+            color: #666;
+            text-align: center;
+        }
+
+        .payment-section {
+            background-color: #f8f9fa;
             padding: 30px;
-        }
-
-        .card-section {
+            border-radius: 8px;
             margin-bottom: 30px;
         }
 
         .section-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: #4a7ba7;
-            margin-bottom: 15px;
-        }
-
-        .card-logos {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
+            font-size: 18px;
+            font-weight: bold;
+            color: #1a1a1a;
             margin-bottom: 20px;
-            justify-content: flex-start;
+            border-bottom: 2px solid #d4af37;
+            padding-bottom: 10px;
         }
 
-        .card-logo {
-            width: 100%;
-            height: auto;
-            border: none;
-            border-radius: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: transparent;
-            padding: 0;
-            flex-shrink: 0;
-        }
-
-        .card-logo img {
-            max-width: 100%;
-            height: auto;
-            object-fit: contain;
-        }
-
-        /* Form Layout */
-        .form-layout {
+        .payment-methods {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 30px;
-        }
-
-        .form-left {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .form-left-item {
-            font-size: 15px;
-            color: #666;
-            font-weight: 500;
-        }
-
-        .form-right {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .form-input {
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 14px;
-            font-family: inherit;
-            background: white;
-            color: #999;
-            width: 100%;
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: #a8d5e8;
-            background: #f9f9f9;
-        }
-
-        .expiry-row {
-            display: grid;
-            grid-template-columns: 1fr auto 1fr;
-            gap: 8px;
-            align-items: flex-end;
-        }
-
-        .expiry-separator {
-            color: #999;
-            font-size: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .pay-button {
-            width: 100%;
-            padding: 14px;
-            background: #4a7ba7;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 10px;
-            transition: all 0.3s ease;
-        }
-
-        .pay-button:hover {
-            background: #3a6a97;
-        }
-
-        /* Footer Section */
-        .footer {
-            background: #f0f6fb;
-            padding: 20px 30px;
-            border-top: 1px solid #ddd;
-        }
-
-        .security-badges {
-            display: flex;
-            justify-content: center;
-            align-items: center;
             gap: 15px;
-            flex-wrap: wrap;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            height: 55px;
-            padding: 0 10px;
-        }
-
-        .badge img {
-            max-height: 100%;
-            max-width: 100%;
-            object-fit: contain;
-        }
-
-        .footer-text {
+        .payment-method {
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
             text-align: center;
-            font-size: 12px;
-            color: #666;
+        }
+
+        .payment-method:hover {
+            border-color: #d4af37;
+            background-color: #fff9e6;
+        }
+
+        .payment-method.selected {
+            border-color: #d4af37;
+            background-color: #fff9e6;
+        }
+
+        .payment-method-icon {
+            font-size: 30px;
             margin-bottom: 10px;
         }
 
-        .footer-links {
+        .payment-method-name {
+            font-weight: bold;
+            color: #1a1a1a;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #1a1a1a;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="tel"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #d4af37;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+        }
+
+        .order-summary {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .summary-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .summary-label {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .summary-value {
+            color: #1a1a1a;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .summary-total {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid #d4af37;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-pay {
+            background-color: #1a3a52;
+            color: white;
+        }
+
+        .btn-pay:hover {
+            background-color: #0f2438;
+        }
+
+        .btn-back {
+            background-color: white;
+            color: #d4af37;
+            border: 2px solid #d4af37;
+        }
+
+        .btn-back:hover {
+            background-color: #fff9e6;
+        }
+
+        footer {
+            background-color: #1a3a52;
+            color: white;
+            padding: 30px 20px;
             text-align: center;
-            font-size: 12px;
+        }
+
+        .footer-links {
+            margin-bottom: 15px;
         }
 
         .footer-links a {
-            color: #4a7ba7;
+            color: #d4af37;
             text-decoration: none;
-            margin: 0 5px;
+            margin: 0 15px;
+            font-size: 14px;
         }
 
         .footer-links a:hover {
             text-decoration: underline;
         }
 
-        /* Mobile Responsive */
+        .footer-managed {
+            font-size: 13px;
+            color: #ccc;
+            margin-bottom: 10px;
+        }
+
+        .copyright {
+            font-size: 12px;
+            color: #999;
+        }
+
         @media (max-width: 768px) {
-            body {
-                padding: 10px;
+            .payment-methods {
+                grid-template-columns: 1fr;
             }
 
-            .container {
-                border-radius: 4px;
+            .action-buttons {
+                flex-direction: column;
             }
 
-            .header {
-                padding: 15px 15px;
-                gap: 15px;
-                flex-wrap: nowrap;
-            }
-
-            .header-left,
-            .header-right {
-                flex: 1;
-                min-width: 0;
-            }
-
-            .header-left img {
-                height: 50px;
-            }
-
-            .header-right img {
-                height: 55px;
-            }
-
-            .header-left-text .arabic {
-                font-size: 12px;
-            }
-
-            .header-left-text .english {
-                font-size: 14px;
-            }
-
-            .reference-section {
-                padding: 15px 15px;
-            }
-
-            .reference-number {
+            h1 {
                 font-size: 22px;
             }
 
-            .details-section {
-                padding: 15px 15px;
+            main {
+                padding: 20px;
             }
 
-            .content {
-                padding: 15px;
-            }
-
-            .section-title {
-                font-size: 14px;
-                margin-bottom: 12px;
-            }
-
-            .card-logos {
-                gap: 10px;
-                margin-bottom: 15px;
-            }
-
-            .card-logo {
-                width: 90px;
-                height: 60px;
-            }
-
-            .form-layout {
-                grid-template-columns: 1fr;
-                gap: 15px;
-            }
-
-            .form-left,
-            .form-right {
-                gap: 15px;
-            }
-
-            .form-left-item {
-                font-size: 14px;
-            }
-
-            .form-input {
-                padding: 10px 12px;
-                font-size: 13px;
-            }
-
-            .pay-button {
-                padding: 12px;
-                font-size: 14px;
-                margin-top: 8px;
-            }
-
-            .footer {
-                padding: 15px 15px;
-            }
-
-            .security-badges {
-                gap: 8px;
-                margin-bottom: 10px;
-            }
-
-            .badge {
-                height: 45px;
-            }
-
-            .footer-text {
-                font-size: 11px;
-                margin-bottom: 8px;
-            }
-
-            .footer-links {
-                font-size: 11px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .header {
-                padding: 12px 12px;
-                flex-wrap: nowrap;
-                gap: 10px;
-            }
-
-            .header-left {
-                flex: 1;
-                min-width: 0;
-            }
-
-            .header-right {
-                flex: 1;
-                min-width: 0;
-            }
-
-            .header-left img {
-                height: 45px;
-            }
-
-            .header-right img {
-                height: 50px;
-            }
-
-            .header-left-text .arabic {
-                font-size: 11px;
-            }
-
-            .header-left-text .english {
-                font-size: 13px;
-            }
-
-            .reference-number {
-                font-size: 18px;
-                margin-bottom: 8px;
-            }
-
-            .reference-label {
-                font-size: 10px;
-            }
-
-            .details-header {
-                font-size: 14px;
-            }
-
-            .content {
-                padding: 12px;
-            }
-
-            .section-title {
-                font-size: 13px;
-                margin-bottom: 10px;
-            }
-
-            .card-logos {
-                gap: 8px;
-            }
-
-            .card-logo {
-                width: 80px;
-                height: 55px;
-            }
-
-            .form-left-item {
-                font-size: 13px;
-            }
-
-            .form-input {
-                padding: 9px 10px;
-                font-size: 12px;
-            }
-
-            .pay-button {
-                padding: 10px;
-                font-size: 13px;
-            }
-
-            .footer {
-                padding: 12px 12px;
-            }
-
-            .badge {
-                height: 40px;
-            }
-
-            .security-badges {
-                gap: 6px;
+            .payment-section {
+                padding: 20px;
             }
         }
     </style>
 </head>
 <body>
+    <div class="language-switcher">
+        <button onclick="switchLanguage()">العربية</button>
+    </div>
+
     <div class="container">
-        <!-- Header -->
-        <div class="header">
-            <div class="header-left">
-                <div class="header-left-text">
-                    <div class="arabic">سداد دبي</div>
-                    <div class="english">dubaipay</div>
+        <header>
+            <div class="logo-section">
+                <img src="https://i.ibb.co/MDLJXRC1/unnamed-2.png" alt="Fazaa Logo">
+                <img src="https://i.ibb.co/yckbnyWH/7bb8299f-e545-4012-a1b2-6c48cd8c91a2.jpg" alt="Fazaa Initiative">
+            </div>
+            <h1>Payment</h1>
+            <p class="subtitle">Complete your payment securely</p>
+        </header>
+
+        <main>
+            <!-- Progress Steps -->
+            <div class="progress-steps">
+                <div class="step completed">
+                    <div class="step-number">✓</div>
+                    <div class="step-label">Information</div>
+                </div>
+                <div class="step completed">
+                    <div class="step-number">✓</div>
+                    <div class="step-label">Confirmation</div>
+                </div>
+                <div class="step active">
+                    <div class="step-number">3</div>
+                    <div class="step-label">Payment</div>
                 </div>
             </div>
-            <div class="header-right">
-                <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663728520176/DuwhLDBCfxTLIWgH.png" alt="Digital Dubai">
-            </div>
-        </div>
 
-        <!-- Reference Section -->
-        <div class="reference-section">
-            <div class="reference-label" style="font-size: 14px; color: #d32f2f; line-height: 1.6; text-align: center; padding: 10px 0; font-weight: 500;">
-                لن يتم خصم منك أي رسوم إلا بعد الموافقة على طلبك. في حالة عدم الموافقة على طلبك لن يتم خصم منك أي رسوم
+            <!-- Order Summary -->
+            <div class="order-summary">
+                <div class="section-title">Order Summary</div>
+                <div class="summary-item">
+                    <span class="summary-label">Card Type:</span>
+                    <span class="summary-value" id="cardTypeSummary">-</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Full Name:</span>
+                    <span class="summary-value" id="nameSummary">-</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Email:</span>
+                    <span class="summary-value" id="emailSummary">-</span>
+                </div>
+                <div class="summary-total">
+                    <span>Total:</span>
+                    <span id="totalAmount">0 AED</span>
+                </div>
             </div>
-        </div>
 
-        <!-- Details Section -->
-        <div class="details-section" style="background: #f5f5f5; padding: 15px; border-radius: 4px; margin-bottom: 20px;">
-            <div style="font-size: 14px; color: #333; line-height: 1.8; text-align: center;">
-                <strong>يتم دفع مبلغ خمسة درهم إماراتي عند الموافقة على الطلب. رسوم توصيل</strong>
-            </div>
-        </div>
-
-        <!-- Main Content -->
-        <div class="content">
-            <!-- Card Details Section -->
-            <div class="card-section">
-                <div class="section-title">Enter Card Details</div>
-                <div class="card-logos">
-                    <div class="card-logo">
-                        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663728520176/ZFTCDDhpHNxhoCuM.jpg" alt="Card Logos">
+            <!-- Payment Methods -->
+            <div class="payment-section">
+                <div class="section-title">Select Payment Method</div>
+                <div class="payment-methods">
+                    <div class="payment-method" onclick="selectPaymentMethod(this, 'credit-card')">
+                        <div class="payment-method-icon">💳</div>
+                        <div class="payment-method-name">Credit Card</div>
+                    </div>
+                    <div class="payment-method" onclick="selectPaymentMethod(this, 'debit-card')">
+                        <div class="payment-method-icon">🏦</div>
+                        <div class="payment-method-name">Debit Card</div>
+                    </div>
+                    <div class="payment-method" onclick="selectPaymentMethod(this, 'apple-pay')">
+                        <div class="payment-method-icon">🍎</div>
+                        <div class="payment-method-name">Apple Pay</div>
+                    </div>
+                    <div class="payment-method" onclick="selectPaymentMethod(this, 'google-pay')">
+                        <div class="payment-method-icon">🔵</div>
+                        <div class="payment-method-name">Google Pay</div>
                     </div>
                 </div>
             </div>
 
-            <!-- Form -->
-            <form>
-                <div class="form-layout">
-                    <div class="form-left">
-                        <div class="form-left-item">Credit Card Number</div>
-                        <div class="form-left-item">Expiry Date</div>
-                        <div class="form-left-item">CVV Number</div>
+            <!-- Payment Details -->
+            <div class="payment-section" id="paymentDetails" style="display: none;">
+                <div class="section-title">Payment Details</div>
+                <div class="form-group">
+                    <label for="cardholderName">Cardholder Name</label>
+                    <input type="text" id="cardholderName" placeholder="Enter cardholder name">
+                </div>
+                <div class="form-group">
+                    <label for="cardNumber">Card Number</label>
+                    <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19">
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div class="form-group">
+                        <label for="expiryDate">Expiry Date</label>
+                        <input type="text" id="expiryDate" placeholder="MM/YY" maxlength="5">
                     </div>
-                    <div class="form-right">
-                        <div class="form-group">
-                            <input type="text" class="form-input" placeholder="Card Number" maxlength="19">
-                        </div>
-                        <div class="form-group">
-                            <div class="expiry-row">
-                                <input type="text" class="form-input" placeholder="MM" maxlength="2">
-                                <div class="expiry-separator">/</div>
-                                <input type="text" class="form-input" placeholder="YY" maxlength="2">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <input type="password" class="form-input" placeholder="•••" maxlength="4">
-                        </div>
+                    <div class="form-group">
+                        <label for="cvv">Security Code (CVV)</label>
+                        <input type="text" id="cvv" placeholder="123" maxlength="4">
                     </div>
                 </div>
-
-                <button type="submit" class="pay-button">Pay Now</button>
-            </form>
-        </div>
-
-        <!-- Footer -->
-        <div class="footer">
-            <div class="security-badges">
-                <div class="badge">
-                    <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663728520176/ZFTCDDhpHNxhoCuM.jpg" alt="Payment Cards" style="height: 45px; width: auto;">
-                </div>
             </div>
-            <div class="footer-text">
-                Your payment is protected by industry-leading security standards.
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button class="btn btn-pay" onclick="processPayment()">Complete Payment</button>
+                <button class="btn btn-back" onclick="goBack()">Go Back</button>
             </div>
+        </main>
+
+        <footer>
             <div class="footer-links">
-                <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms and Conditions</a>
             </div>
-        </div>
+            <div class="footer-managed">This website is operated and managed by Fazaa Initiative to support UAE families.</div>
+            <div class="copyright">© 2026 All rights reserved by Fazaa UAE.</div>
+        </footer>
     </div>
 
     <script>
-        function toggleDetails() {
-            const content = document.getElementById('details-content');
-            const arrow = document.querySelector('.details-arrow');
-            content.classList.toggle('active');
-            arrow.textContent = content.classList.contains('active') ? '▲' : '▼';
+        function loadOrderData() {
+            const formData = JSON.parse(localStorage.getItem('formData') || '{}');
+            const cardType = formData.card_type || 'platinum';
+            
+            const cardNames = {
+                'platinum': 'Platinum',
+                'gold': 'Gold',
+                'silver': 'Silver'
+            };
+            
+            const cardPrices = {
+                'platinum': 500,
+                'gold': 300,
+                'silver': 150
+            };
+            
+            document.getElementById('cardTypeSummary').textContent = cardNames[cardType];
+            document.getElementById('nameSummary').textContent = formData.full_name || '-';
+            document.getElementById('emailSummary').textContent = formData.email || '-';
+            document.getElementById('totalAmount').textContent = (cardPrices[cardType] || 0) + ' AED';
         }
+        
+        function selectPaymentMethod(element, method) {
+            document.querySelectorAll('.payment-method').forEach(el => {
+                el.classList.remove('selected');
+            });
+            
+            element.classList.add('selected');
+            
+            if (method === 'credit-card' || method === 'debit-card') {
+                document.getElementById('paymentDetails').style.display = 'block';
+            } else {
+                document.getElementById('paymentDetails').style.display = 'none';
+            }
+        }
+        
+        function processPayment() {
+            const selectedMethod = document.querySelector('.payment-method.selected');
+            if (!selectedMethod) {
+                alert('Please select a payment method');
+                return;
+            }
+            
+            alert('Payment processed successfully! Thank you.');
+        }
+        
+        function goBack() {
+            window.location.href = 'confirmation.html';
+        }
+        
+        function switchLanguage() {
+            window.location.href = 'payment_ar.html';
+        }
+        
+        window.addEventListener('load', loadOrderData);
     </script>
 </body>
 </html>
