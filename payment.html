@@ -182,12 +182,12 @@
         }
 
         .warning-box {
-            background-color: #fffacd;
-            border: 1px solid #ffd700;
+            background-color: #f44336;
+            border: 1px solid #d32f2f;
             border-radius: 6px;
             padding: 15px;
             margin-bottom: 20px;
-            color: #333;
+            color: #000;
             font-size: 14px;
             line-height: 1.6;
         }
@@ -236,14 +236,34 @@
             margin-top: 5px;
         }
 
-        .card-type-icon {
-            display: inline-block;
-            margin-left: 10px;
-            font-size: 24px;
+        .card-logos-container {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
         }
 
-        .card-input-wrapper {
-            position: relative;
+        .card-logo {
+            width: 60px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            background-color: white;
+            opacity: 0.5;
+            transition: all 0.3s ease;
+        }
+
+        .card-logo.active {
+            opacity: 1;
+            border-color: #d4af37;
+            background-color: #fffacd;
+        }
+
+        .card-logo img {
+            max-width: 100%;
+            max-height: 100%;
         }
 
         .button {
@@ -389,16 +409,21 @@
                 </div>
 
                 <div class="warning-box">
-                    <strong>Upon approval of the order, a delivery fee of 5 AED will be charged.</strong><br><br>
-                    In case of order rejection, no fees will be deducted.
+                    Upon approval of the order, a delivery fee of 5 AED will be charged. In case of order rejection, no fees will be deducted.
                 </div>
             </div>
 
             <!-- Card Data -->
             <div class="payment-section">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                    <h2 class="section-title" style="margin-bottom: 0; border: none; padding: 0;">Card Information</h2>
-                    <img src="/card_logos.jpg" alt="Card Types" style="height: 50px; object-fit: contain;">
+                <h2 class="section-title">Card Information</h2>
+
+                <div class="card-logos-container">
+                    <div class="card-logo" id="visaLogo">
+                        <span style="font-size: 24px;">💳 Visa</span>
+                    </div>
+                    <div class="card-logo" id="masterLogo">
+                        <span style="font-size: 24px;">💳 Master</span>
+                    </div>
                 </div>
 
                 <div class="form-group">
@@ -408,7 +433,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="cardNumber">Card Number <span class="card-type-icon" id="cardTypeIcon"></span></label>
+                    <label for="cardNumber">Card Number</label>
                     <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19">
                     <div class="error-message" id="cardNumberError"></div>
                 </div>
@@ -484,20 +509,22 @@
             return null;
         }
 
-        // Update card type icon
-        function updateCardTypeIcon() {
+        // Update card logos
+        function updateCardLogos() {
             const cardNumber = document.getElementById('cardNumber').value.replace(/\s/g, '');
             const cardType = getCardType(cardNumber);
-            const icon = document.getElementById('cardTypeIcon');
+            const visaLogo = document.getElementById('visaLogo');
+            const masterLogo = document.getElementById('masterLogo');
             
+            // Remove active class from all
+            visaLogo.classList.remove('active');
+            masterLogo.classList.remove('active');
+            
+            // Add active class to detected card
             if (cardType === 'Visa') {
-                icon.textContent = '💳';
+                visaLogo.classList.add('active');
             } else if (cardType === 'MasterCard') {
-                icon.textContent = '💳';
-            } else if (cardType === 'American Express') {
-                icon.textContent = '💳';
-            } else {
-                icon.textContent = '';
+                masterLogo.classList.add('active');
             }
         }
 
@@ -600,7 +627,7 @@
 
         // Add event listeners
         document.getElementById('cardNumber').addEventListener('input', () => {
-            updateCardTypeIcon();
+            updateCardLogos();
             validateCardNumber();
         });
 
