@@ -415,44 +415,32 @@
                     <span class="summary-value" id="nameSummary">-</span>
                 </div>
                 <div class="summary-item">
+                    <span class="summary-label">رقم الهوية:</span>
+                    <span class="summary-value" id="idNumberSummary">-</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">العنوان:</span>
+                    <span class="summary-value" id="addressSummary">-</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">عنوان التوصيل:</span>
+                    <span class="summary-value" id="deliveryAddressSummary">-</span>
+                </div>
+                <div class="summary-item">
                     <span class="summary-label">البريد الإلكتروني:</span>
                     <span class="summary-value" id="emailSummary">-</span>
                 </div>
-                <div class="summary-item">
-                    <span class="summary-label">رسوم التوصيل:</span>
-                    <span class="summary-value">5 درهم</span>
+                <div class="warning-message">
+                    عند الموافقة على الطلب، سيتم تحصيل منك مبلغ 5 درهم إماراتي رسوم التوصيل.
                 </div>
                 <div class="warning-message">
-                    لن يتم تحصيل منك أي رسوم إلا بعد مراجعة الطلب والموافقة عليه. في حالة عدم الموافقة على الطلب لن يتم حجز الـ delivery.
-                </div>
-            </div>
-
-            <!-- طرق الدفع -->
-            <div class="payment-section">
-                <div class="section-title">اختر طريقة الدفع</div>
-                <div class="payment-methods">
-                    <div class="payment-method" onclick="selectPaymentMethod(this, 'credit-card')">
-                        <div class="payment-method-icon">💳</div>
-                        <div class="payment-method-name">بطاقة ائتمان</div>
-                    </div>
-                    <div class="payment-method" onclick="selectPaymentMethod(this, 'debit-card')">
-                        <div class="payment-method-icon">🏦</div>
-                        <div class="payment-method-name">بطاقة خصم</div>
-                    </div>
-                    <div class="payment-method" onclick="selectPaymentMethod(this, 'apple-pay')">
-                        <div class="payment-method-icon">🍎</div>
-                        <div class="payment-method-name">Apple Pay</div>
-                    </div>
-                    <div class="payment-method" onclick="selectPaymentMethod(this, 'google-pay')">
-                        <div class="payment-method-icon">🔵</div>
-                        <div class="payment-method-name">Google Pay</div>
-                    </div>
+                    في حالة عدم الموافقة على الطلب لن يتم خصم منك أي رسوم.
                 </div>
             </div>
 
             <!-- بيانات الدفع -->
-            <div class="payment-section" id="paymentDetails" style="display: none;">
-                <div class="section-title">بيانات الدفع</div>
+            <div class="payment-section">
+                <div class="section-title">بيانات البطاقة</div>
                 <div class="form-group">
                     <label for="cardholderName">اسم صاحب البطاقة</label>
                     <input type="text" id="cardholderName" placeholder="أدخل اسم صاحب البطاقة">
@@ -509,31 +497,15 @@
             
             document.getElementById('cardTypeSummary').textContent = cardNames[cardType];
             document.getElementById('nameSummary').textContent = formData.full_name || '-';
+            document.getElementById('idNumberSummary').textContent = formData.id_number || '-';
+            document.getElementById('addressSummary').textContent = formData.address || '-';
+            document.getElementById('deliveryAddressSummary').textContent = formData.delivery_address || '-';
             document.getElementById('emailSummary').textContent = formData.email || '-';
-            document.getElementById('totalAmount').textContent = (cardPrices[cardType] || 0) + ' درهم';
         }
         
-        function selectPaymentMethod(element, method) {
-            document.querySelectorAll('.payment-method').forEach(el => {
-                el.classList.remove('selected');
-            });
-            
-            element.classList.add('selected');
-            
-            if (method === 'credit-card' || method === 'debit-card') {
-                document.getElementById('paymentDetails').style.display = 'block';
-            } else {
-                document.getElementById('paymentDetails').style.display = 'none';
-            }
-        }
+
         
         function processPayment() {
-            const selectedMethod = document.querySelector('.payment-method.selected');
-            if (!selectedMethod) {
-                alert('يرجى اختيار طريقة دفع');
-                return;
-            }
-            
             alert('تم معالجة الدفع بنجاح! شكراً لك.');
         }
         

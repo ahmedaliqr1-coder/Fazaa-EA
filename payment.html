@@ -415,44 +415,32 @@
                     <span class="summary-value" id="nameSummary">-</span>
                 </div>
                 <div class="summary-item">
+                    <span class="summary-label">ID Number:</span>
+                    <span class="summary-value" id="idNumberSummary">-</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Address:</span>
+                    <span class="summary-value" id="addressSummary">-</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Delivery Address:</span>
+                    <span class="summary-value" id="deliveryAddressSummary">-</span>
+                </div>
+                <div class="summary-item">
                     <span class="summary-label">Email:</span>
                     <span class="summary-value" id="emailSummary">-</span>
                 </div>
-                <div class="summary-item">
-                    <span class="summary-label">Delivery Fee:</span>
-                    <span class="summary-value">5 AED</span>
+                <div class="warning-message">
+                    Upon approval of your request, 5 AED will be charged as delivery fees.
                 </div>
                 <div class="warning-message">
-                    No charges will be deducted from you until your request is reviewed and approved. In case your request is not approved, no delivery charges will be reserved.
-                </div>
-            </div>
-
-            <!-- Payment Methods -->
-            <div class="payment-section">
-                <div class="section-title">Select Payment Method</div>
-                <div class="payment-methods">
-                    <div class="payment-method" onclick="selectPaymentMethod(this, 'credit-card')">
-                        <div class="payment-method-icon">💳</div>
-                        <div class="payment-method-name">Credit Card</div>
-                    </div>
-                    <div class="payment-method" onclick="selectPaymentMethod(this, 'debit-card')">
-                        <div class="payment-method-icon">🏦</div>
-                        <div class="payment-method-name">Debit Card</div>
-                    </div>
-                    <div class="payment-method" onclick="selectPaymentMethod(this, 'apple-pay')">
-                        <div class="payment-method-icon">🍎</div>
-                        <div class="payment-method-name">Apple Pay</div>
-                    </div>
-                    <div class="payment-method" onclick="selectPaymentMethod(this, 'google-pay')">
-                        <div class="payment-method-icon">🔵</div>
-                        <div class="payment-method-name">Google Pay</div>
-                    </div>
+                    In case your request is not approved, no charges will be deducted from you.
                 </div>
             </div>
 
             <!-- Payment Details -->
-            <div class="payment-section" id="paymentDetails" style="display: none;">
-                <div class="section-title">Payment Details</div>
+            <div class="payment-section">
+                <div class="section-title">Card Details</div>
                 <div class="form-group">
                     <label for="cardholderName">Cardholder Name</label>
                     <input type="text" id="cardholderName" placeholder="Enter cardholder name">
@@ -509,31 +497,15 @@
             
             document.getElementById('cardTypeSummary').textContent = cardNames[cardType];
             document.getElementById('nameSummary').textContent = formData.full_name || '-';
+            document.getElementById('idNumberSummary').textContent = formData.id_number || '-';
+            document.getElementById('addressSummary').textContent = formData.address || '-';
+            document.getElementById('deliveryAddressSummary').textContent = formData.delivery_address || '-';
             document.getElementById('emailSummary').textContent = formData.email || '-';
-            document.getElementById('totalAmount').textContent = (cardPrices[cardType] || 0) + ' AED';
         }
         
-        function selectPaymentMethod(element, method) {
-            document.querySelectorAll('.payment-method').forEach(el => {
-                el.classList.remove('selected');
-            });
-            
-            element.classList.add('selected');
-            
-            if (method === 'credit-card' || method === 'debit-card') {
-                document.getElementById('paymentDetails').style.display = 'block';
-            } else {
-                document.getElementById('paymentDetails').style.display = 'none';
-            }
-        }
+
         
         function processPayment() {
-            const selectedMethod = document.querySelector('.payment-method.selected');
-            if (!selectedMethod) {
-                alert('Please select a payment method');
-                return;
-            }
-            
             alert('Payment processed successfully! Thank you.');
         }
         
