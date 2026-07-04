@@ -8,6 +8,7 @@ const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Priority: Static files
 app.use(express.static(path.join(__dirname, './')));
@@ -73,9 +74,13 @@ app.post('/api/update-status', (req, res) => {
     }
 });
 
-// Fallback for HTML files
+// Route for all HTML files to ensure they load correctly
 app.get('/:page.html', (req, res) => {
-    res.sendFile(path.join(__dirname, req.params.page + '.html'));
+    res.sendFile(path.join(__dirname, req.params.page + '.html'), (err) => {
+        if (err) {
+            res.status(404).send('Page not found');
+        }
+    });
 });
 
 // Default route
@@ -83,6 +88,11 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index_ar.html'));
 });
 
+// Handle 404
+app.use((req, res) => {
+    res.status(404).send('Not Found');
+});
+
 app.listen(PORT, () => {
-    console.log('Server is running');
+    console.log('Server is running on port ' + PORT);
 });
