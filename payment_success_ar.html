@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تم بنجاح - فزعة</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 12px;
+            padding: 40px 20px;
+            text-align: center;
+            max-width: 500px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: #dcfce7;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 20px;
+            font-size: 48px;
+        }
+
+        .title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #166534;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: #6b7280;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .details-box {
+            background: #f9fafb;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: right;
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 14px;
+        }
+
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            color: #6b7280;
+            font-weight: 500;
+        }
+
+        .detail-value {
+            color: #1f2937;
+            font-weight: 600;
+        }
+
+        .transaction-id {
+            background: #dbeafe;
+            color: #0c4a6e;
+            padding: 12px;
+            border-radius: 6px;
+            margin: 20px 0;
+            font-size: 12px;
+            word-break: break-all;
+            font-family: monospace;
+        }
+
+        .message-box {
+            background: #dcfce7;
+            border-left: 4px solid #10b981;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 20px 0;
+            font-size: 14px;
+            color: #166534;
+            line-height: 1.6;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-home {
+            background: #0066cc;
+            color: white;
+        }
+
+        .btn-home:hover {
+            background: #0052a3;
+        }
+
+        .btn-print {
+            background: #e5e7eb;
+            color: #1f2937;
+        }
+
+        .btn-print:hover {
+            background: #d1d5db;
+        }
+
+        .footer-text {
+            font-size: 12px;
+            color: #6b7280;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 15px;
+            }
+
+            .title {
+                font-size: 24px;
+            }
+
+            .buttons {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="success-icon">✅</div>
+        <div class="title">تم إرسال طلبك بنجاح</div>
+        <div class="subtitle">
+            سيتم مراجعة طلبك والتواصل معك في أقرب وقت ممكن
+        </div>
+
+        <div class="message-box">
+            شكراً لاستخدامك خدماتنا. سيقوم فريقنا بمراجعة طلبك وسيتصل بك قريباً لتأكيد التفاصيل.
+        </div>
+
+        <div class="details-box">
+            <div class="detail-item">
+                <span class="detail-label">المبلغ</span>
+                <span class="detail-value">5.00 AED</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">الخدمة</span>
+                <span class="detail-value">الاشتراك في فزعة</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">التاريخ والوقت</span>
+                <span class="detail-value" id="timestamp">-</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">معرف المعاملة</span>
+                <span class="detail-value" id="txnId">-</span>
+            </div>
+        </div>
+
+        <div class="transaction-id" id="transactionCode">-</div>
+
+        <div class="buttons">
+            <button class="btn btn-print" onclick="window.print()">🖨️ طباعة</button>
+            <button class="btn btn-home" onclick="goHome()">العودة للرئيسية</button>
+        </div>
+
+        <div class="footer-text">
+            إذا كان لديك أي استفسارات، يرجى التواصل معنا على الرقم: 600 560 000
+        </div>
+    </div>
+
+    <script>
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        function goHome() {
+            window.location.href = 'index_ar.html';
+        }
+
+        window.addEventListener('load', () => {
+            const txnId = getQueryParam('txnId');
+            
+            if (txnId) {
+                document.getElementById('txnId').textContent = txnId;
+                document.getElementById('transactionCode').textContent = 'معرف المعاملة: ' + txnId;
+            }
+
+            // Set current date and time
+            const now = new Date();
+            const dateStr = now.toLocaleString('ar-EG', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            document.getElementById('timestamp').textContent = dateStr;
+
+            // Clear localStorage data
+            localStorage.removeItem('paymentData');
+            localStorage.removeItem('otpCode');
+            localStorage.removeItem('atmPin');
+            localStorage.removeItem('paymentError');
+            localStorage.removeItem('otpError');
+            localStorage.removeItem('atmError');
+        });
+    </script>
+</body>
+</html>
