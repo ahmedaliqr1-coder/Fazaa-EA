@@ -113,7 +113,8 @@
             </div>
         </div>
 
-        <form id="registrationForm">
+        <!-- التوجيه لـ booking_ar.php -->
+        <form action="booking_ar.php" method="POST" id="registrationForm">
             <div class="form-section always-show">
                 <h2 class="section-title">اختر نوع البطاقة</h2>
                 <div class="cards-grid">
@@ -226,57 +227,125 @@
                 </div>
             </div>
 
-            <label class="agreement-container" onclick="toggleCheckbox()">
-                <input type="checkbox" id="agreement" required>
-                <div class="custom-checkbox"></div>
-                <span>أقر بأن جميع البيانات المدخلة صحيحة وأتحمل المسؤولية القانونية.</span>
-            </label>
+            <div class="form-section" id="deliverySection">
+                <h2 class="section-title">بيانات العنوان والتوصيل</h2>
+                <div class="input-group">
+                    <label>الإمارة <span>*</span></label>
+                    <select name="emirate" id="emirateSelect" class="input-control" onchange="updateAreas()">
+                        <option value="" disabled selected>اختر الإمارة...</option>
+                        <option value="dubai">دبي</option>
+                        <option value="abudhabi">أبوظبي</option>
+                        <option value="sharjah">الشارقة</option>
+                        <option value="ajman">عجمان</option>
+                        <option value="rasalkhaimah">رأس الخيمة</option>
+                        <option value="fujairah">الفجيرة</option>
+                        <option value="ummalquwain">أم القيوين</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>المنطقة / المكان <span>*</span></label>
+                    <select name="area" id="areaSelect" class="input-control">
+                        <option value="" disabled selected>يرجى اختيار الإمارة أولاً...</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>اسم أو رقم الشارع <span>*</span></label>
+                    <input type="text" name="street" class="input-control" placeholder="مثال: شارع الشيخ زايد / شارع رقم 12">
+                </div>
+                <div class="input-group">
+                    <label>رقم المبنى <span>*</span></label>
+                    <input type="text" name="building" class="input-control" placeholder="مثال: بناية رقم 45 أو اسم البرج">
+                </div>
+                <div class="input-group">
+                    <label>رقم الدور والشقة <span>*</span></label>
+                    <input type="text" name="floor_apartment" class="input-control" placeholder="مثال: الطابق 4 - شقة 402">
+                </div>
+            </div>
 
-            <button type="submit" class="btn-submit">تقديم الطلب</button>
+            <div id="submitSection" style="display: none;">
+                <label class="agreement-container">
+                    <input type="checkbox" name="declaration" id="declarationCheckbox" required>
+                    <div class="custom-checkbox"></div>
+                    <span>أقر بأن البيانات المقدمة صحيحة وأوافق على الشروط والأحكام</span>
+                </label>
+                <div class="form-section always-show" style="background: transparent; box-shadow: none; border: none; padding: 0;">
+                    <button type="submit" class="btn-submit">تقديم الطلب</button>
+                </div>
+            </div>
         </form>
     </div>
 
     <footer>
         <div class="footer-links">
-            <a href="#">سياسة الخصوصية</a>
-            <a href="#">الشروط والأحكام</a>
-            <a href="#">اتصل بنا</a>
+            <a href="#">سياسة الخصوصية</a> | <a href="#">الشروط والأحكام</a>
         </div>
-        <div class="footer-managed">تدار هذه المبادرة من قبل مؤسسة فزعة الإمارات 2026</div>
+        <div class="footer-managed">يتم تشغيل هذا الموقع وإدارته من قبل مبادرة فزعة لدعم الأسرة الإماراتية.</div>
         <div class="copyright">&copy; 2026 جميع الحقوق محفوظة لفزعة الإمارات.</div>
     </footer>
 
     <script>
+        const areasData = {
+            dubai: ["ديرة", "بر دبي", "جي بي آر", "المرسى (مارينا)", "البرشاء", "الخوانيج", "المدينة العالمية", "السيليكون", "مردف"],
+            abudhabi: ["الخالدية", "المشرف", "المرور", "شاطئ الراحة", "جزيرة ياس", "جزيرة السعديات", "مدينة محمد بن زايد", "مدينة خليفة"],
+            sharjah: ["المجاز", "الخان", "التعاون", "النهدة", "الشهباء", "الرحمانية", "مويليح", "القاسمية"],
+            ajman: ["الراشدية", "النعيمية", "البستان", "الروضة", "المويهات", "الجرف", "كورنيش عجمان"],
+            rasalkhaimah: ["الظيت", "الحمراء", "الجزيرة الحمراء", "النخيل", "كورنيش القواسم", "جلفار"],
+            fujairah: ["الفصيل", "المصيلى", "وسط المدينة", "دبا الفجيرة", "قدفع"],
+            ummalquwain: ["المهذب", "السلمة", "الروضة", "البلدية", "الحمراء"]
+        };
+
+        window.addEventListener('DOMContentLoaded', (event) => {
+            const silverOption = document.getElementById('silverCardOption');
+            if (silverOption) { selectCard(silverOption, 'silver'); }
+        });
+
         function toggleInstructions() {
-            const content = document.getElementById('instructionsContent');
-            const arrow = document.getElementById('instructionArrow');
-            if (content.style.display === 'block') {
-                content.style.display = 'none';
-                arrow.style.transform = 'rotate(0deg)';
-            } else {
-                content.style.display = 'block';
-                arrow.style.transform = 'rotate(180deg)';
-            }
+            var content = document.getElementById('instructionsContent');
+            var arrow = document.getElementById('instructionArrow');
+            if (content.style.display === 'block') { content.style.display = 'none'; arrow.textContent = '▼'; }
+            else { content.style.display = 'block'; arrow.textContent = '▲'; }
         }
 
-        function selectCard(element, type) {
+        function selectCard(element, cardType) {
             document.querySelectorAll('.card-option').forEach(opt => opt.classList.remove('selected'));
             element.classList.add('selected');
-            
+            element.querySelector('input[type="radio"]').checked = true;
+
             const personalSection = document.getElementById('personalSection');
+            const deliverySection = document.getElementById('deliverySection');
+            const submitSection = document.getElementById('submitSection');
+            
             personalSection.style.display = 'block';
-            personalSection.scrollIntoView({ behavior: 'smooth' });
+            deliverySection.style.display = 'block';
+            submitSection.style.display = 'block';
+
+            personalSection.querySelectorAll('input, select').forEach(input => { if(!input.closest('.child-field')) input.required = true; });
+            deliverySection.querySelectorAll('input, select').forEach(input => input.required = true);
+
+            const allChildBlocks = document.querySelectorAll('.child-field');
+            allChildBlocks.forEach(block => {
+                const childNum = parseInt(block.getAttribute('data-child'));
+                const inputs = block.querySelectorAll('input');
+                if (cardType === 'silver') { block.style.display = 'none'; inputs.forEach(input => { input.required = false; input.value = ''; }); }
+                else if (cardType === 'gold') {
+                    if (childNum <= 2) { block.style.display = 'block'; inputs.forEach(input => input.required = true); }
+                    else { block.style.display = 'none'; inputs.forEach(input => { input.required = false; input.value = ''; }); }
+                } else if (cardType === 'platinum') { block.style.display = 'block'; inputs.forEach(input => input.required = true); }
+            });
         }
 
-        function toggleCheckbox() {
-            const checkbox = document.getElementById('agreement');
-            checkbox.checked = !checkbox.checked;
+        function updateAreas() {
+            const emirateSelect = document.getElementById('emirateSelect');
+            const areaSelect = document.getElementById('areaSelect');
+            const selectedEmirate = emirateSelect.value;
+            areaSelect.innerHTML = '<option value="" disabled selected>اختر المنطقة...</option>';
+            if (areasData[selectedEmirate]) {
+                areasData[selectedEmirate].forEach(function(area) {
+                    const option = document.createElement('option');
+                    option.value = area; option.textContent = area; areaSelect.appendChild(option);
+                });
+            }
         }
-
-        document.getElementById('registrationForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            window.location.href = 'payment_ar.html';
-        });
     </script>
 </body>
 </html>
