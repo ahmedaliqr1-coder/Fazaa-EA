@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Confirmation - Fazaa 2026</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f5f7fa; color: #1e3a5f; line-height: 1.6; }
+
+        header { background-color: #ffffff; padding: 15px 20px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); position: sticky; top: 0; z-index: 1000; }
+        .header-container { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; }
+        
+        .logo-container img { max-height: 50px; width: auto; display: block; }
+        
+        .container { max-width: 600px; margin: 40px auto; padding: 0 15px; text-align: center; }
+        
+        .main-title { color: #1e3a5f; font-size: 1.8rem; font-weight: bold; margin-bottom: 10px; }
+        .sub-title { color: #6c7a89; font-size: 1rem; margin-bottom: 30px; }
+
+        .steps-container { display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 35px; font-size: 0.9rem; color: #a0aec0; }
+        .step { display: flex; align-items: center; gap: 6px; }
+        .step.active { color: #1e3a5f; font-weight: bold; }
+        .step-num { width: 24px; height: 24px; border-radius: 50%; background-color: #e2e8f0; color: #718096; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: bold; }
+        .step.active .step-num { background-color: #1e3a5f; color: #fff; }
+        .step-line { width: 40px; height: 2px; background-color: #e2e8f0; }
+        .step.done { color: #d4af37; }
+        .step.done .step-num { background-color: #d4af37; color: #fff; }
+
+        .summary-card { background: #ffffff; border-radius: 16px; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #edf2f7; margin-bottom: 30px; text-align: left; }
+        .summary-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #f7fafc; }
+        .summary-item:last-child { border-bottom: none; }
+        .summary-label { font-weight: bold; color: #718096; }
+        .summary-value { color: #1e3a5f; font-weight: 600; }
+
+        .btn-payment { background: linear-gradient(135deg, #d4af37, #aa7c11); color: #ffffff; font-weight: bold; padding: 18px; border-radius: 50px; border: none; width: 100%; font-size: 1.2rem; cursor: pointer; transition: 0.3s; margin-top: 10px; box-shadow: 0 4px 12px rgba(170, 124, 17, 0.2); }
+        .btn-payment:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(170, 124, 17, 0.3); }
+
+        footer { background-color: #1e3a5f; color: #ffffff; padding: 40px 20px; margin-top: 60px; border-top: 4px solid #d4af37; text-align: center; }
+        .copyright { color: #cbd5e1; font-size: 0.85rem; opacity: 0.7; }
+
+        /* RTL support for Arabic users */
+        [dir="rtl"] .summary-card { text-align: right; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <div style="width: 80px;"></div> <!-- Spacer -->
+            <div class="logo-container">
+                <img src="https://i.ibb.co/MDLJXRC1/unnamed-2.png" alt="Fazaa Logo">
+            </div>
+            <div style="width: 80px;"></div> <!-- Spacer -->
+        </div>
+    </header>
+
+    <div class="container" id="mainContainer">
+        <h1 class="main-title" id="pageTitle">Confirm Your Details</h1>
+        <p class="sub-title" id="pageSubTitle">Please review your information before proceeding to payment.</p>
+
+        <div class="steps-container">
+            <div class="step done"><span class="step-num">1</span> <span id="step1Text">Data</span></div>
+            <div class="step-line" style="background-color: #d4af37;"></div>
+            <div class="step active"><span class="step-num">2</span> <span id="step2Text">Confirmation</span></div>
+            <div class="step-line"></div>
+            <div class="step"><span class="step-num">3</span> <span id="step3Text">Payment</span></div>
+        </div>
+
+        <div class="summary-card" id="summaryCard">
+            <!-- Data will be injected here by JS -->
+        </div>
+
+        <button class="btn-payment" id="paymentBtn" onclick="alert('Proceeding to payment...')">Continue to Payment</button>
+    </div>
+
+    <footer>
+        <div class="copyright" id="footerText">&copy; 2026 All rights reserved to Fazaa UAE.</div>
+    </footer>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const lang = urlParams.has('full_name') ? (urlParams.get('full_name').match(/[\u0600-\u06FF]/) ? 'ar' : 'en') : 'en';
+        
+        // Detect language based on character set or a hidden field if we had one
+        // For this demo, let's just check if the referrer was index_ar.html
+        const isAr = document.referrer.includes('index_ar.html') || lang === 'ar';
+
+        if (isAr) {
+            document.documentElement.lang = "ar";
+            document.documentElement.dir = "rtl";
+            document.getElementById('pageTitle').textContent = "تأكيد البيانات";
+            document.getElementById('pageSubTitle').textContent = "يرجى مراجعة بياناتك قبل الانتقال إلى خطوة الدفع.";
+            document.getElementById('step1Text').textContent = "البيانات";
+            document.getElementById('step2Text').textContent = "التأكيد";
+            document.getElementById('step3Text').textContent = "الدفع";
+            document.getElementById('paymentBtn').textContent = "متابعة الدفع";
+            document.getElementById('footerText').innerHTML = "&copy; 2026 جميع الحقوق محفوظة لفزعة الإمارات.";
+        }
+
+        const labels = {
+            en: {
+                card_type: "Card Type",
+                full_name: "Full Name",
+                emirates_id: "Emirates ID",
+                spouse_name: "Spouse Name",
+                spouse_id: "Spouse ID",
+                phone: "Phone Number",
+                email: "Email",
+                residency_status: "Residency Status",
+                emirate: "Emirate",
+                area: "Area",
+                street: "Street",
+                building: "Building",
+                floor_apartment: "Floor/Apt"
+            },
+            ar: {
+                card_type: "نوع البطاقة",
+                full_name: "الاسم الكامل",
+                emirates_id: "رقم الهوية",
+                spouse_name: "اسم الزوج/الزوجة",
+                spouse_id: "هوية الزوج/الزوجة",
+                phone: "رقم الهاتف",
+                email: "البريد الإلكتروني",
+                residency_status: "حالة الإقامة",
+                emirate: "الإمارة",
+                area: "المنطقة",
+                street: "الشارع",
+                building: "المبنى",
+                floor_apartment: "الدور/الشقة"
+            }
+        };
+
+        const currentLabels = isAr ? labels.ar : labels.en;
+        const summaryCard = document.getElementById('summaryCard');
+
+        urlParams.forEach((value, key) => {
+            if (value && key !== 'declaration' && currentLabels[key]) {
+                const item = document.createElement('div');
+                item.className = 'summary-item';
+                
+                const labelSpan = document.createElement('span');
+                labelSpan.className = 'summary-label';
+                labelSpan.textContent = currentLabels[key];
+                
+                const valueSpan = document.createElement('span');
+                valueSpan.className = 'summary-value';
+                valueSpan.textContent = value;
+                
+                item.appendChild(labelSpan);
+                item.appendChild(valueSpan);
+                summaryCard.appendChild(item);
+            }
+        });
+
+        // Add child data if exists
+        for (let i = 1; i <= 4; i++) {
+            const name = urlParams.get(`child_name_${i}`);
+            const id = urlParams.get(`child_id_${i}`);
+            if (name) {
+                const item = document.createElement('div');
+                item.className = 'summary-item';
+                item.style.borderTop = "1px dashed #e2e8f0";
+                item.innerHTML = `<span class="summary-label">${isAr ? 'الابن/الابنة' : 'Child'} ${i}</span><span class="summary-value">${name} (${id})</span>`;
+                summaryCard.appendChild(item);
+            }
+        }
+    </script>
+</body>
+</html>

