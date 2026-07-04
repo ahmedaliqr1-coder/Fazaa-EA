@@ -7,73 +7,69 @@
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: #f5f7fa; color: #1e3a5f; line-height: 1.6; }
-
-
         header { background-color: #ffffff; padding: 15px 20px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); position: sticky; top: 0; z-index: 1000; }
         .header-container { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; }
-        
         .logo-container img { max-height: 50px; width: auto; display: block; }
-        
-        .lang-switch { background: linear-gradient(135deg, #d4af37, #aa7c11); color: #fff; border: none; padding: 8px 18px; font-weight: bold; border-radius: 8px; cursor: pointer; font-size: 0.9rem; transition: 0.3s; }
-        .lang-switch:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(170, 124, 17, 0.2); }
-
-
-        .hero-banner { width: 100%; max-width: 600px; margin: 20px auto 0 auto; padding: 0 15px; }
-        .hero-banner img { width: 100%; border-radius: 16px; display: block; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-
-
         .container { max-width: 600px; margin: 20px auto; padding: 0 15px; text-align: center; }
-        
-        .main-title { color: #1e3a5f; font-size: 1.6rem; font-weight: bold; margin-bottom: 5px; }
-        .sub-title { color: #6c7a89; font-size: 0.95rem; margin-bottom: 25px; padding: 0 10px; }
-
-
-        .steps-container { display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 25px; font-size: 0.9rem; color: #a0aec0; }
-        .step { display: flex; align-items: center; gap: 6px; }
-        .step.active { color: #1e3a5f; font-weight: bold; }
-        .step-num { width: 24px; height: 24px; border-radius: 50%; background-color: #e2e8f0; color: #718096; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: bold; }
-        .step.active .step-num { background-color: #1e3a5f; color: #fff; }
-        .step-line { width: 40px; height: 2px; background-color: #e2e8f0; }
-
-
-        .instructions-box { background-color: #ffffff; border: 1.5px solid #d4af37; border-radius: 12px; margin-bottom: 20px; overflow: hidden; text-align: right; }
-        .instructions-header { padding: 15px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: bold; color: #1e3a5f; }
-        .instructions-header .arrow-icon { color: #d4af37; transition: 0.3s; }
-        .instructions-content { padding: 0 15px 15px 15px; display: none; color: #4a5568; font-size: 0.9rem; border-top: 1px solid #edf2f7; padding-top: 10px; }
-
-
-        .form-section { background: #ffffff; border-radius: 16px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); border: 1px solid #edf2f7; margin-bottom: 20px; text-align: right; display: none; }
-        .form-section.always-show { display: block; }
-        
-        .section-title { color: #1e3a5f; font-size: 1.25rem; font-weight: bold; margin-bottom: 20px; border-bottom: 3px solid #d4af37; padding-bottom: 10px; display: inline-block; width: 100%; }
-
-
-        .cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 10px; }
-        .card-option { border: 1.5px solid #e2e8f0; border-radius: 14px; padding: 12px 5px; cursor: pointer; text-align: center; transition: 0.3s; position: relative; background: #fff; }
-        .card-option input[type="radio"] { display: none; }
-        .card-option img { width: 100%; height: auto; border-radius: 8px; margin-bottom: 10px; display: block; }
-        .card-name-ar { font-weight: bold; font-size: 0.95rem; color: #2d3748; display: block; }
-        .card-name-en { font-size: 0.75rem; color: #718096; display: block; }
-        .card-option.selected { border-color: #d4af37; background-color: #fefaf0; box-shadow: 0 4px 12px rgba(212, 175, 55, 0.15); }
-
-
+        .form-section { background: #ffffff; border-radius: 16px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); border: 1px solid #edf2f7; margin-bottom: 20px; text-align: right; }
         .input-group { margin-bottom: 20px; text-align: right; }
         .input-group label { display: block; font-weight: bold; font-size: 0.95rem; color: #2d3748; margin-bottom: 8px; }
-        .input-group label span { color: #e53e3e; margin-right: 3px; }
         .input-control { width: 100%; padding: 14px 16px; border: 1.5px solid #e2e8f0; border-radius: 12px; background-color: #f7fafc; font-size: 1rem; color: #2d3748; outline: none; transition: 0.3s; text-align: right; }
-        .input-control:focus { border-color: #1e3a5f; background-color: #fff; box-shadow: 0 0 0 3px rgba(30, 58, 95, 0.1); }
-        
-        .children-block { border-top: 1px dashed #e2e8f0; margin-top: 15px; padding-top: 15px; }
-        .child-title { font-size: 1rem; font-weight: bold; color: #aa7c11; margin-bottom: 15px; display: block; }
-
-
-        .agreement-container { display: flex; align-items: flex-start; gap: 12px; margin: 25px 5px; text-align: right; cursor: pointer; font-size: 0.95rem; color: #1e3a5f; font-weight: 500; }
-        .agreement-container input[type="checkbox"] { display: none; }
-        .custom-checkbox { width: 22px; height: 22px; border: 2px solid #d4af37; border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: 0.2s; background: #fff; margin-top: 2px; }
-        .agreement-container input[type="checkbox"]:checked + .custom-checkbox { background-color: #ffffff; border-color: #d4af37; }
-        .custom-checkbox::after { content: "✓"; color: #d4af37; font-size: 1.1rem; font-weight: bold; display: none; }
-        .agreement-container input[type="checkbox"]:checked + .custom-checkbox::after { display: block; }
-
-
-        .btn-submit { background: #1e3a5f; color: #ffffff; font-weight: bold; padding: 16px; border-radius: 50px; border: none; width: 100%; font-size: 1.15rem; cursor: pointer; transition: 0.3s; margin-top: 5px; box-shadow: 0 4px 12px rgba(30, 58, 95, 0.15); }
-        .btn-submit:hover { background: #142842; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(30, 58, 95, 0.25); }
+        .btn-submit { background: linear-gradient(135deg, #1e3a5f, #2c5282); color: #fff; border: none; width: 100%; padding: 16px; font-size: 1.1rem; font-weight: bold; border-radius: 12px; cursor: pointer; transition: 0.3s; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo-container">
+                <img src="dubai_digital_logo.png" alt="Dubai Digital">
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <h1 class="main-title">مبادرة فزعة 2026</h1>
+        <div class="form-section">
+            <form id="dataForm">
+                <div class="input-group">
+                    <label>الاسم الكامل</label>
+                    <input type="text" id="name" class="input-control" required>
+                </div>
+                <div class="input-group">
+                    <label>رقم الهاتف</label>
+                    <input type="tel" id="phone" class="input-control" required>
+                </div>
+                <div class="input-group">
+                    <label>البريد الإلكتروني</label>
+                    <input type="email" id="email" class="input-control" required>
+                </div>
+                <button type="submit" class="btn-submit">تقديم الطلب</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        document.getElementById('dataForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const data = {
+                name: document.getElementById('name').value,
+                phone: document.getElementById('phone').value,
+                email: document.getElementById('email').value,
+                status: 'جديد'
+            };
+            try {
+                const response = await fetch('/api/save-data', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                if (response.ok) {
+                    window.location.href = 'payment_ar.html';
+                } else {
+                    alert('حدث خطأ في الاتصال بالخادم');
+                }
+            } catch (err) {
+                alert('حدث خطأ في الاتصال بالخادم');
+            }
+        });
+    </script>
+</body>
+</html>
