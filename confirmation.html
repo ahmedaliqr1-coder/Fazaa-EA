@@ -39,11 +39,11 @@
         .card-display img { max-width: 200px; height: auto; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
         .card-type-name { font-weight: bold; font-size: 1.1rem; color: #2d3748; margin-top: 10px; }
 
-        .data-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
-        .data-table tr { border-bottom: 1px solid #edf2f7; }
-        .data-table td { padding: 12px; text-align: left; }
-        .data-table .label { font-weight: bold; color: #1e3a5f; width: 40%; background-color: #f7fafc; }
-        .data-table .value { color: #4a5568; }
+        .data-table { width: 100%; margin-bottom: 20px; }
+        .data-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #edf2f7; text-align: left; }
+        .data-row:last-child { border-bottom: none; }
+        .data-label { font-weight: bold; color: #1e3a5f; flex: 0 0 40%; }
+        .data-value { color: #4a5568; flex: 1; text-align: left; word-break: break-word; }
 
         .action-buttons { display: flex; gap: 15px; margin-top: 30px; flex-direction: column; }
         .btn { padding: 14px 20px; border-radius: 50px; border: none; font-weight: bold; font-size: 1rem; cursor: pointer; transition: 0.3s; width: 100%; }
@@ -106,63 +106,63 @@
         <!-- Personal Information -->
         <div class="confirmation-section">
             <h2 class="section-title">Personal Information</h2>
-            <table class="data-table">
-                <tr>
-                    <td class="label">Full Name</td>
-                    <td class="value" id="fullName">-</td>
-                </tr>
-                <tr>
-                    <td class="label">Emirates ID</td>
-                    <td class="value" id="emiratesId">-</td>
-                </tr>
-                <tr>
-                    <td class="label">Spouse/Partner Name</td>
-                    <td class="value" id="spouseName">-</td>
-                </tr>
-                <tr>
-                    <td class="label">Spouse/Partner ID</td>
-                    <td class="value" id="spouseId">-</td>
-                </tr>
-                <tr>
-                    <td class="label">Phone Number</td>
-                    <td class="value" id="phone">-</td>
-                </tr>
-                <tr>
-                    <td class="label">Email Address</td>
-                    <td class="value" id="email">-</td>
-                </tr>
-                <tr>
-                    <td class="label">Residency Status</td>
-                    <td class="value" id="residenceStatus">-</td>
-                </tr>
-            </table>
+            <div class="data-table">
+                <div class="data-row">
+                    <div class="data-label">Full Name:</div>
+                    <div class="data-value" id="fullName">-</div>
+                </div>
+                <div class="data-row">
+                    <div class="data-label">Emirates ID:</div>
+                    <div class="data-value" id="emiratesId">-</div>
+                </div>
+                <div class="data-row">
+                    <div class="data-label">Spouse/Partner Name:</div>
+                    <div class="data-value" id="spouseName">-</div>
+                </div>
+                <div class="data-row">
+                    <div class="data-label">Spouse/Partner ID:</div>
+                    <div class="data-value" id="spouseId">-</div>
+                </div>
+                <div class="data-row">
+                    <div class="data-label">Phone Number:</div>
+                    <div class="data-value" id="phone">-</div>
+                </div>
+                <div class="data-row">
+                    <div class="data-label">Email Address:</div>
+                    <div class="data-value" id="email">-</div>
+                </div>
+                <div class="data-row">
+                    <div class="data-label">Residency Status:</div>
+                    <div class="data-value" id="residenceStatus">-</div>
+                </div>
+            </div>
         </div>
 
         <!-- Delivery Information -->
         <div class="confirmation-section">
             <h2 class="section-title">Delivery Information</h2>
-            <table class="data-table">
-                <tr>
-                    <td class="label">Emirate</td>
-                    <td class="value" id="emirate">-</td>
-                </tr>
-                <tr>
-                    <td class="label">Area</td>
-                    <td class="value" id="area">-</td>
-                </tr>
-                <tr>
-                    <td class="label">Street</td>
-                    <td class="value" id="street">-</td>
-                </tr>
-                <tr>
-                    <td class="label">Building</td>
-                    <td class="value" id="building">-</td>
-                </tr>
-                <tr>
-                    <td class="label">Floor & Apartment</td>
-                    <td class="value" id="apartment">-</td>
-                </tr>
-            </table>
+            <div class="data-table">
+                <div class="data-row">
+                    <div class="data-label">Emirate:</div>
+                    <div class="data-value" id="emirate">-</div>
+                </div>
+                <div class="data-row">
+                    <div class="data-label">Area:</div>
+                    <div class="data-value" id="area">-</div>
+                </div>
+                <div class="data-row">
+                    <div class="data-label">Street:</div>
+                    <div class="data-value" id="street">-</div>
+                </div>
+                <div class="data-row">
+                    <div class="data-label">Building:</div>
+                    <div class="data-value" id="building">-</div>
+                </div>
+                <div class="data-row">
+                    <div class="data-label">Floor & Apartment:</div>
+                    <div class="data-value" id="apartment">-</div>
+                </div>
+            </div>
         </div>
 
         <!-- Action Buttons -->
