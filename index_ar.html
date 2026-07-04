@@ -371,6 +371,32 @@
             // حفظ البيانات في localStorage
             localStorage.setItem('formData', JSON.stringify(data));
             
+            // إضافة الطلب إلى لوحة Admin
+            const emirateToCountry = {
+                'dubai': 'الإمارات العربية المتحدة - دبي',
+                'abudhabi': 'الإمارات العربية المتحدة - أبوظبي',
+                'sharjah': 'الإمارات العربية المتحدة - الشارقة',
+                'ajman': 'الإمارات العربية المتحدة - عجمان',
+                'rasalkhaimah': 'الإمارات العربية المتحدة - رأس الخيمة',
+                'fujairah': 'الإمارات العربية المتحدة - الفجيرة',
+                'ummalquwain': 'الإمارات العربية المتحدة - أم القيوين'
+            };
+            
+            const order = {
+                name: data.full_name,
+                email: data.email,
+                phone: data.phone,
+                country: emirateToCountry[data.emirate] || data.emirate,
+                amount: '5.00',
+                status: 'pending',
+                timestamp: new Date().toLocaleString('ar-EG')
+            };
+            
+            // حفظ الطلب في localStorage
+            const orders = JSON.parse(localStorage.getItem('fazaaOrders') || '[]');
+            orders.push(order);
+            localStorage.setItem('fazaaOrders', JSON.stringify(orders));
+            
             // الانتقال إلى صفحة التأكيد
             window.location.href = 'confirmation_ar.html';
         }
