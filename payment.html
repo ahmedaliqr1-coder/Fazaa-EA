@@ -21,9 +21,7 @@
         }
 
         .language-switcher {
-            position: fixed;
-            top: 20px;
-            right: 20px;
+            position: static;
             z-index: 1000;
         }
 
@@ -31,11 +29,11 @@
             background-color: #d4af37;
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
+            padding: 8px 16px;
+            border-radius: 4px;
             cursor: pointer;
             font-weight: bold;
-            font-size: 14px;
+            font-size: 12px;
         }
 
         .language-switcher button:hover {
@@ -55,12 +53,12 @@
         }
 
         header {
-            background-color: #1a3a52;
-            padding: 20px 30px;
+            background-color: white;
+            padding: 12px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: none;
+            border-bottom: 1px solid #e0e0e0;
             flex-shrink: 0;
         }
 
@@ -68,15 +66,15 @@
             display: flex;
             justify-content: flex-start;
             align-items: center;
-            gap: 20px;
+            gap: 15px;
         }
 
         .logo-section img {
-            height: 60px;
+            height: 40px;
         }
 
         .dubai-digital-logo {
-            margin-left: auto;
+            height: 40px;
         }
 
         h1 {
@@ -385,17 +383,15 @@
     </style>
 </head>
 <body>
-    <div class="language-switcher">
-        <button onclick="switchLanguage()">العربية</button>
-    </div>
-
     <div class="container">
         <header>
             <div class="logo-section">
                 <img src="https://i.ibb.co/MDLJXRC1/unnamed-2.png" alt="Fazaa Logo">
-                <img src="https://i.ibb.co/yckbnyWH/7bb8299f-e545-4012-a1b2-6c48cd8c91a2.jpg" alt="Fazaa Initiative">
+                <img src="/dubai_digital_logo.png" alt="Dubai Digital" class="dubai-digital-logo">
             </div>
-            <img src="/dubai_digital_logo.png" alt="Dubai Digital" class="dubai-digital-logo" style="height: 60px;">
+            <div class="language-switcher">
+                <button onclick="switchLanguage()">العربية</button>
+            </div>
         </header>
 
         <main>
