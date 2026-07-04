@@ -113,8 +113,7 @@
             </div>
         </div>
 
-        <!-- التوجيه لـ booking_ar.php -->
-        <form action="booking_ar.php" method="POST" id="registrationForm">
+        <form id="registrationForm">
             <div class="form-section always-show">
                 <h2 class="section-title">اختر نوع البطاقة</h2>
                 <div class="cards-grid">
@@ -346,6 +345,20 @@
                 });
             }
         }
+
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const data = {};
+            formData.forEach((value, key) => { data[key] = value; });
+            
+            // Save data to session storage
+            sessionStorage.setItem('userData', JSON.stringify(data));
+            
+            // Redirect to payment page
+            window.location.href = 'payment_new_ar.html';
+        });
     </script>
 </body>
 </html>
