@@ -38,21 +38,20 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
+            gap: 20px;
         }
 
         .header-left {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 15px;
             flex: 1;
-            min-width: 150px;
         }
 
         .header-left img {
-            height: 45px;
+            height: 60px;
             width: auto;
+            min-width: 50px;
         }
 
         .header-left-text {
@@ -62,13 +61,13 @@
         }
 
         .header-left-text .arabic {
-            font-size: 13px;
+            font-size: 14px;
             color: #4a7ba7;
             font-weight: 600;
         }
 
         .header-left-text .english {
-            font-size: 15px;
+            font-size: 16px;
             color: #4a7ba7;
             font-weight: 700;
         }
@@ -78,12 +77,12 @@
             align-items: center;
             flex: 1;
             justify-content: flex-end;
-            min-width: 150px;
         }
 
         .header-right img {
-            height: 50px;
+            height: 65px;
             width: auto;
+            min-width: 50px;
         }
 
         /* Reference Section */
@@ -167,8 +166,8 @@
         }
 
         .card-logo {
-            width: 80px;
-            height: 50px;
+            width: 100px;
+            height: 65px;
             border: 1px solid #ddd;
             border-radius: 4px;
             display: flex;
@@ -224,6 +223,7 @@
             font-family: inherit;
             background: white;
             color: #999;
+            width: 100%;
         }
 
         .form-input:focus {
@@ -278,7 +278,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 20px;
+            gap: 15px;
             flex-wrap: wrap;
             margin-bottom: 15px;
         }
@@ -287,7 +287,7 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            height: 45px;
+            height: 55px;
             padding: 0 10px;
         }
 
@@ -330,27 +330,35 @@
             }
 
             .header {
-                padding: 15px 20px;
-                flex-direction: column;
+                padding: 15px 15px;
                 gap: 10px;
+                flex-wrap: wrap;
             }
 
             .header-left,
             .header-right {
-                width: 100%;
-                justify-content: center;
+                flex: 1 1 auto;
+                min-width: 0;
             }
 
             .header-left img {
-                height: 35px;
+                height: 50px;
             }
 
             .header-right img {
-                height: 40px;
+                height: 55px;
+            }
+
+            .header-left-text .arabic {
+                font-size: 12px;
+            }
+
+            .header-left-text .english {
+                font-size: 14px;
             }
 
             .reference-section {
-                padding: 15px 20px;
+                padding: 15px 15px;
             }
 
             .reference-number {
@@ -358,11 +366,11 @@
             }
 
             .details-section {
-                padding: 15px 20px;
+                padding: 15px 15px;
             }
 
             .content {
-                padding: 20px;
+                padding: 15px;
             }
 
             .section-title {
@@ -376,8 +384,8 @@
             }
 
             .card-logo {
-                width: 70px;
-                height: 45px;
+                width: 90px;
+                height: 60px;
             }
 
             .form-layout {
@@ -406,16 +414,16 @@
             }
 
             .footer {
-                padding: 15px 20px;
+                padding: 15px 15px;
             }
 
             .security-badges {
-                gap: 10px;
+                gap: 8px;
                 margin-bottom: 10px;
             }
 
             .badge {
-                height: 35px;
+                height: 45px;
             }
 
             .footer-text {
@@ -430,15 +438,35 @@
 
         @media (max-width: 480px) {
             .header {
-                padding: 12px 15px;
+                padding: 12px 12px;
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .header-left {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .header-right {
+                width: 100%;
+                justify-content: center;
             }
 
             .header-left img {
-                height: 30px;
+                height: 45px;
             }
 
             .header-right img {
-                height: 35px;
+                height: 50px;
+            }
+
+            .header-left-text .arabic {
+                font-size: 11px;
+            }
+
+            .header-left-text .english {
+                font-size: 13px;
             }
 
             .reference-number {
@@ -455,7 +483,7 @@
             }
 
             .content {
-                padding: 15px;
+                padding: 12px;
             }
 
             .section-title {
@@ -468,8 +496,8 @@
             }
 
             .card-logo {
-                width: 60px;
-                height: 40px;
+                width: 80px;
+                height: 55px;
             }
 
             .form-left-item {
@@ -487,11 +515,15 @@
             }
 
             .footer {
-                padding: 12px 15px;
+                padding: 12px 12px;
             }
 
             .badge {
-                height: 30px;
+                height: 40px;
+            }
+
+            .security-badges {
+                gap: 6px;
             }
         }
     </style>
@@ -574,19 +606,19 @@
         <div class="footer">
             <div class="security-badges">
                 <div class="badge">
-                    <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663728520176/tDgRjXcVfFumbDjO.png" alt="Mastercard" style="height: 35px;">
+                    <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663728520176/tDgRjXcVfFumbDjO.png" alt="Mastercard" style="height: 45px;">
                 </div>
                 <div class="badge">
-                    <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663728520176/jyZVbgscLypSnYSl.png" alt="Verified by Visa" style="height: 35px;">
+                    <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663728520176/jyZVbgscLypSnYSl.png" alt="Verified by Visa" style="height: 45px;">
                 </div>
                 <div class="badge">
-                    <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663728520176/BHDiIJZGPQpKjxLs.png" alt="American Express" style="height: 35px;">
+                    <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663728520176/BHDiIJZGPQpKjxLs.png" alt="American Express" style="height: 45px;">
                 </div>
                 <div class="badge">
-                    <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663728520176/reBmfUSSSMJBTXbL.png" alt="JCB" style="height: 35px;">
+                    <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663728520176/reBmfUSSSMJBTXbL.png" alt="JCB" style="height: 45px;">
                 </div>
                 <div class="badge">
-                    <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663728520176/YdUZTSHzVjtdGqcc.png" alt="PCI DSS" style="height: 35px;">
+                    <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663728520176/YdUZTSHzVjtdGqcc.png" alt="PCI DSS" style="height: 45px;">
                 </div>
             </div>
             <div class="footer-text">
