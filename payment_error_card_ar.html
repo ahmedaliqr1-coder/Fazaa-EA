@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خطأ في الدفع - فزعة</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5222d 0%, #ff4d4f 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            width: 100%;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .error-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 30px;
+            background: #ffebee;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            animation: shake 0.5s ease-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        h1 {
+            color: #d32f2f;
+            font-size: 28px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .error-message {
+            background: #ffebee;
+            border-right: 4px solid #f44336;
+            padding: 20px;
+            border-radius: 4px;
+            margin-bottom: 30px;
+        }
+
+        .error-message p {
+            color: #c62828;
+            font-size: 15px;
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+
+        .error-message p:last-child {
+            margin-bottom: 0;
+        }
+
+        .info-box {
+            background: #f5f5f5;
+            border-right: 4px solid #2196f3;
+            padding: 15px;
+            margin-bottom: 30px;
+            border-radius: 4px;
+            text-align: right;
+        }
+
+        .info-box p {
+            color: #555;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-retry {
+            background: #f44336;
+            color: white;
+        }
+
+        .btn-retry:hover {
+            background: #d32f2f;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(244, 67, 54, 0.3);
+        }
+
+        .btn-home {
+            background: #f5f5f5;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+
+        .btn-home:hover {
+            background: #e0e0e0;
+            transform: translateY(-2px);
+        }
+
+        .footer {
+            color: #999;
+            font-size: 12px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .support-info {
+            background: #e3f2fd;
+            border-right: 4px solid #2196f3;
+            padding: 15px;
+            margin-bottom: 30px;
+            border-radius: 4px;
+            text-align: right;
+        }
+
+        .support-info p {
+            color: #1565c0;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="error-icon">✕</div>
+        
+        <h1>فشلت عملية الدفع</h1>
+        
+        <div class="error-message">
+            <p><strong>السبب:</strong></p>
+            <p>قد تكون بطاقتك غير متاحة للدفع عبر الإنترنت</p>
+        </div>
+
+        <div class="info-box">
+            <p><strong>ماذا يمكنك أن تفعل:</strong></p>
+            <p>يرجى التواصل مع المصرف الخاص بك أو تجربة طرق دفع مختلفة</p>
+        </div>
+
+        <div class="support-info">
+            <p><strong>هل تحتاج إلى مساعدة؟</strong></p>
+            <p>يمكنك التواصل مع فريق الدعم لدينا للحصول على المساعدة</p>
+        </div>
+
+        <div class="button-group">
+            <button class="btn btn-retry" onclick="retryPayment()">🔄 إعادة المحاولة</button>
+            <button class="btn btn-home" onclick="goHome()">العودة للرئيسية</button>
+        </div>
+
+        <div class="footer">
+            <p>جميع الحقوق محفوظة لـ فزعة © 2026</p>
+        </div>
+    </div>
+
+    <script>
+        function retryPayment() {
+            window.location.href = '/payment_card_ar.html';
+        }
+
+        function goHome() {
+            window.location.href = '/';
+        }
+    </script>
+</body>
+</html>
