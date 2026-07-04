@@ -138,6 +138,12 @@
             </div>
         </div>
 
+        <!-- بيانات الأبناء -->
+        <div class="confirmation-section" id="childrenSection" style="display: none;">
+            <h2 class="section-title">بيانات الأبناء</h2>
+            <div class="data-table" id="childrenDataTable"></div>
+        </div>
+
         <!-- بيانات التوصيل -->
         <div class="confirmation-section">
             <h2 class="section-title">بيانات التوصيل</h2>
@@ -185,6 +191,7 @@
         // استرجاع البيانات من localStorage
         function loadData() {
             const formData = JSON.parse(localStorage.getItem('formData') || '{}');
+            const cardType = formData.card_type || 'platinum';
             
             // تحديث البيانات الشخصية
             document.getElementById('fullName').textContent = formData.full_name || '-';
@@ -195,6 +202,9 @@
             document.getElementById('email').textContent = formData.email || '-';
             document.getElementById('residenceStatus').textContent = formData.residence_status || '-';
             
+            // عرض بيانات الأبناء حسب نوع البطاقة
+            displayChildren(formData, cardType);
+            
             // تحديث بيانات التوصيل
             document.getElementById('emirate').textContent = formData.emirate || '-';
             document.getElementById('area').textContent = formData.area || '-';
@@ -203,7 +213,6 @@
             document.getElementById('apartment').textContent = formData.apartment || '-';
             
             // تحديث نوع البطاقة
-            const cardType = formData.card_type || 'platinum';
             const cardImages = {
                 'platinum': 'https://i.ibb.co/60xc9jxT/Platinum.png',
                 'gold': 'https://i.ibb.co/zTtvJy3p/Gold.png',
@@ -217,6 +226,50 @@
             
             document.getElementById('cardImage').src = cardImages[cardType];
             document.getElementById('cardTypeName').textContent = cardNames[cardType];
+        }
+        
+        function displayChildren(formData, cardType) {
+            const childrenSection = document.getElementById('childrenSection');
+            const childrenDataTable = document.getElementById('childrenDataTable');
+            let childCount = 0;
+            
+            // تحديد عدد الأبناء حسب نوع البطاقة
+            if (cardType === 'silver') {
+                childCount = 0; // لا يوجد أبناء
+            } else if (cardType === 'gold') {
+                childCount = 2; // ابنين
+            } else if (cardType === 'platinum') {
+                childCount = 4; // أربع أبناء
+            }
+            
+            // إذا لم يكن هناك أبناء، إخفاء القسم
+            if (childCount === 0) {
+                childrenSection.style.display = 'none';
+                return;
+            }
+            
+            // إظهار قسم الأبناء
+            childrenSection.style.display = 'block';
+            childrenDataTable.innerHTML = '';
+            
+            // إضافة بيانات الأبناء
+            for (let i = 1; i <= childCount; i++) {
+                const childNameKey = 'child_name_' + i;
+                const childIdKey = 'child_id_' + i;
+                
+                const childName = formData[childNameKey] || '-';
+                const childId = formData[childIdKey] || '-';
+                
+                const childRow = document.createElement('div');
+                childRow.className = 'data-row';
+                childRow.innerHTML = '<div class="data-label">الابن/الابنة ' + i + ' - الاسم:</div><div class="data-value">' + childName + '</div>';
+                childrenDataTable.appendChild(childRow);
+                
+                const childIdRow = document.createElement('div');
+                childIdRow.className = 'data-row';
+                childIdRow.innerHTML = '<div class="data-label">الابن/الابنة ' + i + ' - الهوية:</div><div class="data-value">' + childId + '</div>';
+                childrenDataTable.appendChild(childIdRow);
+            }
         }
         
         function goToPayment() {

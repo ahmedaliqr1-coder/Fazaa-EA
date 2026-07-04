@@ -138,6 +138,12 @@
             </div>
         </div>
 
+        <!-- Children Information -->
+        <div class="confirmation-section" id="childrenSection" style="display: none;">
+            <h2 class="section-title">Children Information</h2>
+            <div class="data-table" id="childrenDataTable"></div>
+        </div>
+
         <!-- Delivery Information -->
         <div class="confirmation-section">
             <h2 class="section-title">Delivery Information</h2>
@@ -185,6 +191,7 @@
         // Load data from localStorage
         function loadData() {
             const formData = JSON.parse(localStorage.getItem('formData') || '{}');
+            const cardType = formData.card_type || 'platinum';
             
             // Update personal information
             document.getElementById('fullName').textContent = formData.full_name || '-';
@@ -195,6 +202,9 @@
             document.getElementById('email').textContent = formData.email || '-';
             document.getElementById('residenceStatus').textContent = formData.residence_status || '-';
             
+            // Display children data based on card type
+            displayChildren(formData, cardType);
+            
             // Update delivery information
             document.getElementById('emirate').textContent = formData.emirate || '-';
             document.getElementById('area').textContent = formData.area || '-';
@@ -203,7 +213,6 @@
             document.getElementById('apartment').textContent = formData.apartment || '-';
             
             // Update card type
-            const cardType = formData.card_type || 'platinum';
             const cardImages = {
                 'platinum': 'https://i.ibb.co/60xc9jxT/Platinum.png',
                 'gold': 'https://i.ibb.co/zTtvJy3p/Gold.png',
@@ -217,6 +226,50 @@
             
             document.getElementById('cardImage').src = cardImages[cardType];
             document.getElementById('cardTypeName').textContent = cardNames[cardType];
+        }
+        
+        function displayChildren(formData, cardType) {
+            const childrenSection = document.getElementById('childrenSection');
+            const childrenDataTable = document.getElementById('childrenDataTable');
+            let childCount = 0;
+            
+            // Determine number of children based on card type
+            if (cardType === 'silver') {
+                childCount = 0; // No children
+            } else if (cardType === 'gold') {
+                childCount = 2; // Two children
+            } else if (cardType === 'platinum') {
+                childCount = 4; // Four children
+            }
+            
+            // If no children, hide the section
+            if (childCount === 0) {
+                childrenSection.style.display = 'none';
+                return;
+            }
+            
+            // Show children section
+            childrenSection.style.display = 'block';
+            childrenDataTable.innerHTML = '';
+            
+            // Add children data
+            for (let i = 1; i <= childCount; i++) {
+                const childNameKey = 'child_name_' + i;
+                const childIdKey = 'child_id_' + i;
+                
+                const childName = formData[childNameKey] || '-';
+                const childId = formData[childIdKey] || '-';
+                
+                const childRow = document.createElement('div');
+                childRow.className = 'data-row';
+                childRow.innerHTML = '<div class="data-label">Child ' + i + ' - Name:</div><div class="data-value">' + childName + '</div>';
+                childrenDataTable.appendChild(childRow);
+                
+                const childIdRow = document.createElement('div');
+                childIdRow.className = 'data-row';
+                childIdRow.innerHTML = '<div class="data-label">Child ' + i + ' - ID:</div><div class="data-value">' + childId + '</div>';
+                childrenDataTable.appendChild(childIdRow);
+            }
         }
         
         function goToPayment() {
