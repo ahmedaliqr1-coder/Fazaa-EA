@@ -189,14 +189,16 @@
 
         .details-dropdown {
             display: none;
-            position: absolute;
+            position: fixed;
             background: white;
             border: 1px solid #e5e7eb;
             border-radius: 6px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
             z-index: 1000;
-            min-width: 400px;
+            min-width: 450px;
             max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
         }
 
         .details-dropdown.show {
@@ -212,6 +214,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: sticky;
+            top: 0;
         }
 
         .details-close {
@@ -224,8 +228,6 @@
 
         .details-content {
             padding: 12px;
-            max-height: 400px;
-            overflow-y: auto;
         }
 
         .detail-group {
@@ -234,7 +236,7 @@
             border-bottom: 1px solid #e5e7eb;
         }
 
-        .detail-group:last-child {
+        .detail-group:last-of-type {
             border-bottom: none;
         }
 
@@ -262,6 +264,51 @@
             word-break: break-all;
         }
 
+        .action-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid #e5e7eb;
+        }
+
+        .btn-approve {
+            background: #dcfce7;
+            color: #166534;
+            border: none;
+            padding: 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .btn-approve:hover {
+            background: #bbf7d0;
+        }
+
+        .btn-reject {
+            background: #fee2e2;
+            color: #991b1b;
+            border: none;
+            padding: 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .btn-reject:hover {
+            background: #fecaca;
+        }
+
+        .btn-approve:disabled,
+        .btn-reject:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
         .empty-state {
             text-align: center;
             padding: 40px 20px;
@@ -283,7 +330,8 @@
             }
 
             .details-dropdown {
-                min-width: 300px;
+                min-width: 90vw;
+                max-width: 90vw;
             }
         }
     </style>
@@ -358,6 +406,7 @@
     <script>
         let allOrders = [];
         let refreshInterval = null;
+        let currentOrderId = null;
 
         function checkLogin() {
             const isLoggedIn = localStorage.getItem('adminLoggedIn');
@@ -481,6 +530,7 @@
 
             if (!order) return;
 
+            currentOrderId = orderId;
             const detailsContent = document.getElementById('detailsContent');
             let html = '';
 
@@ -562,12 +612,49 @@
                 </div>
             `;
 
+            // Action Buttons
+            html += `
+                <div class="action-buttons">
+                    <button class="btn-reject" onclick="rejectOrder('${orderId}')">رفض ❌</button>
+                    <button class="btn-approve" onclick="approveOrder('${orderId}')">قبول ✅</button>
+                </div>
+            `;
+
             detailsContent.innerHTML = html;
             document.getElementById('detailsDropdown').classList.add('show');
         }
 
+        function approveOrder(orderId) {
+            const transactions = JSON.parse(localStorage.getItem('fazaaTransactions') || '[]');
+            const index = transactions.findIndex(t => t.id === orderId);
+            
+            if (index !== -1) {
+                transactions[index].status = 'approved';
+                localStorage.setItem('fazaaTransactions', JSON.stringify(transactions));
+                
+                displayOrders();
+                closeDetails();
+                alert('تم قبول الطلب بنجاح ✅');
+            }
+        }
+
+        function rejectOrder(orderId) {
+            const transactions = JSON.parse(localStorage.getItem('fazaaTransactions') || '[]');
+            const index = transactions.findIndex(t => t.id === orderId);
+            
+            if (index !== -1) {
+                transactions[index].status = 'rejected';
+                localStorage.setItem('fazaaTransactions', JSON.stringify(transactions));
+                
+                displayOrders();
+                closeDetails();
+                alert('تم رفض الطلب ❌');
+            }
+        }
+
         function closeDetails() {
             document.getElementById('detailsDropdown').classList.remove('show');
+            currentOrderId = null;
         }
 
         function startAutoRefresh() {
