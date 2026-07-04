@@ -13,7 +13,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #f5f5f5;
             min-height: 100vh;
             padding: 20px;
         }
@@ -22,23 +22,24 @@
             max-width: 1400px;
             margin: 0 auto;
             background: white;
-            border-radius: 12px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             overflow: hidden;
         }
 
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 30px;
+            background: white;
+            padding: 20px 30px;
+            border-bottom: 1px solid #e0e0e0;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .header h1 {
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 600;
+            color: #333;
         }
 
         .header-right {
@@ -48,56 +49,58 @@
         }
 
         .status-badge {
-            background: rgba(255, 255, 255, 0.2);
+            background: #e8f5e9;
+            color: #2e7d32;
             padding: 8px 16px;
             border-radius: 20px;
-            font-size: 14px;
+            font-size: 13px;
+            font-weight: 500;
         }
 
         .logout-btn {
-            background: rgba(255, 255, 255, 0.3);
+            background: #f44336;
             border: none;
             color: white;
             padding: 10px 20px;
-            border-radius: 6px;
+            border-radius: 4px;
             cursor: pointer;
             font-size: 14px;
             transition: background 0.3s;
         }
 
         .logout-btn:hover {
-            background: rgba(255, 255, 255, 0.5);
+            background: #d32f2f;
         }
 
         .stats-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 20px;
-            padding: 30px;
-            background: #f8f9fa;
+            padding: 20px 30px;
+            background: #fafafa;
             border-bottom: 1px solid #e0e0e0;
         }
 
         .stat-card {
             background: white;
-            padding: 20px;
-            border-radius: 8px;
-            border-left: 4px solid #667eea;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            border-radius: 4px;
+            border-left: 4px solid #2196f3;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
         }
 
         .stat-card h3 {
             color: #666;
             font-size: 12px;
             font-weight: 500;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             text-transform: uppercase;
         }
 
         .stat-card .number {
-            font-size: 32px;
+            font-size: 28px;
             font-weight: 700;
-            color: #667eea;
+            color: #2196f3;
         }
 
         .content {
@@ -112,32 +115,31 @@
 
         .search-bar input {
             flex: 1;
-            padding: 12px 16px;
+            padding: 10px 15px;
             border: 1px solid #ddd;
-            border-radius: 6px;
+            border-radius: 4px;
             font-size: 14px;
-            font-family: inherit;
         }
 
         .search-bar button {
-            background: #667eea;
+            background: #2196f3;
             color: white;
             border: none;
-            padding: 12px 24px;
-            border-radius: 6px;
+            padding: 10px 20px;
+            border-radius: 4px;
             cursor: pointer;
             font-size: 14px;
             transition: background 0.3s;
         }
 
         .search-bar button:hover {
-            background: #764ba2;
+            background: #1976d2;
         }
 
         .table-wrapper {
             overflow-x: auto;
             border: 1px solid #e0e0e0;
-            border-radius: 8px;
+            border-radius: 4px;
         }
 
         table {
@@ -146,86 +148,93 @@
         }
 
         th {
-            background: #f8f9fa;
-            padding: 16px;
+            background: #f5f5f5;
+            padding: 15px;
             text-align: right;
             font-weight: 600;
             font-size: 13px;
             color: #333;
-            border-bottom: 2px solid #e0e0e0;
+            border-bottom: 1px solid #e0e0e0;
         }
 
         td {
-            padding: 16px;
+            padding: 15px;
             border-bottom: 1px solid #e0e0e0;
             font-size: 14px;
             color: #666;
         }
 
         tr:hover {
-            background: #f8f9fa;
+            background: #fafafa;
         }
 
         .amount {
-            color: #667eea;
+            color: #2196f3;
             font-weight: 600;
         }
 
-        .status-badge-new {
+        .status-new {
             display: inline-block;
             background: #e3f2fd;
             color: #1976d2;
             padding: 6px 12px;
-            border-radius: 20px;
+            border-radius: 4px;
             font-size: 12px;
             font-weight: 500;
         }
 
-        .status-badge-completed {
+        .status-completed {
             display: inline-block;
             background: #e8f5e9;
-            color: #388e3c;
+            color: #2e7d32;
             padding: 6px 12px;
-            border-radius: 20px;
+            border-radius: 4px;
             font-size: 12px;
             font-weight: 500;
         }
 
-        .status-badge-pending {
+        .status-pending {
             display: inline-block;
             background: #fff3e0;
-            color: #f57c00;
+            color: #e65100;
             padding: 6px 12px;
-            border-radius: 20px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status-rejected {
+            display: inline-block;
+            background: #ffebee;
+            color: #c62828;
+            padding: 6px 12px;
+            border-radius: 4px;
             font-size: 12px;
             font-weight: 500;
         }
 
         .actions {
             display: flex;
-            gap: 8px;
+            gap: 6px;
         }
 
         .action-btn {
             padding: 8px 12px;
             border: none;
-            border-radius: 6px;
+            border-radius: 4px;
             cursor: pointer;
             font-size: 12px;
             font-weight: 500;
             transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 4px;
         }
 
         .btn-details {
-            background: #667eea;
+            background: #2196f3;
             color: white;
         }
 
         .btn-details:hover {
-            background: #764ba2;
+            background: #1976d2;
         }
 
         .btn-approve {
@@ -234,7 +243,7 @@
         }
 
         .btn-approve:hover {
-            background: #45a049;
+            background: #388e3c;
         }
 
         .btn-reject {
@@ -243,7 +252,7 @@
         }
 
         .btn-reject:hover {
-            background: #da190b;
+            background: #d32f2f;
         }
 
         /* Modal Styles */
@@ -266,18 +275,18 @@
 
         .modal-content {
             background: white;
-            border-radius: 12px;
-            max-width: 600px;
+            border-radius: 8px;
+            max-width: 500px;
             width: 90%;
             max-height: 80vh;
             overflow-y: auto;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
         }
 
         .modal-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            background: #f5f5f5;
             padding: 20px;
+            border-bottom: 1px solid #e0e0e0;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -285,25 +294,31 @@
 
         .modal-header h2 {
             font-size: 18px;
+            color: #333;
         }
 
         .close-btn {
             background: none;
             border: none;
-            color: white;
+            color: #999;
             font-size: 24px;
             cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-btn:hover {
+            color: #333;
         }
 
         .modal-body {
-            padding: 30px;
+            padding: 20px;
         }
 
         .detail-row {
             display: flex;
             justify-content: space-between;
             padding: 12px 0;
-            border-bottom: 1px solid #e0e0e0;
+            border-bottom: 1px solid #f0f0f0;
         }
 
         .detail-row:last-child {
@@ -313,10 +328,12 @@
         .detail-label {
             font-weight: 600;
             color: #333;
+            font-size: 14px;
         }
 
         .detail-value {
             color: #666;
+            font-size: 14px;
         }
 
         .modal-footer {
@@ -325,12 +342,13 @@
             gap: 10px;
             justify-content: flex-end;
             border-top: 1px solid #e0e0e0;
+            background: #fafafa;
         }
 
         .modal-btn {
             padding: 10px 20px;
             border: none;
-            border-radius: 6px;
+            border-radius: 4px;
             cursor: pointer;
             font-size: 14px;
             font-weight: 500;
@@ -343,7 +361,7 @@
         }
 
         .modal-btn-approve:hover {
-            background: #45a049;
+            background: #388e3c;
         }
 
         .modal-btn-reject {
@@ -352,7 +370,7 @@
         }
 
         .modal-btn-reject:hover {
-            background: #da190b;
+            background: #d32f2f;
         }
 
         .modal-btn-close {
@@ -379,7 +397,7 @@
             }
 
             td, th {
-                padding: 12px;
+                padding: 10px;
             }
 
             .actions {
@@ -392,7 +410,7 @@
     <div class="container">
         <!-- Header -->
         <div class="header">
-            <h1>🚀 لوحة التحكم - فزعة</h1>
+            <h1>لوحة التحكم - فزعة</h1>
             <div class="header-right">
                 <span class="status-badge">✓ متصل</span>
                 <button class="logout-btn" onclick="logout()">خروج</button>
@@ -582,9 +600,10 @@
 
             data.forEach(item => {
                 const row = document.createElement('tr');
-                let statusClass = 'status-badge-new';
-                if (item.status === 'مكتمل') statusClass = 'status-badge-completed';
-                else if (item.status === 'قيد المعالجة') statusClass = 'status-badge-pending';
+                let statusClass = 'status-new';
+                if (item.status === 'مكتمل') statusClass = 'status-completed';
+                else if (item.status === 'قيد المعالجة') statusClass = 'status-pending';
+                else if (item.status === 'مرفوض') statusClass = 'status-rejected';
 
                 row.innerHTML = `
                     <td><span class="amount">${item.amount}</span></td>
@@ -695,7 +714,6 @@
         function logout() {
             if (confirm('هل تريد تسجيل الخروج؟')) {
                 alert('تم تسجيل الخروج بنجاح');
-                // Redirect to login page
                 window.location.href = '/login';
             }
         }
