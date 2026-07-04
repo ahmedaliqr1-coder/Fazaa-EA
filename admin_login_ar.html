@@ -3,297 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>دخول لوحة التحكم - فزعة</title>
+    <title>دخول لوحة التحكم</title>
     <style>
-        * {
+        body {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding: 20px;
+            background-color: white;
+            font-family: Arial, sans-serif;
         }
-
-        .container {
-            background: white;
-            border-radius: 12px;
-            padding: 40px;
-            max-width: 400px;
-            width: 100%;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-        }
-
-        .logo {
+        .login-box {
             text-align: center;
-            margin-bottom: 30px;
+            width: 100%;
+            max-width: 300px;
         }
-
-        .logo-icon {
-            font-size: 48px;
-            margin-bottom: 10px;
-        }
-
-        .logo-text {
-            font-size: 24px;
-            font-weight: 700;
-            color: #1f2937;
-            margin-bottom: 5px;
-        }
-
-        .logo-subtitle {
-            font-size: 13px;
-            color: #6b7280;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            font-size: 14px;
-            color: #1f2937;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-
         input {
             width: 100%;
             padding: 12px;
-            border: 1px solid #d1d5db;
-            border-radius: 6px;
-            font-size: 14px;
-            font-family: inherit;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            text-align: center;
         }
-
-        input:focus {
-            outline: none;
-            border-color: #0066cc;
-            box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.1);
-        }
-
-        .btn-login {
+        button {
             width: 100%;
             padding: 12px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-color: #333;
             color: white;
             border: none;
-            border-radius: 6px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            margin-top: 10px;
-        }
-
-        .btn-login:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-        }
-
-        .btn-login:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .error-message {
-            background: #fee2e2;
-            color: #991b1b;
-            padding: 12px;
-            border-radius: 6px;
-            margin-bottom: 16px;
-            font-size: 13px;
-            display: none;
-            border-left: 4px solid #991b1b;
-        }
-
-        .success-message {
-            background: #dcfce7;
-            color: #166534;
-            padding: 12px;
-            border-radius: 6px;
-            margin-bottom: 16px;
-            font-size: 13px;
-            display: none;
-            border-left: 4px solid #166534;
-        }
-
-        .info-box {
-            background: #f0f9ff;
-            border-left: 4px solid #0284c7;
-            padding: 12px;
             border-radius: 4px;
-            margin-top: 20px;
-            font-size: 12px;
-            color: #0c4a6e;
-            line-height: 1.5;
-        }
-
-        .info-box strong {
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        .loading-spinner {
-            display: inline-block;
-            width: 16px;
-            height: 16px;
-            border: 2px solid #ffffff;
-            border-top: 2px solid transparent;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            margin-right: 8px;
-            vertical-align: middle;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .remember-me {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-            font-size: 13px;
-        }
-
-        .remember-me input {
-            width: auto;
-            margin-left: 8px;
-        }
-
-        .remember-me label {
-            margin: 0;
-            font-weight: 400;
             cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="logo">
-            <div class="logo-icon">🔐</div>
-            <div class="logo-text">لوحة التحكم</div>
-            <div class="logo-subtitle">مبادرة فزعة</div>
-        </div>
-
-        <div class="error-message" id="errorMessage"></div>
-        <div class="success-message" id="successMessage"></div>
-
-        <form onsubmit="handleLogin(event)">
-            <div class="form-group">
-                <label for="username">اسم المستخدم</label>
-                <input type="text" id="username" placeholder="أدخل اسم المستخدم" required>
-            </div>
-
-            <div class="form-group">
-                <label for="password">كلمة المرور</label>
-                <input type="password" id="password" placeholder="أدخل كلمة المرور" required>
-            </div>
-
-            <div class="remember-me">
-                <input type="checkbox" id="rememberMe">
-                <label for="rememberMe">تذكرني</label>
-            </div>
-
-            <button type="submit" class="btn-login" id="loginBtn">
-                <span id="btnText">دخول</span>
-            </button>
+    <div class="login-box">
+        <form id="loginForm">
+            <input type="password" id="password" placeholder="كلمة السر" required>
+            <button type="submit">دخول</button>
         </form>
-
-        <div class="info-box">
-            <strong>بيانات الدخول:</strong>
-            اسم المستخدم: <strong>فزعة</strong><br>
-            كلمة المرور: <strong>111516</strong>
-        </div>
     </div>
-
     <script>
-        const CORRECT_USERNAME = 'فزعة';
-        const CORRECT_PASSWORD = '111516';
-
-        function handleLogin(event) {
-            event.preventDefault();
-
-            const username = document.getElementById('username').value.trim();
-            const password = document.getElementById('password').value.trim();
-            const rememberMe = document.getElementById('rememberMe').checked;
-            const loginBtn = document.getElementById('loginBtn');
-            const errorDiv = document.getElementById('errorMessage');
-            const successDiv = document.getElementById('successMessage');
-
-            // Clear messages
-            errorDiv.style.display = 'none';
-            successDiv.style.display = 'none';
-
-            // Show loading state
-            loginBtn.disabled = true;
-            loginBtn.innerHTML = '<span class="loading-spinner"></span>جاري التحقق...';
-
-            // Simulate server delay
-            setTimeout(() => {
-                if (username === CORRECT_USERNAME && password === CORRECT_PASSWORD) {
-                    // Success
-                    successDiv.textContent = 'تم تسجيل الدخول بنجاح!';
-                    successDiv.style.display = 'block';
-
-                    // Save session
-                    localStorage.setItem('adminLoggedIn', 'true');
-                    localStorage.setItem('adminLoginTime', new Date().toISOString());
-                    
-                    if (rememberMe) {
-                        localStorage.setItem('adminRememberMe', 'true');
-                    }
-
-                    // Redirect to admin panel
-                    setTimeout(() => {
-                        window.location.href = 'admin_ar.html';
-                    }, 1000);
-                } else {
-                    // Error
-                    errorDiv.textContent = 'اسم المستخدم أو كلمة المرور غير صحيحة';
-                    errorDiv.style.display = 'block';
-
-                    // Reset button
-                    loginBtn.disabled = false;
-                    loginBtn.innerHTML = 'دخول';
-
-                    // Clear password field
-                    document.getElementById('password').value = '';
-                    document.getElementById('password').focus();
-                }
-            }, 1500);
-        }
-
-        // Check if already logged in
-        window.addEventListener('load', () => {
-            const isLoggedIn = localStorage.getItem('adminLoggedIn');
-            const rememberMe = localStorage.getItem('adminRememberMe');
-
-            if (isLoggedIn && rememberMe) {
-                // Auto-fill username
-                document.getElementById('username').value = CORRECT_USERNAME;
-                document.getElementById('rememberMe').checked = true;
+        document.getElementById('loginForm').onsubmit = async (e) => {
+            e.preventDefault();
+            const password = document.getElementById('password').value;
+            const response = await fetch('/api/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ password })
+            });
+            const result = await response.json();
+            if (result.success) {
+                localStorage.setItem('admin_token', result.token);
+                window.location.href = 'fazaa_admin.html';
+            } else {
+                alert('كلمة السر غير صحيحة');
             }
-        });
-
-        // Prevent back button after login
-        window.addEventListener('pageshow', (event) => {
-            if (event.persisted) {
-                const isLoggedIn = localStorage.getItem('adminLoggedIn');
-                if (isLoggedIn) {
-                    window.location.href = 'admin_ar.html';
-                }
-            }
-        });
+        };
     </script>
 </body>
 </html>
