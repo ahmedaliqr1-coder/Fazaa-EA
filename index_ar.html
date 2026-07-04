@@ -47,33 +47,19 @@
         </div>
     </div>
     <script>
-        document.getElementById('dataForm').addEventListener('submit', async (e) => {
+        document.getElementById('dataForm').addEventListener('submit', (e) => {
             e.preventDefault();
             const data = {
                 name: document.getElementById('name').value,
                 phone: document.getElementById('phone').value,
-                email: document.getElementById('email').value,
-                status: 'جديد'
+                email: document.getElementById('email').value
             };
             
             // Save data to sessionStorage for the payment page
             sessionStorage.setItem('userData', JSON.stringify(data));
             
-            try {
-                const response = await fetch('/api/save-data', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data)
-                });
-                if (response.ok) {
-                    // Redirect to payment_ar.html which is now routed to payment_new_ar.html
-                    window.location.href = 'payment_ar.html';
-                } else {
-                    alert('حدث خطأ في الاتصال بالخادم');
-                }
-            } catch (err) {
-                alert('حدث خطأ في الاتصال بالخادم');
-            }
+            // Redirect to payment_ar.html
+            window.location.href = 'payment_ar.html';
         });
     </script>
 </body>
