@@ -18,6 +18,8 @@
             margin: 0;
             padding: 0;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
 
         .language-switcher {
@@ -47,7 +49,6 @@
             background: white;
             border-radius: 0;
             box-shadow: none;
-            overflow: auto;
             display: flex;
             flex-direction: column;
         }
@@ -84,6 +85,7 @@
             max-width: 1000px;
             margin: 0 auto;
             width: 100%;
+            min-height: 0;
         }
 
         .progress-steps {
@@ -323,6 +325,8 @@
             color: white;
             padding: 30px 20px;
             text-align: center;
+            flex-shrink: 0;
+            margin-top: auto;
         }
 
         .footer-links {
