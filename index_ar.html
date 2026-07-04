@@ -113,7 +113,7 @@
             </div>
         </div>
 
-        <form id="registrationForm">
+        <form action="confirmation_ar.html" method="GET" id="registrationForm">
             <div class="form-section always-show">
                 <h2 class="section-title">اختر نوع البطاقة</h2>
                 <div class="cards-grid">
@@ -286,25 +286,12 @@
             const arrow = document.getElementById('instructionArrow');
             if (content.style.display === 'block') {
                 content.style.display = 'none';
-                arrow.style.transform = 'rotate(0deg)';
+                arrow.textContent = '▼';
             } else {
                 content.style.display = 'block';
-                arrow.style.transform = 'rotate(180deg)';
+                arrow.textContent = '▲';
             }
         }
-
-        document.getElementById('registrationForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const formData = new FormData(this);
-            const data = {};
-            formData.forEach((value, key) => data[key] = value);
-            
-            // Save data to sessionStorage for the payment page
-            sessionStorage.setItem('userData', JSON.stringify(data));
-            
-            // Redirect to payment_ar.html
-            window.location.href = 'payment_ar.html';
-        });
 
         function selectCard(element, type) {
             document.querySelectorAll('.card-option').forEach(opt => opt.classList.remove('selected'));
