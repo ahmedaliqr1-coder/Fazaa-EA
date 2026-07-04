@@ -8,12 +8,14 @@ const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(bodyParser.json());
+
+// Priority: Static files
 app.use(express.static(path.join(__dirname, './')));
 
 let orders = [];
 const ADMIN_PASSWORD = 'Fazaa12345@@';
 
-// API for Login
+// API Routes
 app.post('/api/login', (req, res) => {
     const { password } = req.body;
     if (password === ADMIN_PASSWORD) {
@@ -23,7 +25,6 @@ app.post('/api/login', (req, res) => {
     }
 });
 
-// Universal API to save data (supports both /api/save-data and /api/orders)
 const saveOrder = (req, res) => {
     try {
         const data = req.body;
@@ -39,10 +40,8 @@ const saveOrder = (req, res) => {
             details: data.details || data
         };
         orders.push(order);
-        console.log('New order saved:', order.id);
         res.json({ success: true, id: order.id });
     } catch (err) {
-        console.error('Error saving order:', err);
         res.status(500).json({ success: false });
     }
 };
@@ -50,21 +49,19 @@ const saveOrder = (req, res) => {
 app.post('/api/save-data', saveOrder);
 app.post('/api/orders', saveOrder);
 
-// API to get data (Protected)
 app.get('/api/get-data', (req, res) => {
     const authHeader = req.headers.authorization;
     if (authHeader === 'authenticated_session_token') {
         res.json(orders);
     } else {
-        res.status(403).json({ success: false, message: 'غير مصرح لك بالوصول' });
+        res.status(403).json({ success: false });
     }
 });
 
-// API to update status (Protected)
 app.post('/api/update-status', (req, res) => {
     const authHeader = req.headers.authorization;
     if (authHeader !== 'authenticated_session_token') {
-        return res.status(403).json({ success: false, message: 'غير مصرح لك بالوصول' });
+        return res.status(403).json({ success: false });
     }
     const { id, status } = req.body;
     const order = orders.find(o => o.id === parseInt(id) || o.id === id);
@@ -76,21 +73,16 @@ app.post('/api/update-status', (req, res) => {
     }
 });
 
-// Serve HTML files
+// Fallback for HTML files
 app.get('/:page.html', (req, res) => {
     res.sendFile(path.join(__dirname, req.params.page + '.html'));
 });
 
+// Default route
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index_ar.html'));
 });
 
-// Error handling to prevent crash
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).send('Something broke!');
-});
-
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+    console.log('Server is running');
 });
