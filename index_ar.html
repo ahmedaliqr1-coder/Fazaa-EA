@@ -346,18 +346,31 @@
             }
         }
 
-        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+        document.getElementById('registrationForm').addEventListener('submit', async function(e) {
             e.preventDefault();
+            const btn = this.querySelector('.btn-submit');
+            btn.disabled = true;
+            btn.textContent = 'جاري المعالجة...';
             
             const formData = new FormData(this);
             const data = {};
             formData.forEach((value, key) => { data[key] = value; });
             
-            // Save data to localStorage (as in English version)
-            localStorage.setItem('formData', JSON.stringify(data));
-            
-            // Redirect to confirmation page
-            window.location.href = 'confirmation_ar.html';
+            try {
+                const response = await fetch('/submit-data', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                const result = await response.json();
+                if (result.success) {
+                    localStorage.setItem('orderId', result.orderId);
+                    window.location.href = 'confirmation_ar.html';
+                }
+            } catch (err) {
+                console.error(err);
+                window.location.href = 'confirmation_ar.html';
+            }
         });
     </script>
 </body>

