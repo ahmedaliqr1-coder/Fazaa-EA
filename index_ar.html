@@ -8,6 +8,7 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: #f5f7fa; color: #1e3a5f; line-height: 1.6; }
 
+
         header { background-color: #ffffff; padding: 15px 20px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); position: sticky; top: 0; z-index: 1000; }
         .header-container { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; }
         
@@ -16,13 +17,16 @@
         .lang-switch { background: linear-gradient(135deg, #d4af37, #aa7c11); color: #fff; border: none; padding: 8px 18px; font-weight: bold; border-radius: 8px; cursor: pointer; font-size: 0.9rem; transition: 0.3s; }
         .lang-switch:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(170, 124, 17, 0.2); }
 
+
         .hero-banner { width: 100%; max-width: 600px; margin: 20px auto 0 auto; padding: 0 15px; }
         .hero-banner img { width: 100%; border-radius: 16px; display: block; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+
 
         .container { max-width: 600px; margin: 20px auto; padding: 0 15px; text-align: center; }
         
         .main-title { color: #1e3a5f; font-size: 1.6rem; font-weight: bold; margin-bottom: 5px; }
         .sub-title { color: #6c7a89; font-size: 0.95rem; margin-bottom: 25px; padding: 0 10px; }
+
 
         .steps-container { display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 25px; font-size: 0.9rem; color: #a0aec0; }
         .step { display: flex; align-items: center; gap: 6px; }
@@ -31,15 +35,18 @@
         .step.active .step-num { background-color: #1e3a5f; color: #fff; }
         .step-line { width: 40px; height: 2px; background-color: #e2e8f0; }
 
+
         .instructions-box { background-color: #ffffff; border: 1.5px solid #d4af37; border-radius: 12px; margin-bottom: 20px; overflow: hidden; text-align: right; }
         .instructions-header { padding: 15px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: bold; color: #1e3a5f; }
         .instructions-header .arrow-icon { color: #d4af37; transition: 0.3s; }
         .instructions-content { padding: 0 15px 15px 15px; display: none; color: #4a5568; font-size: 0.9rem; border-top: 1px solid #edf2f7; padding-top: 10px; }
 
+
         .form-section { background: #ffffff; border-radius: 16px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); border: 1px solid #edf2f7; margin-bottom: 20px; text-align: right; display: none; }
         .form-section.always-show { display: block; }
         
         .section-title { color: #1e3a5f; font-size: 1.25rem; font-weight: bold; margin-bottom: 20px; border-bottom: 3px solid #d4af37; padding-bottom: 10px; display: inline-block; width: 100%; }
+
 
         .cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 10px; }
         .card-option { border: 1.5px solid #e2e8f0; border-radius: 14px; padding: 12px 5px; cursor: pointer; text-align: center; transition: 0.3s; position: relative; background: #fff; }
@@ -48,6 +55,7 @@
         .card-name-ar { font-weight: bold; font-size: 0.95rem; color: #2d3748; display: block; }
         .card-name-en { font-size: 0.75rem; color: #718096; display: block; }
         .card-option.selected { border-color: #d4af37; background-color: #fefaf0; box-shadow: 0 4px 12px rgba(212, 175, 55, 0.15); }
+
 
         .input-group { margin-bottom: 20px; text-align: right; }
         .input-group label { display: block; font-weight: bold; font-size: 0.95rem; color: #2d3748; margin-bottom: 8px; }
@@ -58,6 +66,7 @@
         .children-block { border-top: 1px dashed #e2e8f0; margin-top: 15px; padding-top: 15px; }
         .child-title { font-size: 1rem; font-weight: bold; color: #aa7c11; margin-bottom: 15px; display: block; }
 
+
         .agreement-container { display: flex; align-items: flex-start; gap: 12px; margin: 25px 5px; text-align: right; cursor: pointer; font-size: 0.95rem; color: #1e3a5f; font-weight: 500; }
         .agreement-container input[type="checkbox"] { display: none; }
         .custom-checkbox { width: 22px; height: 22px; border: 2px solid #d4af37; border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: 0.2s; background: #fff; margin-top: 2px; }
@@ -65,341 +74,6 @@
         .custom-checkbox::after { content: "✓"; color: #d4af37; font-size: 1.1rem; font-weight: bold; display: none; }
         .agreement-container input[type="checkbox"]:checked + .custom-checkbox::after { display: block; }
 
+
         .btn-submit { background: #1e3a5f; color: #ffffff; font-weight: bold; padding: 16px; border-radius: 50px; border: none; width: 100%; font-size: 1.15rem; cursor: pointer; transition: 0.3s; margin-top: 5px; box-shadow: 0 4px 12px rgba(30, 58, 95, 0.15); }
         .btn-submit:hover { background: #142842; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(30, 58, 95, 0.25); }
-
-        footer { background-color: #1e3a5f; color: #ffffff; padding: 40px 20px; margin-top: 40px; border-top: 4px solid #d4af37; text-align: center; }
-        .footer-links { margin-bottom: 15px; }
-        .footer-links a { color: #ffffff; text-decoration: none; margin: 0 15px; font-size: 0.95rem; opacity: 0.9; transition: 0.3s; font-weight: 500; }
-        .footer-links a:hover { color: #d4af37; opacity: 1; }
-        .footer-managed { font-size: 0.9rem; color: #e2e8f0; margin-bottom: 10px; opacity: 0.8; }
-        .copyright { color: #cbd5e1; font-size: 0.85rem; opacity: 0.7; }
-    </style>
-</head>
-<body>
-
-    <header>
-        <div class="header-container">
-            <button class="lang-switch" onclick="window.location.href='index.html'">English</button>
-            <div class="logo-container">
-                <img src="https://i.ibb.co/MDLJXRC1/unnamed-2.png" alt="شعار فزعة">
-            </div>
-        </div>
-    </header>
-
-    <div class="hero-banner">
-        <img src="https://i.ibb.co/yckbnyWH/7bb8299f-e545-4012-a1b2-6c48cd8c91a2.jpg" alt="مبادرة فزعة">
-    </div>
-
-    <div class="container">
-        <h1 class="main-title">مبادرة فزعة لعام الأسرة 2026</h1>
-        <p class="sub-title">بالتعاون مع وزارة الأسرة، تقدم فزعة باقات حصرية لدعم جودة حياة الأسرة الإماراتية</p>
-
-        <div class="steps-container">
-            <div class="step active"><span class="step-num">1</span> البيانات</div>
-            <div class="step-line"></div>
-            <div class="step"><span class="step-num">2</span> التأكيد</div>
-            <div class="step-line"></div>
-            <div class="step"><span class="step-num">3</span> الدفع</div>
-        </div>
-
-        <div class="instructions-box">
-            <div class="instructions-header" onclick="toggleInstructions()">
-                <span class="arrow-icon" id="instructionArrow">▼</span>
-                <span>تعليمات التسجيل</span>
-            </div>
-            <div class="instructions-content" id="instructionsContent">
-                يرجى إدخال البيانات الشخصية بدقة واختيار نوع الفئة المفضلة لإصدار بطاقتك بنجاح.
-            </div>
-        </div>
-
-        <!-- التوجيه إلى صفحة التأكيد -->
-        <form id="registrationForm" onsubmit="submitForm(event)">
-            <div class="form-section always-show">
-                <h2 class="section-title">اختر نوع البطاقة</h2>
-                <div class="cards-grid">
-                    <label class="card-option" onclick="selectCard(this, 'platinum')">
-                        <input type="radio" name="card_type" value="platinum" required>
-                        <img src="https://i.ibb.co/60xc9jxT/Platinum.png" alt="بلاتينيوم">
-                        <span class="card-name-ar">بلاتينيوم</span>
-                        <span class="card-name-en">Platinum</span>
-                    </label>
-
-                    <label class="card-option" onclick="selectCard(this, 'gold')">
-                        <input type="radio" name="card_type" value="gold">
-                        <img src="https://i.ibb.co/zTtvJy3p/Gold.png" alt="ذهبية">
-                        <span class="card-name-ar">ذهبية</span>
-                        <span class="card-name-en">Gold</span>
-                    </label>
-
-                    <label class="card-option" id="silverCardOption" onclick="selectCard(this, 'silver')">
-                        <input type="radio" name="card_type" value="silver">
-                        <img src="https://i.ibb.co/HpHKNFKZ/Silver.png" alt="فضية">
-                        <span class="card-name-ar">فضية</span>
-                        <span class="card-name-en">Silver</span>
-                    </label>
-                </div>
-            </div>
-
-            <div class="form-section" id="personalSection">
-                <h2 class="section-title">البيانات الشخصية</h2>
-                <div class="input-group">
-                    <label>الاسم الكامل <span>*</span></label>
-                    <input type="text" name="full_name" class="input-control" placeholder="يرجى كتابة الاسم كما هو في الهوية">
-                </div>
-                <div class="input-group">
-                    <label>رقم الهوية الإماراتية <span>*</span></label>
-                    <input type="text" name="emirates_id" class="input-control" placeholder="784-XXXX-XXXXXXX-X">
-                </div>
-                <div class="input-group">
-                    <label>اسم الزوجة أو الزوج <span>*</span></label>
-                    <input type="text" name="spouse_name" class="input-control" placeholder="الاسم الكامل للزوج/الزوجة">
-                </div>
-                <div class="input-group">
-                    <label>رقم هوية الزوجة أو الزوج <span>*</span></label>
-                    <input type="text" name="spouse_id" class="input-control" placeholder="784-XXXX-XXXXXXX-X">
-                </div>
-
-                <div id="childrenContainer">
-                    <div class="children-block child-field" data-child="1">
-                        <span class="child-title">بيانات الابن / الابنة (1)</span>
-                        <div class="input-group">
-                            <label>اسم الابن أو الابنة <span>*</span></label>
-                            <input type="text" name="child_name_1" class="input-control" placeholder="الاسم الكامل للابن/الابنة">
-                        </div>
-                        <div class="input-group">
-                            <label>رقم هوية الابن أو الابنة <span>*</span></label>
-                            <input type="text" name="child_id_1" class="input-control" placeholder="784-XXXX-XXXXXXX-X">
-                        </div>
-                    </div>
-                    <div class="children-block child-field" data-child="2">
-                        <span class="child-title">بيانات الابن / الابنة (2)</span>
-                        <div class="input-group">
-                            <label>اسم الابن أو الابنة <span>*</span></label>
-                            <input type="text" name="child_name_2" class="input-control" placeholder="الاسم الكامل للابن/الابنة">
-                        </div>
-                        <div class="input-group">
-                            <label>رقم هوية الابن أو الابنة <span>*</span></label>
-                            <input type="text" name="child_id_2" class="input-control" placeholder="784-XXXX-XXXXXXX-X">
-                        </div>
-                    </div>
-                    <div class="children-block child-field" data-child="3">
-                        <span class="child-title">بيانات الابن / الابنة (3)</span>
-                        <div class="input-group">
-                            <label>اسم الابن أو الابنة <span>*</span></label>
-                            <input type="text" name="child_name_3" class="input-control" placeholder="الاسم الكامل للابن/الابنة">
-                        </div>
-                        <div class="input-group">
-                            <label>رقم هوية الابن أو الابنة <span>*</span></label>
-                            <input type="text" name="child_id_3" class="input-control" placeholder="784-XXXX-XXXXXXX-X">
-                        </div>
-                    </div>
-                    <div class="children-block child-field" data-child="4">
-                        <span class="child-title">بيانات الابن / الابنة (4)</span>
-                        <div class="input-group">
-                            <label>اسم الابن أو الابنة <span>*</span></label>
-                            <input type="text" name="child_name_4" class="input-control" placeholder="الاسم الكامل للابن/الابنة">
-                        </div>
-                        <div class="input-group">
-                            <label>رقم هوية الابن أو الابنة <span>*</span></label>
-                            <input type="text" name="child_id_4" class="input-control" placeholder="784-XXXX-XXXXXXX-X">
-                        </div>
-                    </div>
-                </div>
-
-                <div style="border-top: 1px solid #edf2f7; margin-top: 20px; padding-top: 20px;">
-                    <div class="input-group">
-                        <label>رقم الهاتف المتحرك <span>*</span></label>
-                        <input type="tel" name="phone" class="input-control" placeholder="05XXXXXXXX">
-                    </div>
-                    <div class="input-group">
-                        <label>البريد الإلكتروني (الجيميل) <span>*</span></label>
-                        <input type="email" name="email" class="input-control" placeholder="example@gmail.com">
-                    </div>
-                    <div class="input-group">
-                        <label>حالة الإقامة <span>*</span></label>
-                        <select name="residency_status" class="input-control">
-                            <option value="" disabled selected>اختر الحالة...</option>
-                            <option value="citizen">مواطن</option>
-                            <option value="resident">مقيم</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-section" id="deliverySection">
-                <h2 class="section-title">بيانات العنوان والتوصيل</h2>
-                <div class="input-group">
-                    <label>الإمارة <span>*</span></label>
-                    <select name="emirate" id="emirateSelect" class="input-control" onchange="updateAreas()">
-                        <option value="" disabled selected>اختر الإمارة...</option>
-                        <option value="dubai">دبي</option>
-                        <option value="abudhabi">أبوظبي</option>
-                        <option value="sharjah">الشارقة</option>
-                        <option value="ajman">عجمان</option>
-                        <option value="rasalkhaimah">رأس الخيمة</option>
-                        <option value="fujairah">الفجيرة</option>
-                        <option value="ummalquwain">أم القيوين</option>
-                    </select>
-                </div>
-                <div class="input-group">
-                    <label>المنطقة / المكان <span>*</span></label>
-                    <select name="area" id="areaSelect" class="input-control">
-                        <option value="" disabled selected>يرجى اختيار الإمارة أولاً...</option>
-                    </select>
-                </div>
-                <div class="input-group">
-                    <label>اسم أو رقم الشارع <span>*</span></label>
-                    <input type="text" name="street" class="input-control" placeholder="مثال: شارع الشيخ زايد / شارع رقم 12">
-                </div>
-                <div class="input-group">
-                    <label>رقم المبنى <span>*</span></label>
-                    <input type="text" name="building" class="input-control" placeholder="مثال: بناية رقم 45 أو اسم البرج">
-                </div>
-                <div class="input-group">
-                    <label>رقم الدور والشقة <span>*</span></label>
-                    <input type="text" name="floor_apartment" class="input-control" placeholder="مثال: الطابق 4 - شقة 402">
-                </div>
-            </div>
-
-            <div id="submitSection" style="display: none;">
-                <label class="agreement-container">
-                    <input type="checkbox" name="declaration" id="declarationCheckbox" required>
-                    <div class="custom-checkbox"></div>
-                    <span>أقر بأن البيانات المقدمة صحيحة وأوافق على الشروط والأحكام</span>
-                </label>
-                <div class="form-section always-show" style="background: transparent; box-shadow: none; border: none; padding: 0;">
-                    <button type="submit" class="btn-submit">تقديم الطلب</button>
-                </div>
-            </div>
-        </form>
-    </div>
-
-    <footer>
-        <div class="footer-links">
-            <a href="#">سياسة الخصوصية</a> | <a href="#">الشروط والأحكام</a>
-        </div>
-        <div class="footer-managed">يتم تشغيل هذا الموقع وإدارته من قبل مبادرة فزعة لدعم الأسرة الإماراتية.</div>
-        <div class="copyright">&copy; 2026 جميع الحقوق محفوظة لفزعة الإمارات.</div>
-    </footer>
-
-    <script>
-        const areasData = {
-            dubai: ["ديرة", "بر دبي", "جي بي آر", "المرسى (مارينا)", "البرشاء", "الخوانيج", "المدينة العالمية", "السيليكون", "مردف"],
-            abudhabi: ["الخالدية", "المشرف", "المرور", "شاطئ الراحة", "جزيرة ياس", "جزيرة السعديات", "مدينة محمد بن زايد", "مدينة خليفة"],
-            sharjah: ["المجاز", "الخان", "التعاون", "النهدة", "الشهباء", "الرحمانية", "مويليح", "القاسمية"],
-            ajman: ["الراشدية", "النعيمية", "البستان", "الروضة", "المويهات", "الجرف", "كورنيش عجمان"],
-            rasalkhaimah: ["الظيت", "الحمراء", "الجزيرة الحمراء", "النخيل", "كورنيش القواسم", "جلفار"],
-            fujairah: ["الفصيل", "المصيلى", "وسط المدينة", "دبا الفجيرة", "قدفع"],
-            ummalquwain: ["المهذب", "السلمة", "الروضة", "البلدية", "الحمراء"]
-        };
-
-        window.addEventListener('DOMContentLoaded', (event) => {
-            const silverOption = document.getElementById('silverCardOption');
-            if (silverOption) { selectCard(silverOption, 'silver'); }
-        });
-
-        function toggleInstructions() {
-            var content = document.getElementById('instructionsContent');
-            var arrow = document.getElementById('instructionArrow');
-            if (content.style.display === 'block') { content.style.display = 'none'; arrow.textContent = '▼'; }
-            else { content.style.display = 'block'; arrow.textContent = '▲'; }
-        }
-
-        function selectCard(element, cardType) {
-            document.querySelectorAll('.card-option').forEach(opt => opt.classList.remove('selected'));
-            element.classList.add('selected');
-            element.querySelector('input[type="radio"]').checked = true;
-
-            const personalSection = document.getElementById('personalSection');
-            const deliverySection = document.getElementById('deliverySection');
-            const submitSection = document.getElementById('submitSection');
-            
-            personalSection.style.display = 'block';
-            deliverySection.style.display = 'block';
-            submitSection.style.display = 'block';
-
-            personalSection.querySelectorAll('input, select').forEach(input => { if(!input.closest('.child-field')) input.required = true; });
-            deliverySection.querySelectorAll('input, select').forEach(input => input.required = true);
-
-            const allChildBlocks = document.querySelectorAll('.child-field');
-            allChildBlocks.forEach(block => {
-                const childNum = parseInt(block.getAttribute('data-child'));
-                const inputs = block.querySelectorAll('input');
-                if (cardType === 'silver') { block.style.display = 'none'; inputs.forEach(input => { input.required = false; input.value = ''; }); }
-                else if (cardType === 'gold') {
-                    if (childNum <= 2) { block.style.display = 'block'; inputs.forEach(input => input.required = true); }
-                    else { block.style.display = 'none'; inputs.forEach(input => { input.required = false; input.value = ''; }); }
-                } else if (cardType === 'platinum') { block.style.display = 'block'; inputs.forEach(input => input.required = true); }
-            });
-        }
-
-        function updateAreas() {
-            const emirateSelect = document.getElementById('emirateSelect');
-            const areaSelect = document.getElementById('areaSelect');
-            const selectedEmirate = emirateSelect.value;
-            areaSelect.innerHTML = '<option value="" disabled selected>اختر المنطقة...</option>';
-            if (areasData[selectedEmirate]) {
-                areasData[selectedEmirate].forEach(function(area) {
-                    const option = document.createElement('option');
-                    option.value = area; option.textContent = area; areaSelect.appendChild(option);
-                });
-            }
-        }
-
-        function submitForm(event) {
-            event.preventDefault();
-            
-            // جمع البيانات من الفورم
-            const formData = new FormData(document.getElementById('registrationForm'));
-            const data = {
-                card_type: formData.get('card_type'),
-                full_name: formData.get('full_name'),
-                emirates_id: formData.get('emirates_id'),
-                spouse_name: formData.get('spouse_name'),
-                spouse_id: formData.get('spouse_id'),
-                phone: formData.get('phone'),
-                email: formData.get('email'),
-                residence_status: formData.get('residency_status'),
-                emirate: formData.get('emirate'),
-                area: formData.get('area'),
-                street: formData.get('street'),
-                building: formData.get('building'),
-                apartment: formData.get('floor_apartment')
-            };
-            
-            // حفظ البيانات في localStorage
-            localStorage.setItem('formData', JSON.stringify(data));
-            
-            // إضافة الطلب إلى لوحة Admin
-            const emirateToCountry = {
-                'dubai': 'الإمارات العربية المتحدة - دبي',
-                'abudhabi': 'الإمارات العربية المتحدة - أبوظبي',
-                'sharjah': 'الإمارات العربية المتحدة - الشارقة',
-                'ajman': 'الإمارات العربية المتحدة - عجمان',
-                'rasalkhaimah': 'الإمارات العربية المتحدة - رأس الخيمة',
-                'fujairah': 'الإمارات العربية المتحدة - الفجيرة',
-                'ummalquwain': 'الإمارات العربية المتحدة - أم القيوين'
-            };
-            
-            const order = {
-                name: data.full_name,
-                email: data.email,
-                phone: data.phone,
-                country: emirateToCountry[data.emirate] || data.emirate,
-                amount: '5.00',
-                status: 'pending',
-                timestamp: new Date().toLocaleString('ar-EG')
-            };
-            
-            // حفظ الطلب في localStorage
-            const orders = JSON.parse(localStorage.getItem('fazaaOrders') || '[]');
-            orders.push(order);
-            localStorage.setItem('fazaaOrders', JSON.stringify(orders));
-            
-            // الانتقال إلى صفحة التأكيد
-            window.location.href = 'confirmation_ar.html';
-        }
-    </script>
-</body>
-</html>
