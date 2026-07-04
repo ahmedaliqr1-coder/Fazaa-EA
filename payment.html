@@ -62,17 +62,6 @@
             flex-shrink: 0;
         }
 
-        .logo-section {
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .logo-section img {
-            height: 40px;
-        }
-
         .dubai-digital-logo {
             height: 40px;
         }
@@ -89,9 +78,12 @@
         }
 
         main {
-            padding: 40px 20px;
+            padding: 30px 20px;
             flex: 1;
             overflow-y: auto;
+            max-width: 1000px;
+            margin: 0 auto;
+            width: 100%;
         }
 
         .progress-steps {
@@ -385,10 +377,7 @@
 <body>
     <div class="container">
         <header>
-            <div class="logo-section">
-                <img src="https://i.ibb.co/MDLJXRC1/unnamed-2.png" alt="Fazaa Logo">
-                <img src="/dubai_digital_logo.png" alt="Dubai Digital" class="dubai-digital-logo">
-            </div>
+            <img src="/dubai_digital_logo.png" alt="Dubai Digital" class="dubai-digital-logo">
             <div class="language-switcher">
                 <button onclick="switchLanguage()">العربية</button>
             </div>
