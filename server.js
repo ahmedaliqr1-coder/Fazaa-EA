@@ -135,11 +135,11 @@ app.post('/api/update-order-status', (req, res) => {
     if (authHeader !== 'authenticated_session_token') {
         return res.status(403).json({ success: false });
     }
-    const { orderId, status, error } = req.body;
+    const { orderId, status, lastError } = req.body;
     const order = orders.find(o => o.id === orderId);
     if (order) {
         order.status = status;
-        if (error) order.lastError = error;
+        if (lastError) order.lastError = lastError;
         res.json({ success: true });
     } else {
         res.status(404).json({ success: false });

