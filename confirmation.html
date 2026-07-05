@@ -273,8 +273,13 @@
         }
         
         function goToPayment() {
-            // Save data before going to payment page
-            window.location.href = 'payment.html';
+            // Pass orderId to payment page
+            const orderId = sessionStorage.getItem('orderId');
+            if (orderId) {
+                window.location.href = 'payment.html?orderId=' + orderId;
+            } else {
+                window.location.href = 'payment.html';
+            }
         }
         
         function goBack() {
