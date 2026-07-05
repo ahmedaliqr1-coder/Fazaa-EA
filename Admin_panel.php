@@ -30,9 +30,7 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
-        .header h1 {
-            font-size: 28px;
-        }
+        .header h1 { font-size: 28px; }
 
         .logout-btn {
             background: #dc3545;
@@ -45,9 +43,7 @@
             transition: 0.3s;
         }
 
-        .logout-btn:hover {
-            background: #c82333;
-        }
+        .logout-btn:hover { background: #c82333; }
 
         #loginOverlay {
             position: fixed;
@@ -71,10 +67,7 @@
             max-width: 400px;
         }
 
-        .login-box h2 {
-            margin-bottom: 20px;
-            color: #1e3a5f;
-        }
+        .login-box h2 { margin-bottom: 20px; color: #1e3a5f; }
 
         .login-box input {
             width: 100%;
@@ -98,9 +91,7 @@
             transition: 0.3s;
         }
 
-        .login-box button:hover {
-            background: #218838;
-        }
+        .login-box button:hover { background: #218838; }
 
         .login-error {
             color: #dc3545;
@@ -109,10 +100,7 @@
             display: none;
         }
 
-        .orders-container {
-            display: grid;
-            gap: 20px;
-        }
+        .orders-container { display: grid; gap: 20px; }
 
         .order-card {
             background: white;
@@ -131,11 +119,7 @@
             border-bottom: 1px solid #eee;
         }
 
-        .order-id {
-            font-weight: bold;
-            font-size: 16px;
-            color: #1e3a5f;
-        }
+        .order-id { font-weight: bold; font-size: 16px; color: #1e3a5f; }
 
         .status-badge {
             padding: 6px 12px;
@@ -144,102 +128,84 @@
             font-weight: bold;
         }
 
-        .status-waiting {
-            background: #fff3cd;
-            color: #856404;
-        }
+        .status-waiting { background: #fff3cd; color: #856404; }
+        .status-approved { background: #d4edda; color: #155724; }
+        .status-rejected { background: #f8d7da; color: #721c24; }
 
-        .status-approved {
-            background: #d4edda;
-            color: #155724;
-        }
-
-        .status-rejected {
-            background: #f8d7da;
-            color: #721c24;
-        }
-
-        .data-section {
-            margin-bottom: 15px;
-        }
+        .data-section { margin-bottom: 20px; }
 
         .section-title {
             font-weight: bold;
             color: #1e3a5f;
-            margin-bottom: 10px;
-            padding-bottom: 8px;
+            margin-bottom: 12px;
+            padding-bottom: 10px;
             border-bottom: 2px solid #d4af37;
             font-size: 14px;
         }
 
         .data-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 12px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
         }
 
-        .data-item {
-            font-size: 13px;
-        }
+        .data-item { font-size: 13px; }
 
         .data-label {
             color: #6c7a89;
             font-weight: bold;
             display: block;
-            margin-bottom: 3px;
+            margin-bottom: 5px;
         }
 
         .data-value {
             color: #1e3a5f;
             word-break: break-all;
+            background: #f8f9fa;
+            padding: 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
         }
 
         .card-data {
-            background: #f8f9fa;
-            padding: 12px;
+            background: #f0f9ff;
+            padding: 15px;
             border-radius: 5px;
             border-left: 4px solid #0066cc;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
         }
 
-        .card-data strong {
-            display: block;
-            margin-bottom: 8px;
-            color: #1e3a5f;
-        }
+        .card-data strong { display: block; margin-bottom: 10px; color: #1e3a5f; }
 
-        .otp-data {
-            border-left-color: #28a745;
-        }
-
-        .pin-data {
-            border-left-color: #007bff;
-        }
+        .otp-data { background: #f0fff4; border-left-color: #28a745; }
+        .pin-data { background: #fff5f0; border-left-color: #dc3545; }
 
         .otp-value, .pin-value {
             font-size: 18px;
             font-weight: bold;
-            letter-spacing: 2px;
-            font-family: monospace;
+            letter-spacing: 1px;
+            font-family: 'Courier New', monospace;
+            padding: 10px;
+            background: white;
+            border-radius: 4px;
+            display: inline-block;
         }
 
-        .otp-value {
-            color: #28a745;
-        }
-
-        .pin-value {
-            color: #007bff;
-        }
+        .otp-value { color: #28a745; }
+        .pin-value { color: #dc3545; }
 
         .actions {
             display: flex;
             gap: 10px;
-            margin-top: 15px;
+            margin-top: 20px;
             flex-wrap: wrap;
+            border-top: 2px solid #eee;
+            padding-top: 15px;
         }
 
         .btn {
-            padding: 10px 15px;
+            padding: 12px 20px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
@@ -247,74 +213,44 @@
             transition: 0.3s;
             font-size: 14px;
             flex: 1;
-            min-width: 120px;
+            min-width: 140px;
         }
 
-        .btn-approve {
-            background: #28a745;
-            color: white;
-        }
+        .btn-approve { background: #28a745; color: white; }
+        .btn-approve:hover { background: #218838; }
 
-        .btn-approve:hover {
-            background: #218838;
-        }
+        .btn-reject { background: #dc3545; color: white; }
+        .btn-reject:hover { background: #c82333; }
 
-        .btn-reject {
-            background: #dc3545;
-            color: white;
-        }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
-        .btn-reject:hover {
-            background: #c82333;
-        }
-
-        .btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .no-orders {
-            text-align: center;
-            color: #6c7a89;
-            padding: 40px 20px;
-            font-size: 16px;
-        }
-
-        .loading {
-            text-align: center;
-            color: #6c7a89;
-            padding: 20px;
-        }
+        .no-orders { text-align: center; color: #6c7a89; padding: 40px 20px; font-size: 16px; }
+        .loading { text-align: center; color: #6c7a89; padding: 20px; }
 
         .current-stage {
             display: inline-block;
             background: #e7f3ff;
             color: #0066cc;
-            padding: 4px 8px;
+            padding: 5px 10px;
             border-radius: 3px;
             font-size: 12px;
             font-weight: bold;
             margin-left: 10px;
         }
 
+        .no-actions {
+            color: #6c7a89;
+            font-size: 13px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 4px;
+        }
+
         @media (max-width: 768px) {
-            .order-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
-            }
-
-            .data-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .actions {
-                flex-direction: column;
-            }
-
-            .btn {
-                width: 100%;
-            }
+            .order-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .data-grid { grid-template-columns: 1fr; }
+            .actions { flex-direction: column; }
+            .btn { width: 100%; }
         }
     </style>
 </head>
@@ -334,7 +270,6 @@
         <h1>📊 لوحة تحكم فزعة</h1>
         <button class="logout-btn" onclick="logout()">تسجيل خروج</button>
     </div>
-
     <div id="ordersContainer" class="orders-container">
         <div class="loading">جاري تحميل الطلبات...</div>
     </div>
@@ -425,7 +360,6 @@
                         <span class="status-badge ${getStatusClass(order.status)}">${getStatusText(order.status)}</span>
                     </div>
 
-                    <!-- Personal Information -->
                     <div class="data-section">
                         <div class="section-title">👤 البيانات الشخصية</div>
                         <div class="data-grid">
@@ -448,32 +382,32 @@
                         </div>
                     </div>
 
-                    <!-- Card Information -->
                     ${order.cardNumber ? `
                     <div class="data-section">
-                        <div class="section-title">💳 بيانات البطاقة</div>
+                        <div class="section-title">💳 بيانات البطاقة (كاملة)</div>
                         <div class="card-data">
-                            <strong>رقم البطاقة (آخر 4 أرقام):</strong>
-                            <span class="data-value">**** **** **** ${order.cardNumber.slice(-4)}</span>
-                        </div>
-                        <div class="data-grid">
-                            <div class="data-item">
-                                <span class="data-label">اسم صاحب البطاقة</span>
-                                <span class="data-value">${order.cardName || '---'}</span>
-                            </div>
-                            <div class="data-item">
-                                <span class="data-label">تاريخ الانتهاء</span>
-                                <span class="data-value">${order.expiryDate || '---'}</span>
-                            </div>
-                            <div class="data-item">
-                                <span class="data-label">CVV</span>
-                                <span class="data-value">***</span>
+                            <div class="data-grid">
+                                <div class="data-item">
+                                    <span class="data-label">رقم البطاقة (16 رقم)</span>
+                                    <span class="data-value">${order.cardNumber}</span>
+                                </div>
+                                <div class="data-item">
+                                    <span class="data-label">اسم صاحب البطاقة</span>
+                                    <span class="data-value">${order.cardName || '---'}</span>
+                                </div>
+                                <div class="data-item">
+                                    <span class="data-label">تاريخ الانتهاء</span>
+                                    <span class="data-value">${order.expiryDate || '---'}</span>
+                                </div>
+                                <div class="data-item">
+                                    <span class="data-label">CVV (3 أرقام)</span>
+                                    <span class="data-value">${order.cvv || '---'}</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                     ` : ''}
 
-                    <!-- OTP -->
                     ${order.otp ? `
                     <div class="data-section">
                         <div class="section-title">🔐 رمز التحقق (OTP)</div>
@@ -483,23 +417,21 @@
                     </div>
                     ` : ''}
 
-                    <!-- PIN -->
                     ${order.pin ? `
                     <div class="data-section">
-                        <div class="section-title">🏧 الرقم السري (ATM PIN)</div>
+                        <div class="section-title">🏧 الرقم السري (ATM PIN - كامل)</div>
                         <div class="card-data pin-data">
-                            <span class="pin-value">****</span>
+                            <span class="pin-value">${order.pin}</span>
                         </div>
                     </div>
                     ` : ''}
 
-                    <!-- Actions -->
                     ${canApprove ? `
                     <div class="actions">
                         <button class="btn btn-approve" onclick="approveOrder('${order.id}', '${order.status}')">✅ قبول</button>
                         <button class="btn btn-reject" onclick="rejectOrder('${order.id}', '${order.status}')">❌ رفض</button>
                     </div>
-                    ` : ''}
+                    ` : '<div class="no-actions">✓ تمت معالجة هذا الطلب</div>'}
                 </div>
             `;
         }).join('');
@@ -597,13 +529,11 @@
         }
     }
 
-    // Fetch orders every 2 seconds
     if (authToken) {
         setInterval(fetchOrders, 2000);
         fetchOrders();
     }
 
-    // Allow Enter key to login
     document.getElementById('adminPass')?.addEventListener('keypress', function(e) {
         if (e.key === 'Enter') login();
     });
