@@ -344,6 +344,10 @@
                 errorEl.textContent = lastError;
                 errorEl.classList.add('show');
                 localStorage.removeItem('lastError');
+                // Scroll to error message
+                setTimeout(() => {
+                    errorEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 100);
             }
         }
 

