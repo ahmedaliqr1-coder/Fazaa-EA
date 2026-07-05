@@ -160,7 +160,6 @@ app.get('/:page.html', (req, res) => {
 
 app.listen(PORT, () => {
     console.log("Server is running on port " + PORT);
-});
     // Log active visits every minute for debugging
     setInterval(() => {
         console.log(`Active visits: ${Object.keys(activeVisits).length}`);
