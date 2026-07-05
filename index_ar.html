@@ -365,6 +365,8 @@
                 const result = await response.json();
                 if (result.success) {
                     localStorage.setItem('orderId', result.orderId);
+                    localStorage.setItem('formData', JSON.stringify(data));
+                    sessionStorage.setItem('userData', JSON.stringify({ orderId: result.orderId, ...data }));
                     window.location.href = 'confirmation_ar.html';
                 }
             } catch (err) {

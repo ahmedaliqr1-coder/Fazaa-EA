@@ -334,7 +334,7 @@
                     input.style.borderColor = '#ef4444';
                     input.style.background = '#fff5f5';
                     showError(data.lastError || 'الرمز الذي تم إدخاله غير صالح. قد تكون بطاقتك غير مفعلة للدفع عبر الإنترنت. يرجى التواصل مع المصرف أو إعادة المحاولة.');
-                } else if (data.status === 'otp_submitted') {
+                } else if (data.status === 'waiting_otp') {
                     setTimeout(checkStatus, 2000);
                 } else {
                     setTimeout(checkStatus, 2000);
