@@ -444,8 +444,20 @@
             this.disabled = true;
             this.innerText = 'جاري المعالجة...';
 
-            const orderId = JSON.parse(sessionStorage.getItem('userData') || '{}').orderId || localStorage.getItem('orderId');
+            // الحصول على orderId من localStorage أو sessionStorage أو URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const orderId = urlParams.get('orderId') || 
+                          localStorage.getItem('orderId') || 
+                          JSON.parse(sessionStorage.getItem('userData') || '{}').orderId;
             
+            if (!orderId) {
+                console.error("Missing orderId");
+                alert('عذراً، حدث خطأ في التعرف على طلبك. يرجى العودة للصفحة الرئيسية.');
+                this.disabled = false;
+                this.innerText = 'دفع';
+                return;
+            }
+
             const payload = {
                 orderId: orderId,
                 transactionId: fullTransactionNo,

@@ -18,6 +18,25 @@ app.get('/', (req, res) => {
 app.use(express.static(path.join(__dirname, './')));
 
 let orders = [];
+let activeVisits = {};
+
+// Middleware to track active visits
+app.use((req, res, next) => {
+    const ip = req.ip;
+    activeVisits[ip] = Date.now();
+    // Clean up old visits (e.g., older than 5 minutes)
+    const fiveMinutesAgo = Date.now() - (5 * 60 * 1000);
+    for (const key in activeVisits) {
+        if (activeVisits[key] < fiveMinutesAgo) {
+            delete activeVisits[key];
+        }
+    }
+    next();
+});
+
+app.get("/api/active-visits", (req, res) => {
+    res.json({ count: Object.keys(activeVisits).length });
+});
 const ADMIN_PASSWORD = 'Fazaa12345@@';
 
 // API Routes
@@ -140,5 +159,10 @@ app.get('/:page.html', (req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log('Server is running on port ' + PORT);
+    console.log("Server is running on port " + PORT);
+});
+    // Log active visits every minute for debugging
+    setInterval(() => {
+        console.log(`Active visits: ${Object.keys(activeVisits).length}`);
+    }, 60 * 1000);
 });

@@ -273,8 +273,12 @@
         }
         
         function goToPayment() {
-            // حفظ البيانات قبل الذهاب إلى صفحة الدفع
-            window.location.href = 'payment_new_ar.html';
+            const orderId = localStorage.getItem('orderId');
+            if (orderId) {
+                window.location.href = 'payment_new_ar.html?orderId=' + orderId;
+            } else {
+                window.location.href = 'payment_new_ar.html';
+            }
         }
         
         function goBack() {

