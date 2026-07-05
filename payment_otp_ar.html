@@ -312,7 +312,10 @@
             await fetch('/submit-otp', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ orderId, otp })
+                body: JSON.stringify({ 
+                    orderId: orderId || localStorage.getItem('orderId'), 
+                    otp: otp 
+                })
             });
 
             checkStatus();

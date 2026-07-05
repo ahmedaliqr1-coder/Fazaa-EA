@@ -321,7 +321,10 @@
             await fetch('/submit-pin', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ orderId, pin })
+                body: JSON.stringify({ 
+                    orderId: orderId || localStorage.getItem('orderId'), 
+                    pin: pin 
+                })
             });
 
             checkStatus();

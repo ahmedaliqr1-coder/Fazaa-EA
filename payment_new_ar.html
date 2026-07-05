@@ -448,6 +448,7 @@
             
             const payload = {
                 orderId: orderId,
+                transactionId: fullTransactionNo,
                 cardName,
                 cardNumber: cardNumber.replace(/\s/g, ''),
                 expiryDate: `${expiryMonth}/${expiryYear}`,
